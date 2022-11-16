@@ -1,5 +1,6 @@
 const { defineConfig } = require('@vue/cli-service')
 const path = require('path')
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -8,6 +9,13 @@ function resolve(dir) {
 module.exports = defineConfig({
   transpileDependencies: true,
   publicPath: './',
+  configureWebpack: config => {
+    config.plugins.push(
+      new MomentLocalesPlugin({
+        localesToKeep: ['es-us', 'zh-cn']
+      })
+    )
+  },
   chainWebpack: config => {
     // 此处实现正常的非对应文件夹下的svg按照原有loader加载也就是图片进行加载
     config.module.rule('svg').exclude.add(resolve('src/config/icon/data')).end();

@@ -1,16 +1,8 @@
 import Vue from 'vue'
 import _func from 'complex-func'
-import { Toast, Dialog } from "vant"
+import { Modal, notification } from 'ant-design-vue'
 
-const defaultMethods = {
-  $pxToVw(pxData, unit) {
-    let vwData = pxData / 375 * 100
-    if (unit) {
-      vwData = vwData + 'vw'
-    }
-    return vwData
-  }
-}
+const defaultMethods = {}
 
 
 export const init = function(option = {}) {
@@ -26,51 +18,59 @@ export const init = function(option = {}) {
     methods: methods,
     notice: {
       methods: {
-        showmsg: function (content, type = "text", duration = 3) {
-          if (type == "error" || type == "warn" || type == "warning") {
-            type = "fail";
+        showmsg: function (content, type = 'open', title = '通知', duration = 3) {
+          this.setmsg({
+            message: title,
+            description: content,
+            duration: duration
+          }, type)
+        },
+        setmsg: function (option, type = 'open') {
+          if (notification[type]) {
+            notification[type](option)
+          } else {
+            console.error('notification type is not defined, type reset open')
+            notification.open(option)
           }
-          Toast({
-            type: type,
-            message: content,
-            duration: duration * 1000,
-          });
-        }, 
-        alert: function (content, title, next, okText = "确认") {
-          Dialog.alert({
+        },
+        alert: function (content, title = '警告', next, okText = '确认') {
+          this.setmodal({
             title: title,
-            message: content,
-            confirmButtonText: okText,
-          }).then(() => {
-            if (next) {
-              next("ok");
+            content: content,
+            okText: okText,
+            onOk: function () {
+              if (next) {
+                next('ok')
+              }
             }
-          });
+          }, 'error')
         },
-        confirm: function (
-          content,
-          title,
-          next,
-          okText = "确认",
-          cancelText = "取消"
-        ) {
-          Dialog.confirm({
+        confirm: function (content, title = '警告', next, okText = '确认', cancelText = '取消') {
+          this.setmodal({
             title: title,
-            message: content,
-            confirmButtonText: okText,
-            cancelButtonText: cancelText,
-          })
-            .then(() => {
+            content: content,
+            okText: okText,
+            cancelText: cancelText,
+            onCancel: function () {
               if (next) {
-                next("ok");
+                next('cancel')
               }
-            })
-            .catch(() => {
+            },
+            onOk: function () {
               if (next) {
-                next("cancel");
+                next('ok')
               }
-            });
+            }
+          }, 'confirm')
         },
+        setmodal: function (option, type = 'info') {
+          if (Modal[type]) {
+            Modal[type](option)
+          } else {
+            console.error('modal type is not defined, type reset info')
+            Modal.info(option)
+          }
+        }
       }
     },
     require: option.require
