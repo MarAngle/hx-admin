@@ -1,12 +1,27 @@
 import Vue from 'vue'
 import router from '@/router'
-
 import _func from '@/main/func/index'
+import user from '@/main/data/user'
+import { loadDepend } from './load'
+
+const loginPath = ['/login']
+const whitePath = [].concat(loginPath)
 
 router.beforeEach((to, from, next) => {
-
-})
-
-router.afterEach((to, from) => {
-
+  let load = user.getStatus('load').value
+  console.log(load, to.path, from.path)
+  if (load == 'loaded') {
+    if (loginPath.indexOf(to.path) !== -1) {
+      next({ path: '/' })
+    } else {
+      loadDepend(to, from, next)
+    }
+  } else {
+    if (whitePath.indexOf(to.path) !== -1) {
+      // 在免登录白名单，直接进入
+      next()
+    } else {
+      next({ path: '/login', query: { redirect: to.fullPath } })
+    }
+  }
 })

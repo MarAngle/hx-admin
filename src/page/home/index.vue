@@ -7,6 +7,6 @@
 <script>
 
 export default {
-  name: "ListIndex"
+  name: "HomeIndex"
 };
 </script>

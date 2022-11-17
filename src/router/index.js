@@ -7,16 +7,26 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      redirect: '/list'
+      redirect: '/home'
     },
     {
-      path: '/list',
-      name: 'list',
-      component: () => import('./../page/list/index.vue')
+      path: '/home',
+      name: 'home',
+      component: () => import('@/page/home/index.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/page/login/index.vue')
+    },
+    {
+      path: '/404',
+      name: '404',
+      component: () => import('@/config/page/404.vue')
     },
     {
       path:'*',
-      redirect: '/'
+      redirect: '/404'
     },
   ]
 });
