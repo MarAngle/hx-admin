@@ -1,11 +1,6 @@
 import './func/index'
 import './icon/index'
 // 全局组件
+import '@/config/antd/index'
+import '@/config/antd/complex'
 import './components/index'
-// compex实现类antd-complex-option
-import antdOption from 'complex-data/antOption'
-// complex组件
-import 'complex-component-antd'
-
-// 加载antd-complex-option
-antdOption.init()
