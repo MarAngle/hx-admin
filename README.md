@@ -1,4 +1,4 @@
-# mutiple-h5
+# pure-admin
 
 ## Project setup
 ```
