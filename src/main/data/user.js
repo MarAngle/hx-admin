@@ -94,4 +94,6 @@ let user = new InfoData({
 
 user.autoLoad()
 
+
+
 export default user
