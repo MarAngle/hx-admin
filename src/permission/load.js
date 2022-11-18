@@ -1,5 +1,5 @@
 
-import _func from '@/main/func/index'
+import _func from 'complex-func'
 import menu from '@/main/data/menu'
 
 export function loadDepend(to, from, next) {

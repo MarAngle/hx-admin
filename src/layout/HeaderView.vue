@@ -2,7 +2,7 @@
 </style>
 
 <template>
-  <div class="sider-menu">
+  <div class="header-view">
     
   </div>
 </template>
@@ -10,7 +10,7 @@
 <script>
 
 export default {
-  name: 'SiderMenu',
+  name: 'HeaderView',
   props: ['page']
 }
 </script>

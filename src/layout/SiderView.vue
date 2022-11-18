@@ -2,7 +2,7 @@
 </style>
 
 <template>
-  <div class="header-tab">
+  <div class="sider-view">
     
   </div>
 </template>
@@ -10,7 +10,7 @@
 <script>
 
 export default {
-  name: 'HeaderTab',
+  name: 'SiderView',
   props: ['page']
 }
 </script>

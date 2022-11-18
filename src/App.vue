@@ -4,13 +4,20 @@
 
 <template>
   <div id="app">
-    <router-view />
+    <TabLayout>
+      <router-view />
+    </TabLayout>
   </div>
 </template>
 
 <script>
+import TabLayout from './layout/TabLayout.vue';
+
 
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    TabLayout: TabLayout
+  }
 }
 </script>
