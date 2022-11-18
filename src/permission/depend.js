@@ -1,13 +1,13 @@
 
 import _func from 'complex-func'
-import menu from '@/main/data/menu'
+import depend from '@/main/data/depend'
 
 export function loadDepend(to, from, next) {
-  let load = menu.getStatus('load').value
+  let load = depend.getStatus('load').value
   if (load == 'loaded') {
     next()
   } else {
-    menu.loadData().then(res => {
+    depend.loadData().then(res => {
       let redirect = decodeURIComponent(from.query.redirect || to.path)
       if (to.path === redirect) {
         // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record

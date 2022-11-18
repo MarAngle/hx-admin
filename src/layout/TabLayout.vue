@@ -30,8 +30,10 @@
 
 <template>
   <div class="tab-layout">
-    <SiderView v-show="page.type != 'pure'" :style="siderStyle" :page="page" />
-    <HeaderView v-show="page.type != 'pure'" :style="headerStyle" :page="page" />
+    <template v-if="dependLoad == 'loaded'">
+      <SiderView v-show="page.type != 'pure'" :style="siderStyle" :page="page" />
+      <HeaderView v-show="page.type != 'pure'" :style="headerStyle" :page="page" />
+    </template>
     <div class="tab-layout-router-area" :style="pageStyle">
       <div class="tab-layout-router">
         <slot />
@@ -43,6 +45,7 @@
 <script>
 import SiderView from "./SiderView"
 import HeaderView from "./HeaderView"
+import depend from '@/main/data/depend'
 
 export default {
   name: 'TabLayout',
@@ -52,10 +55,14 @@ export default {
   },
   data() {
     return {
-      page: this._func.page
+      page: this._func.page,
+      depend: depend
     }
   },
   computed: {
+    dependLoad() {
+      return this.depend.getStatus('load').value
+    },
     siderStyle() {
       return {
         width: this.page.mod.sider.width + 'px'
@@ -69,7 +76,7 @@ export default {
     },
     pageStyle() {
       let pageStyle
-      if (this.page.type == 'default') {
+      if (this.page.type == 'default' && this.dependLoad == 'loaded') {
         pageStyle = {
           paddingLeft: this.page.data.extra.width + 'px',
           paddingTop: this.page.data.extra.height + 'px'

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import router from '@/router'
 import _func from 'complex-func'
 import user from '@/main/data/user'
-import { loadDepend } from './load'
+import { loadDepend } from './depend'
 
 const loginPath = ['/login']
 const whitePath = [].concat(loginPath)
