@@ -1,4 +1,6 @@
-<style></style>
+<style>
+
+</style>
 
 <template>
   <div id="app">
