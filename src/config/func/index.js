@@ -21,11 +21,12 @@ export const init = function(option = {}) {
       }
     }
     _func.page.installMod('sider', {
+      type: 'default',
       width: 200,
-      // change(type) {
-      //   this.type = type
-      //   this.width = type == 'mini' ? 80 : 200
-      // },
+      change(type) {
+        this.type = type
+        this.width = type == 'mini' ? 80 : 200
+      },
       recount(extra) {
         extra.width = extra.width + this.width
         return extra

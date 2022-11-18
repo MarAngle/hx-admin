@@ -7,15 +7,18 @@
     left: 0;
     top: 0;
     bottom: 0;
+    transition: width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
   }
   .header-view{
     position: fixed;
     top: 0;
     right: 0;
+    transition: left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
   }
   .tab-layout-router-area{
     width: 100%;
     height: 100%;
+    transition: padding 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
     .tab-layout-router{
       width: 100%;
       height: 100%;
