@@ -25,3 +25,8 @@ router.beforeEach((to, from, next) => {
     }
   }
 })
+
+router.afterEach((to, from) => {
+  _func.page.setType('default')
+  _func.page.setStyle()
+})

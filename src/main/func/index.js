@@ -3,6 +3,7 @@ import { init } from "@/config/func";
 let currentUrl = 'https://gateway.wuzheng.com.cn/'
 
 init({
+  page: 'default',
   require: {
     api: {
       baseURL: currentUrl

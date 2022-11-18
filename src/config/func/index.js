@@ -4,9 +4,49 @@ import { Modal, notification } from 'ant-design-vue'
 
 const defaultMethods = {}
 
-
 export const init = function(option = {}) {
-  _func.page.init()
+  if (option.page === 'default') {
+    _func.page.style = {
+      default: {},
+      current: {}
+    }
+    _func.page.initDefaultStyle = function(style) {
+      this.style.default = style || {}
+    }
+    _func.page.setStyle = function(style) {
+      if (style) {
+        this.style.current = style
+      } else {
+        this.style.current = this.style.default
+      }
+    }
+    _func.page.installMod('sider', {
+      width: 200,
+      // change(type) {
+      //   this.type = type
+      //   this.width = type == 'mini' ? 80 : 200
+      // },
+      recount(extra) {
+        extra.width = extra.width + this.width
+        return extra
+      }
+    })
+    _func.page.installMod('header', {
+      height: 60,
+      recount(extra) {
+        extra.height = extra.height + this.height
+        return extra
+      }
+    })
+    _func.page.initDefaultStyle({
+      backgroundColor: '#fff'
+    })
+    _func.page.init()
+  } else if (option.page) {
+    option.page(_func.page, _func)
+  } else {
+    _func.page.init()
+  }
 
   let methods = {
     ...defaultMethods,
