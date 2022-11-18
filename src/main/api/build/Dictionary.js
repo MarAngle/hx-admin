@@ -1,7 +1,7 @@
 import _func from "complex-func";
 import { DefaultData } from "complex-data";
 
-class DictList extends DefaultData {
+class Dictionary extends DefaultData {
   constructor(initOption) {
     super(initOption)
     this.$list = initOption.list.map(item => {
@@ -61,4 +61,4 @@ class DictList extends DefaultData {
 }
 
 
-export default DictList
+export default Dictionary
