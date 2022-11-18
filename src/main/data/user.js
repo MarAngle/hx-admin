@@ -1,6 +1,6 @@
 import _func from 'complex-func'
 import { InfoData } from 'complex-data'
-import api from '@/main/api/index'
+import api, { dict } from '@/main/api/index'
 
 
 let user = new InfoData({
@@ -11,24 +11,7 @@ let user = new InfoData({
       prop: 'id',
       data: ''
     },
-    list: [
-      {
-        prop: 'id',
-        name: 'ID',
-        originprop: 'id',
-        originfrom: 'list',
-        mod: {}
-      },
-      {
-        prop: 'name',
-        name: '名称',
-        originprop: 'peopleName',
-        originfrom: 'list',
-        mod: {
-          info: {}
-        }
-      }
-    ]
+    list: dict.userInfo.list.getList()
   },
   methods: {
     login(postdata) {
@@ -61,8 +44,7 @@ let user = new InfoData({
     getData (postdata) {
       return new Promise((resolve, reject) => {
         api.login(postdata).then(res => {
-          let userInfo = res.data.data.foragePeople
-          userInfo.forageIds = res.data.data.houseIds || ''
+          let userInfo = res.data.data
           this.setInfo(userInfo)
           resolve(res)
         }, err => {

@@ -10,6 +10,7 @@ class Dictionary extends DefaultData {
           item.$filter = [ item.$filter ]
         }
       }
+      return item
     })
   }
   pushToList(list, item, format) {
@@ -19,7 +20,7 @@ class Dictionary extends DefaultData {
       list.push(item)
     }
   }
-  getList(option) {
+  getList(option = {}) {
     let filter = option.filter
     let format = option.format
     let list = []
