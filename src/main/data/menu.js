@@ -44,6 +44,7 @@ let menu = new BaseData({
           }
         ]
         this.data.list = this.formatMenu(syncMenu, 0)
+        resolve()
       })
     }
   }

@@ -1,4 +1,8 @@
 <style lang="less" scoped>
+.sider-view{
+  background-color: #001529;
+  
+}
 </style>
 
 <template>

@@ -1,4 +1,5 @@
-<style>
+<style lang="less">
+@import '~@style/index.less';
 
 </style>
 

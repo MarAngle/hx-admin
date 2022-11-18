@@ -92,9 +92,6 @@ export default {
         ...this.page.style.current
       }
     }
-  },
-  mounted() {
-    console.log(this.page)
   }
 }
 </script>
