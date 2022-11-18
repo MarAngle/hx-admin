@@ -7,6 +7,9 @@
 <script>
 
 export default {
-  name: "LoginIndex"
+  name: "LoginIndex",
+  beforeMount() {
+    this._func.page.setType('pure')
+  }
 };
 </script>
