@@ -3,6 +3,10 @@ import { BaseData } from 'complex-data'
 import api from '@/main/api/index'
 import router from '@/router'
 
+function loadView(path) {
+  return resolve => require([`@/${path}`], resolve)
+}
+
 let menu = new BaseData({
   name: '菜单列表',
   prop: 'menuData',
@@ -16,7 +20,7 @@ let menu = new BaseData({
     },
     formatMenu(menuList, deep) {
       return menuList.map(menuItem => {
-        let component = resolve => require([menuItem.component], resolve)
+        let component = loadView(menuItem.component)
         let nameList = menuItem.path.split('/')
         nameList.shift()
         let item = {
@@ -45,7 +49,7 @@ let menu = new BaseData({
           {
             path: '/system',
             name: '系统设置',
-            component: '@/layout/PureLayout.vue',
+            component: 'layout/PureLayout.vue',
             icon: 'setting',
             menu: true,
             hidden: false,
@@ -53,7 +57,7 @@ let menu = new BaseData({
               {
                 path: '/system/user',
                 name: '用户管理',
-                component: '@/page/system/user/index.vue',
+                component: 'page/system/user/index.vue',
                 menu: true,
                 hidden: false,
               }
