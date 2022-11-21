@@ -45,10 +45,20 @@ let menu = new BaseData({
           {
             path: '/system',
             name: '系统设置',
-            component: '@/page/system/index.vue',
+            component: '@/layout/BlankLayout.vue',
             icon: 'setting',
             menu: true,
-            hidden: false
+            hidden: false,
+            children: [
+              {
+                path: '/system/user',
+                name: '用户管理',
+                component: '@/page/system/user/index.vue',
+                menu: true,
+                hidden: false,
+              }
+              
+            ]
           }
         ]
         this.data.list = this.formatMenu(syncMenu, 0)

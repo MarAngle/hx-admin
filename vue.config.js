@@ -20,8 +20,9 @@ module.exports = defineConfig({
     config.resolve.alias
       .set('@assets', resolve('src/assets'))
       .set('@config', resolve('src/config'))
-      .set('@main', resolve('src/main'))
+      .set('@layout', resolve('src/layout'))
       .set('@style', resolve('src/style'))
+      .set('@main', resolve('src/main'))
       .set('@page', resolve('src/page'))
     // 此处实现正常的非对应文件夹下的svg按照原有loader加载也就是图片进行加载
     config.module.rule('svg').exclude.add(resolve('src/config/icon/data')).end();
