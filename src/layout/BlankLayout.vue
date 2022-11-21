@@ -1,8 +1,9 @@
 <template>
   <router-view />
 </template>
-<script>
 
+<script>
 export default {
   name: 'BlankLayout'
 }
+</script>

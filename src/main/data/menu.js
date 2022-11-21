@@ -57,7 +57,6 @@ let menu = new BaseData({
                 menu: true,
                 hidden: false,
               }
-              
             ]
           }
         ]

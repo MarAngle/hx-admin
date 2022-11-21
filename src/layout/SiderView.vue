@@ -11,21 +11,14 @@
 <template>
   <div class="sider-view local-flex-main local-flex-main-column">
     <div class="local-flex-main-item auto">
-      <a-menu
+      <SiderMenu
         mode="inline"
         theme="dark"
+        :menu="menu.data.list"
         :selectedKeys="menu.data.menu"
-        :inline-collapsed="collapsed"
+        :collapsed="collapsed"
         @select="onSelect"
-      >
-        <template v-for="item in currentMenu">
-          <a-menu-item v-if="!item.children" :key="item.path">
-            <a-icon :type="item.meta.icon" />
-            <span>{{ item.meta.name }}</span>
-          </a-menu-item>
-          <sub-menu v-else :key="item.path" :menu-info="item" />
-        </template>
-      </a-menu>
+      ></SiderMenu>
     </div>
     <div class="sider-toggle local-flex-main-item fixed">
       <a-button type="primary" @click="changSiderType">
@@ -38,38 +31,12 @@
 <script>
 import menu from '@/main/data/menu';
 
-import { Menu as AntdMenu } from 'ant-design-vue';
-const SubMenu = {
-  template: `
-      <a-sub-menu :key="menuInfo.path" v-bind="$props" v-on="$listeners">
-        <span slot="title">
-          <span>{{ menuInfo.meta.name }}</span>
-        </span>
-        <template v-for="item in menuInfo.children">
-          <a-menu-item v-if="!item.children" :key="item.path">
-            <span>{{ item.title }}</span>
-          </a-menu-item>
-          <sub-menu v-else :key="item.path" :menu-info="item" />
-        </template>
-      </a-sub-menu>
-    `,
-  name: 'SubMenu',
-  // must add isSubMenu: true
-  isSubMenu: true,
-  props: {
-    ...AntdMenu.SubMenu.props,
-    // Cannot overlap with properties within Menu.SubMenu.props
-    menuInfo: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
-};
+import SiderMenu from './SiderMenu';
 
 export default {
   name: 'SiderView',
   components: {
-    'sub-menu': SubMenu,
+    SiderMenu: SiderMenu
   },
   props: ['page'],
   data() {
