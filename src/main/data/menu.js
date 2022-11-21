@@ -7,9 +7,13 @@ let menu = new BaseData({
   name: '菜单列表',
   prop: 'menuData',
   data: {
+    menu: [],
     list: []
   },
   methods: {
+    setCurrent(path) {
+      this.data.menu = path
+    },
     formatMenu(menuList, deep) {
       return menuList.map(menuItem => {
         let component = resolve => require([menuItem.component], resolve)
@@ -54,5 +58,6 @@ let menu = new BaseData({
   }
 })
 
+console.log(menu)
 
 export default menu

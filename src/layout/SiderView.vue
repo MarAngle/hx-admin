@@ -14,6 +14,7 @@
       <a-menu
         mode="inline"
         theme="dark"
+        :selectedKeys="menu.data.menu"
         :inline-collapsed="collapsed"
         @select="onSelect"
       >
@@ -73,8 +74,7 @@ export default {
   props: ['page'],
   data() {
     return {
-      menu: menu,
-      current: undefined
+      menu: menu
     }
   },
   computed: {
@@ -83,11 +83,13 @@ export default {
     },
     currentMenu() {
       return this.formatMenu(menu.data.list)
-    },
-    $route: {
-      immediate:true,
-      hander(val) {
-        console.log(val)
+    }
+  },
+  watch: {
+    '$route': {
+      immediate: true,
+      handler(val) {
+        this.menu.setCurrent([val.path])
       }
     }
   },
@@ -113,8 +115,10 @@ export default {
       let targetType = this.page.mod.sider.type == 'mini' ? 'default' : 'mini'
       this.page.triggerChange('sider', targetType)
     },
-    onSelect(...args) {
-      console.log(...args)
+    onSelect({ key, item }) {
+      if (key !== this.menu.data.menu) {
+        this.$router.push(key)
+      }
     }
   }
 }
