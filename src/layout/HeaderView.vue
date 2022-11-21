@@ -1,4 +1,7 @@
 <style lang="less" scoped>
+.header-view{
+  background-color: #ccc;
+}
 </style>
 
 <template>

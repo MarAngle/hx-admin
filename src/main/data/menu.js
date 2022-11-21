@@ -13,10 +13,14 @@ let menu = new BaseData({
     formatMenu(menuList, deep) {
       return menuList.map(menuItem => {
         let component = resolve => require([menuItem.component], resolve)
+        let nameList = menuItem.path.split('/')
+        nameList.shift()
         let item = {
           path: menuItem.path,
+          name: nameList.join('-'),
           component: component,
           meta: {
+            name: menuItem.name,
             icon: menuItem.icon,
             menu: menuItem.menu,
             hidden: menuItem.hidden
@@ -36,7 +40,7 @@ let menu = new BaseData({
         let syncMenu = [
           {
             path: '/system',
-            name: 'system',
+            name: '系统设置',
             component: '@/page/system/index.vue',
             icon: 'setting',
             menu: true,

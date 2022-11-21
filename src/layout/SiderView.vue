@@ -1,82 +1,120 @@
 <style lang="less" scoped>
 .sider-view{
   background-color: #001529;
-  
+  .sider-toggle{
+    padding: 10px 0;
+    text-align: center;
+  }
 }
 </style>
 
 <template>
-  <div class="sider-view">
-    <a-button type="primary" style="margin-bottom: 16px" @click="changSiderType">
-      <a-icon :type="collapsed ? 'menu-unfold' : 'menu-fold'" />
-    </a-button>
-    <a-menu
-      mode="inline"
-      theme="dark"
-      :inline-collapsed="collapsed"
-    >
-      <a-menu-item key="1">
-        <a-icon type="pie-chart" />
-        <span>Option 1</span>
-      </a-menu-item>
-      <a-menu-item key="2">
-        <a-icon type="desktop" />
-        <span>Option 2</span>
-      </a-menu-item>
-      <a-menu-item key="3">
-        <a-icon type="inbox" />
-        <span>Option 3</span>
-      </a-menu-item>
-      <a-sub-menu key="sub1">
-        <span slot="title"><a-icon type="mail" /><span>Navigation One</span></span>
-        <a-menu-item key="5">
-          Option 5
-        </a-menu-item>
-        <a-menu-item key="6">
-          Option 6
-        </a-menu-item>
-        <a-menu-item key="7">
-          Option 7
-        </a-menu-item>
-        <a-menu-item key="8">
-          Option 8
-        </a-menu-item>
-      </a-sub-menu>
-      <a-sub-menu key="sub2">
-        <span slot="title"><a-icon type="appstore" /><span>Navigation Two</span></span>
-        <a-menu-item key="9">
-          Option 9
-        </a-menu-item>
-        <a-menu-item key="10">
-          Option 10
-        </a-menu-item>
-        <a-sub-menu key="sub3" title="Submenu">
-          <a-menu-item key="11">
-            Option 11
+  <div class="sider-view local-flex-main local-flex-main-column">
+    <div class="local-flex-main-item auto">
+      <a-menu
+        mode="inline"
+        theme="dark"
+        :inline-collapsed="collapsed"
+        @select="onSelect"
+      >
+        <template v-for="item in currentMenu">
+          <a-menu-item v-if="!item.children" :key="item.path">
+            <a-icon :type="item.meta.icon" />
+            <span>{{ item.meta.name }}</span>
           </a-menu-item>
-          <a-menu-item key="12">
-            Option 12
-          </a-menu-item>
-        </a-sub-menu>
-      </a-sub-menu>
-    </a-menu>
+          <sub-menu v-else :key="item.path" :menu-info="item" />
+        </template>
+      </a-menu>
+    </div>
+    <div class="sider-toggle local-flex-main-item fixed">
+      <a-button type="primary" @click="changSiderType">
+        <a-icon :type="collapsed ? 'menu-unfold' : 'menu-fold'" />
+      </a-button>
+    </div>  
   </div>
 </template>
 
 <script>
+import menu from '@/main/data/menu';
+
+import { Menu as AntdMenu } from 'ant-design-vue';
+const SubMenu = {
+  template: `
+      <a-sub-menu :key="menuInfo.path" v-bind="$props" v-on="$listeners">
+        <span slot="title">
+          <span>{{ menuInfo.meta.name }}</span>
+        </span>
+        <template v-for="item in menuInfo.children">
+          <a-menu-item v-if="!item.children" :key="item.path">
+            <span>{{ item.title }}</span>
+          </a-menu-item>
+          <sub-menu v-else :key="item.path" :menu-info="item" />
+        </template>
+      </a-sub-menu>
+    `,
+  name: 'SubMenu',
+  // must add isSubMenu: true
+  isSubMenu: true,
+  props: {
+    ...AntdMenu.SubMenu.props,
+    // Cannot overlap with properties within Menu.SubMenu.props
+    menuInfo: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+};
 
 export default {
   name: 'SiderView',
+  components: {
+    'sub-menu': SubMenu,
+  },
   props: ['page'],
+  data() {
+    return {
+      menu: menu,
+      current: undefined
+    }
+  },
   computed: {
     collapsed() {
       return this.page.mod.sider.type == 'mini'
+    },
+    currentMenu() {
+      return this.formatMenu(menu.data.list)
+    },
+    $route: {
+      immediate:true,
+      hander(val) {
+        console.log(val)
+      }
     }
   },
   methods: {
+    formatMenu(menuList) {
+      let list = []
+      menuList.map(menuItem => {
+        let item
+        if (menuItem.meta.menu && !menuItem.meta.hidden) {
+          item = {
+            ...menuItem,
+            children: undefined
+          }
+          if (menuItem.children && menuItem.children.length > 0) {
+            item.children = this.formatMenu(menuItem.children)
+          }
+          list.push(item)
+        }
+      })
+      return list
+    },
     changSiderType() {
       let targetType = this.page.mod.sider.type == 'mini' ? 'default' : 'mini'
       this.page.triggerChange('sider', targetType)
+    },
+    onSelect(...args) {
+      console.log(...args)
     }
   }
 }
