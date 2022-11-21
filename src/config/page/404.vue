@@ -1,13 +1,16 @@
 <template>
-  <div>
-    404 page
-  </div>
+  <exception-page type="404" />
 </template>
 
 <script>
-  export default {
-    name: "DefaultPage_404"
+import ExceptionPage from './exception/ExceptionPage'
+
+export default {
+  name: "DefaultPage_404",
+  components: {
+    ExceptionPage
   }
+}
 </script>
 
 <style scoped>
