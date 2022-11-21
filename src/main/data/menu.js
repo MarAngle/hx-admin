@@ -20,13 +20,12 @@ let menu = new BaseData({
     },
     formatMenu(menuList, deep) {
       return menuList.map(menuItem => {
-        let component = loadView(menuItem.component)
         let nameList = menuItem.path.split('/')
         nameList.shift()
         let item = {
           path: menuItem.path,
           name: nameList.join('-'),
-          component: component,
+          component: loadView(menuItem.component),
           meta: {
             name: menuItem.name,
             icon: menuItem.icon,

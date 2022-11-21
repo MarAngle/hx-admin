@@ -83,6 +83,7 @@ export default {
     const props = {
       mode: mode,
       theme: theme,
+      inlineCollapsed: this.collapsed,
       selectedKeys: this.currentSelectedKeys
     }
     const on = {
