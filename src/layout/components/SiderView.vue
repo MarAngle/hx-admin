@@ -9,8 +9,8 @@
 </style>
 
 <template>
-  <div class="sider-view local-flex-main local-flex-main-column">
-    <div class="local-flex-main-item auto">
+  <div class="sider-view local-flex-full-area local-flex-full-area-column">
+    <div class="local-flex-full-item auto">
       <SiderMenu
         mode="inline"
         theme="dark"
@@ -20,7 +20,7 @@
         @select="onSelect"
       ></SiderMenu>
     </div>
-    <div class="sider-toggle local-flex-main-item fixed">
+    <div class="sider-toggle local-flex-full-item fixed">
       <a-button type="primary" @click="changSiderType">
         <a-icon :type="collapsed ? 'menu-unfold' : 'menu-fold'" />
       </a-button>
