@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import SiderView from "./SiderView"
-import HeaderView from "./HeaderView"
+import SiderView from "./components/SiderView"
+import HeaderView from "./components/HeaderView"
 import depend from '@/main/data/depend'
 
 export default {

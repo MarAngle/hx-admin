@@ -31,7 +31,7 @@
 <script>
 import menu from '@/main/data/menu';
 
-import SiderMenu from '../SiderMenu';
+import SiderMenu from './SiderMenu';
 
 export default {
   name: 'SiderView',

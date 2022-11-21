@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import TabLayout from './layout/TabLayout.vue';
+import { TabLayout } from './layout';
 
 
 export default {

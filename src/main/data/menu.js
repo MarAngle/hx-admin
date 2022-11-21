@@ -45,7 +45,7 @@ let menu = new BaseData({
           {
             path: '/system',
             name: '系统设置',
-            component: '@/layout/BlankLayout.vue',
+            component: '@/layout/PureLayout.vue',
             icon: 'setting',
             menu: true,
             hidden: false,
