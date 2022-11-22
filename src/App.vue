@@ -1,6 +1,8 @@
 <style lang="less">
 @import '~@style/index.less';
-
+#app{
+  background-color: @PrimaryColor;
+}
 </style>
 
 <template>

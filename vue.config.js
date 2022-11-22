@@ -6,8 +6,6 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-console.log(proxy)
-
 const config = {
   transpileDependencies: true,
   publicPath: './',
