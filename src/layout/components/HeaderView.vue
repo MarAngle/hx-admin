@@ -42,6 +42,9 @@
             <a-menu-item>
               <a href="javascript:;" @click="handleChangePassword()">修改密码</a>
             </a-menu-item>
+            <a-menu-item>
+              <a href="javascript:;" @click="logout()">注销登录</a>
+            </a-menu-item>
           </a-menu>
         </a-dropdown>
       </div>
@@ -63,6 +66,9 @@ export default {
   methods: {
     handleChangePassword() {
       this._func.showmsg('功能未开放！', 'warn')
+    },
+    logout() {
+      user.logout()
     }
   }
 }

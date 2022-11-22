@@ -23,6 +23,9 @@ const defaultMethods = {
   }
 }
 
+_func.setEnvMode(process.env.VUE_APP_APITYPE, 'real')
+_func.setEnvMode(process.env.VUE_APP_APITYPE, 'data')
+
 export const init = function(option = {}) {
   if (option.page === 'default') {
     _func.page.style = {
@@ -135,5 +138,6 @@ export const init = function(option = {}) {
     },
     require: option.require
   })
-
 }
+
+export default _func

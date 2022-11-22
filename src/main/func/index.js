@@ -1,6 +1,9 @@
 import { init } from "@/config/func";
+import { getCurrentUrl } from '@/config/url';
 
-let currentUrl = 'https://gateway.wuzheng.com.cn/'
+let currentUrl = getCurrentUrl('gateway')
+
+console.log(currentUrl)
 
 init({
   page: 'default',
