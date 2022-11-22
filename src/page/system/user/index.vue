@@ -30,23 +30,13 @@ export default {
           {
             type: 'menu',
             name: '修改',
-            act: 'change',
-            hidden(record, index) {
-              if (record.recordResult.value == 1 || record.recordResult.value == 3) {
-                return true
-              }
-            }
+            act: 'change'
           },
           {
             type: 'menu',
             name: '删除',
             act: 'delete',
-            classList: ['local-color-danger'],
-            hidden(record, index) {
-              if (record.recordResult.value == 1 || record.recordResult.value == 3) {
-                return true
-              }
-            }
+            classList: ['local-color-danger']
           }
         ]
       }

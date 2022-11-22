@@ -4,8 +4,8 @@ import api from '@/main/api/index'
 import { userDict } from '@/main/complex/dict/user'
 
 const defaultInitOption = {
-  name: '用户管理',
-  prop: 'user',
+  name: '用户',
+  prop: 'userList',
   dictionary: {
     layout: {
       default: {
@@ -43,12 +43,6 @@ class UserList extends ListData {
     let initOption = _func.setDataByDefault(option.init, defaultInitOption)
     if (option.format) {
       option.format(initOption)
-    }
-    if (initOption.name === undefined) {
-      initOption.name = '用户列表'
-    }
-    if (initOption.prop === undefined) {
-      initOption.prop = 'userList'
     }
     super(initOption)
   }

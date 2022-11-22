@@ -26,6 +26,15 @@ export const userDict = new Dictionary({
       mod: {
         list: {}
       }
+    },
+    {
+      prop: 'menu',
+      name: '操作',
+      originprop: 'menu',
+      originfrom: 'local',
+      mod: {
+        list: {}
+      }
     }
   ]
 })
