@@ -1,4 +1,3 @@
-import Dictionary from "@/main/api/build/Dictionary"
 
 export default {
   login: {
@@ -19,37 +18,6 @@ export default {
       type: ''
     },
     method: 'post',
-    data: ['data'],
-    dict: {
-      list: new Dictionary({
-        list: [
-          {
-            prop: 'id',
-            name: 'ID',
-            originprop: 'id',
-            originfrom: 'list',
-            mod: {}
-          },
-          {
-            prop: 'name',
-            name: '名称',
-            originprop: 'name',
-            originfrom: 'list',
-            mod: {
-              list: {}
-            }
-          },
-          {
-            prop: 'platform',
-            name: '平台',
-            originprop: 'platform',
-            originfrom: 'list',
-            mod: {
-              list: {}
-            }
-          }
-        ]
-      })
-    }
+    data: ['data']
   },
 }

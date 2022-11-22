@@ -18,7 +18,6 @@ function appendProp(requireData, propList, args) {
 }
 
 let api = {}
-export let dict = {}
 
 function parse(option, ...args) {
   let method = option.method || 'get'
@@ -80,10 +79,6 @@ for (const prop in config) {
     api[prop] = function(...args) {
       return parse(configItem, ...args)
     }
-  }
-  if (configItem.dict) {
-    dict[prop] = configItem.dict
-    delete configItem.dict
   }
 }
 

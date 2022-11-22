@@ -1,6 +1,7 @@
 import _func from 'complex-func'
 import { InfoData } from 'complex-data'
-import api, { dict } from '@/main/api/index'
+import api from '@/main/api/index'
+import { userDict } from '@/main/complex/dict/user'
 
 let user = new InfoData({
   name: '用户信息',
@@ -10,7 +11,7 @@ let user = new InfoData({
       prop: 'id',
       data: ''
     },
-    list: dict.userInfo.list.getList()
+    list: userDict.getList()
   },
   methods: {
     login(postdata) {
