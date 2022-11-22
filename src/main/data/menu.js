@@ -3,6 +3,18 @@ import { BaseData } from 'complex-data'
 import api from '@/main/api/index'
 import router from '@/router'
 
+
+const baseMenu = [
+  {
+    path: '/home',
+    name: '主页',
+    component: 'page/home/index.vue',
+    icon: 'home',
+    menu: true,
+    hidden: false
+  }
+]
+
 function loadView(path) {
   return resolve => require([`@/${path}`], resolve)
 }
@@ -36,44 +48,37 @@ let menu = new BaseData({
         if (menuItem.children) {
           item.children = this.formatMenu(menuItem.children, deep + 1)
         }
-        if (deep == 0) {
-          router.addRoute(item)
-        }
         return item
       })
     },
-    getData() {
+    getData () {
       return new Promise((resolve, reject) => {
-        let syncMenu = [
-          {
-            path: '/system',
-            name: '系统设置',
-            component: 'layout/PureLayout.vue',
-            icon: 'setting',
-            menu: true,
-            hidden: false,
-            children: [
-              {
-                path: '/system/user',
-                name: '用户管理',
-                component: 'page/system/user/index.vue',
-                menu: true,
-                hidden: false,
-              }
-            ]
-          }
-        ]
-        this.data.list = this.formatMenu(syncMenu, 0)
-        router.addRoute({
-          path:'*',
-          redirect: '/404'
+        api.menuList().then(res => {
+          let olist = res.data.data
+          let syncMenu = baseMenu.concat(olist)
+          this.data.list = this.formatMenu(syncMenu, 0)
+          this.addRoute(this.data.list)
+          resolve(res)
+        }, err => {
+          console.error(err)
+          reject(err)
         })
-        resolve()
+      })
+    },
+    addRoute(routeList) {
+      router.addRoute({
+        path:'/',
+        redirect: '/home'
+      })
+      routeList.forEach(route => {
+        router.addRoute(route)
+      })
+      router.addRoute({
+        path:'*',
+        redirect: '/404'
       })
     }
   }
 })
-
-console.log(menu)
 
 export default menu

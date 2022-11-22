@@ -4,17 +4,17 @@
 </style>
 
 <template>
-  <a-locale-provider :locale="locale">
+  <a-config-provider :locale="locale">
     <div id="app">
       <TabLayout>
         <router-view />
       </TabLayout>
     </div>
-  </a-locale-provider>
+  </a-config-provider>
 </template>
 
 <script>
-import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN';
+import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 import { TabLayout } from './layout';
 
 
