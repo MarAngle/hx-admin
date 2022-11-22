@@ -64,6 +64,10 @@ let menu = new BaseData({
           }
         ]
         this.data.list = this.formatMenu(syncMenu, 0)
+        router.addRoute({
+          path:'*',
+          redirect: '/404'
+        })
         resolve()
       })
     }

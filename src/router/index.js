@@ -27,10 +27,7 @@ const router = new VueRouter({
       name: '404',
       component: () => import('@/config/page/404.vue')
     },
-    {
-      path:'*',
-      redirect: '/404'
-    },
+
   ]
 });
 
