@@ -2,7 +2,26 @@ import Vue from 'vue'
 import _func from 'complex-func'
 import { Modal, notification } from 'ant-design-vue'
 
-const defaultMethods = {}
+const defaultMethods = {
+  isUrlPre: function (url) {
+    if (url.indexOf('http://') > -1 || url.indexOf('https://') > -1) {
+      return true
+    } else {
+      return false
+    }
+  },
+  formatApi: function (url, payload = {}) {
+    let preUrl = payload.pre || ''
+    if (!this.isUrlPre(url)) {
+      if (this.isUrlPre(preUrl)) {
+        return preUrl + url
+      }
+      return preUrl + url
+    } else {
+      return url
+    }
+  }
+}
 
 export const init = function(option = {}) {
   if (option.page === 'default') {

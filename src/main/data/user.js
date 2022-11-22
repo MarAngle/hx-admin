@@ -25,44 +25,32 @@ let user = new InfoData({
     },
     refreshData() {
       return new Promise((resolve, reject) => {
-        // api.userInfo(this.getItem('id')).then(res => {
-        //   if (res.data.data) {
-        //     this.setInfo(res.data.data)
-        //   } else {
-        //     // 用户数据为空进行退出
-        //     this.logoutFinal()
-        //   }
-        //   resolve(res)
-        // }, err => {
-        //   console.error(err)
-        //   // 用户数据获取失败直接退出
-        //   this.logoutFinal()
-        //   reject(err)
-        // })
-        this.setInfo({
-          id: 1,
-          name: '测试',
-          platform: 1
+        api.userInfo(this.getItem('id')).then(res => {
+          if (res.data.data) {
+            this.setInfo(res.data.data)
+          } else {
+            // 用户数据为空进行退出
+            this.logoutFinal()
+          }
+          resolve(res)
+        }, err => {
+          console.error(err)
+          // 用户数据获取失败直接退出
+          this.logoutFinal()
+          reject(err)
         })
-        resolve()
       })
     },
     getData (postdata) {
       return new Promise((resolve, reject) => {
-        // api.login(postdata).then(res => {
-        //   let userInfo = res.data.data
-        //   this.setInfo(userInfo)
-        //   resolve(res)
-        // }, err => {
-        //   console.error(err)
-        //   reject(err)
-        // })
-        this.setInfo({
-          id: 1,
-          name: '测试',
-          platform: 1
+        api.login(postdata).then(res => {
+          let userInfo = res.data.data
+          this.setInfo(userInfo)
+          resolve(res)
+        }, err => {
+          console.error(err)
+          reject(err)
         })
-        resolve()
       })
     },
     autoLoad() {
