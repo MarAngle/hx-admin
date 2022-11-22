@@ -1,7 +1,8 @@
 import _func from "../func"
+import { buildProp } from "../proxy"
 
 
-const dict = {
+export const urlDict = {
   gateway: {
     default: 'https://gateway-dev.wuzheng.com.cn/',
     dev: 'https://gateway-dev.wuzheng.com.cn/',
@@ -10,16 +11,16 @@ const dict = {
   }
 }
 
-export const getCurrentUrl = function(prop) {
+export const getCurrentUrl = function(type) {
   let realEnv = _func.getEnv('real')
-  let type = _func.getEnvMode('data') || 'default'
+  let prop = _func.getEnvMode('data') || 'default'
   let currentUrl
   if (realEnv == 'development') {
-    currentUrl = '/' + prop + '_' + type + '/'
+    currentUrl = buildProp(type, prop) + '/'
   } else {
-    currentUrl = dict[prop][type]
+    currentUrl = urlDict[type][prop]
     if (!currentUrl) {
-      currentUrl = dict[prop].default
+      currentUrl = urlDict[type].default
     }
   }
   return currentUrl
