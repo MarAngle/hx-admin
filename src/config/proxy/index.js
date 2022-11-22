@@ -1,11 +1,19 @@
-import { urlDict } from "../url"
+const urlDict = {
+  gateway: {
+    default: 'https://gateway-dev.wuzheng.com.cn/',
+    dev: 'https://gateway-dev.wuzheng.com.cn/',
+    test: 'https://gateway-test.wuzheng.com.cn/',
+    prod: 'https://gateway.wuzheng.com.cn/'
+  }
+}
 
-export const proxy = {
+const proxy = {
   run: true,
+  urlDict: urlDict,
   data: {}
 }
 
-export const buildProp = function(type, prop) {
+const buildProp = function(type, prop) {
   return `/${type}_${prop}`
 }
 
@@ -23,4 +31,10 @@ if (proxy.run) {
       }
     }
   }
+}
+
+module.exports = {
+  run: proxy.run,
+  data: proxy.data,
+  buildProp: buildProp
 }

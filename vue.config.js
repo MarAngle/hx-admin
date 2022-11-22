@@ -1,12 +1,14 @@
 const { defineConfig } = require('@vue/cli-service')
 const path = require('path')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
-
+const proxy = require('./src/config/proxy/index.js')
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-module.exports = defineConfig({
+console.log(proxy)
+
+const config = {
   transpileDependencies: true,
   publicPath: './',
   configureWebpack: config => {
@@ -30,5 +32,12 @@ module.exports = defineConfig({
     config.module.rule('icons').test(/\.svg$/).include.add(resolve('src/config/icon/data')).end().use('svg-sprite-loader').loader('svg-sprite-loader').options({
       symbolId: 'icon-[name]'
     }).end();
-  }
-})
+  },
+  devServer: {}
+}
+
+if (proxy.run) {
+  config.devServer.proxy = proxy.data
+}
+
+module.exports = defineConfig(config)
