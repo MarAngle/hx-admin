@@ -2,7 +2,7 @@
 
 </style>
 <template>
-  <div class="local-current-edit-view">
+  <div class="local-edit-view">
     <ComplexFormView
       :form="form"
       :mainlist="mainlist"

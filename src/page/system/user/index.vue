@@ -7,7 +7,7 @@
 <template>
   <div class="local-default-list-page system-user">
     <div class="local-default-list-page-area">
-      <LocalCurrentListView
+      <LocalListView
         :maindata="maindata"
         :itemOption="itemOption"
         :editOption="{ usePageList: true }"

@@ -1,12 +1,12 @@
 <style lang='less' scoped>
-.local-current-list-view{
-  .local-current-list-view-header-menu{
+.local-list-view{
+  .local-list-view-header-menu{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
-    .local-current-list-view-header-menu-item{
+    .local-list-view-header-menu-item{
       height: 40px;
       display: flex;
       flex-direction: row;
@@ -19,8 +19,8 @@
 }
 </style>
 <template>
-  <div class="local-current-list-view" >
-    <div class="local-current-list-view-area">
+  <div class="local-list-view" >
+    <div class="local-list-view-area">
       <a-spin :spinning="loadStatus == 'loading'">
         <ComplexModAutoMenu
           v-if="currentSearchOption.type"
@@ -41,8 +41,8 @@
           >
           </ComplexFormView>
           <div v-else-if="currentSearchOption.type == 'list'">
-            <div class="local-current-list-view-header-menu">
-              <div class="local-current-list-view-header-menu-item">
+            <div class="local-list-view-header-menu">
+              <div class="local-list-view-header-menu-item">
                 <a-button
                   v-for="val in currentSearchOption.list"
                   :key="val.act"
