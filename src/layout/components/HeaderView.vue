@@ -29,9 +29,7 @@
 <template>
   <div class="header-view local-flex-line-main">
     <div class="header-view-area local-flex-line-item">
-      <div class="header-view-item header-view-item-title">
-        <p>这是一个平台</p>
-      </div>
+      <div class="header-view-item header-view-item-title"></div>
     </div>
     <div class="header-view-area local-flex-line-item">
       <div class="header-view-item header-view-item-name">

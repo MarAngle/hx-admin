@@ -10,6 +10,9 @@
 
 <template>
   <div class="sider-view local-flex-full-area local-flex-full-area-column">
+    <div class="sider-logo local-flex-full-item fixed">
+      <LogoView :collapsed="collapsed" :width="page.mod.sider.width" :height="page.mod.header.height" />
+    </div>
     <div class="local-flex-full-item auto">
       <SiderMenu
         mode="inline"
@@ -31,11 +34,13 @@
 <script>
 import menu from '@/main/data/menu';
 
+import LogoView from './LogoView';
 import SiderMenu from './SiderMenu';
 
 export default {
   name: 'SiderView',
   components: {
+    LogoView: LogoView,
     SiderMenu: SiderMenu
   },
   props: ['page'],
