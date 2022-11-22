@@ -21,15 +21,22 @@ let maindata = new ListData({
   methods: {
     getData: function () {
       return new Promise((resolve, reject) => {
-        let postdata = this.getSearch()
-        postdata.pageNo = this.getPageData('page')
-        postdata.pageSize = this.getPageData('size')
-        api.userList(postdata).then(res => {
-          this.formatData(res.data.data, res.data.totalCount)
-          resolve(res)
-        }, err => {
-          reject(err)
-        })
+        // let postdata = this.getSearch()
+        // postdata.pageNo = this.getPageData('page')
+        // postdata.pageSize = this.getPageData('size')
+        // api.userList(postdata).then(res => {
+        //   this.formatData(res.data.data, res.data.totalCount)
+        //   resolve(res)
+        // }, err => {
+        //   reject(err)
+        // })
+        this.formatData([
+          {
+            id: 1,
+            name: 1
+          }
+        ], 100)
+        resolve()
       })
     },
     buildItem({ postdata }) {
