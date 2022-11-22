@@ -35,10 +35,65 @@ export default {
   },
   data() {
     return {
-      currentSelectedKeys: []
+      currentSelectedKeys: [],
+      openKeys: [],
+      cachedOpenKeys: []
     }
   },
+  computed: {
+    rootSubmenuKeys () {
+      const keys = []
+      this.menu.forEach(item => keys.push(item.path))
+      return keys
+    }
+  },
+  watch: {
+    collapsed (val) {
+      if (val) {
+        this.cachedOpenKeys = this.openKeys.concat()
+        this.openKeys = []
+      } else {
+        this.openKeys = this.cachedOpenKeys
+      }
+    },
+    selectedKeys(val) {
+      if (this.currentSelectedKeys !== val) {
+        this.currentSelectedKeys = val
+      }
+    },
+    $route: function () {
+      this.updateOpenKeys()
+    }
+  },
+  mounted () {
+    this.updateOpenKeys()
+  },
   methods: {
+    updateOpenKeys () {
+      const routes = this.$route.matched.concat()
+      const { hidden } = this.$route.meta
+      const openKeys = []
+      if (this.mode === 'inline') {
+        routes.forEach(item => {
+          openKeys.push(item.path)
+        })
+      }
+      this.collapsed ? (this.cachedOpenKeys = openKeys) : (this.openKeys = openKeys)
+    },
+    onOpenChange (openKeys) {
+      // 在水平模式下时执行，并且不再执行后续
+      if (this.mode === 'horizontal') {
+        this.openKeys = openKeys
+        return
+      }
+      // 非水平模式时
+      const latestOpenKey = openKeys.find(key => !this.openKeys.includes(key))
+      if (!this.rootSubmenuKeys.includes(latestOpenKey)) {
+        this.openKeys = openKeys
+      } else {
+        this.openKeys = latestOpenKey ? [latestOpenKey] : []
+      }
+    },
     // render
     renderItem (menu) {
       if (!menu.hidden) {
@@ -84,22 +139,22 @@ export default {
       mode: mode,
       theme: theme,
       inlineCollapsed: this.collapsed,
-      selectedKeys: this.currentSelectedKeys
+      selectedKeys: this.currentSelectedKeys,
+      openKeys: this.openKeys
     }
     const on = {
       select: obj => {
         this.currentSelectedKeys = obj.selectedKeys
         this.$emit('select', obj)
-      }
+      },
+      openChange: this.onOpenChange
     }
-
     const menuTree = menu.map(item => {
       if (item.hidden) {
         return null
       }
       return this.renderItem(item)
     })
-    // {...{ props, on: on }}
     return (
       <Menu {...{ props, on: on }}>
         {menuTree}

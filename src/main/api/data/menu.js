@@ -29,7 +29,33 @@ export default {
                 hidden: false,
               }
             ]
-          }
+          },
+          {
+            path: '/system2',
+            name: '系统设置2',
+            component: 'layout/PureLayout.vue',
+            icon: 'setting',
+            menu: true,
+            hidden: false,
+            children: [
+              {
+                path: '/system2in',
+                name: '系统设置2in',
+                component: 'layout/PureLayout.vue',
+                menu: true,
+                hidden: false,
+                children: [
+                  {
+                    path: '/system2/user',
+                    name: '用户管理',
+                    component: 'page/system/user/index.vue',
+                    menu: true,
+                    hidden: false,
+                  }
+                ]
+              },
+            ]
+          },
         ]
       })
     }
