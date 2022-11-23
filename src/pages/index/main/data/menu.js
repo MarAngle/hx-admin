@@ -3,21 +3,16 @@ import { BaseData } from 'complex-data'
 import api from '@index/main/api/index'
 import router from '@index/router'
 
-
 const baseMenu = [
   {
     path: '/home',
     name: '主页',
-    component: '@/pages/index/views/home/index.vue',
+    component: 'pages/index/views/home/index.vue',
     icon: 'home',
     menu: true,
     hidden: false
   }
 ]
-
-function loadView(path) {
-  return resolve => require([`${path}`], resolve)
-}
 
 let menu = new BaseData({
   name: '菜单列表',
@@ -37,7 +32,7 @@ let menu = new BaseData({
         let item = {
           path: menuItem.path,
           name: nameList.join('-'),
-          component: loadView(menuItem.component),
+          component: resolve => require([`@/${menuItem.component}`], resolve),
           meta: {
             name: menuItem.name,
             icon: menuItem.icon,
@@ -54,7 +49,7 @@ let menu = new BaseData({
     getData () {
       return new Promise((resolve, reject) => {
         api.menuList().then(res => {
-          let olist = res.data.data
+          let olist = res.data.data || []
           let syncMenu = baseMenu.concat(olist)
           this.data.list = this.formatMenu(syncMenu, 0)
           this.addRoute(this.data.list)
