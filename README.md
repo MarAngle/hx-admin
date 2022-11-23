@@ -1,4 +1,4 @@
-# pure-admin
+# animal-health-growth-dynamic-management
 
 ## Project setup
 ```
