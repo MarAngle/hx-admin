@@ -1,4 +1,4 @@
-import _func from '@/main/func/index'
+import _func from '@/index/main/func/index'
 import { SelectList } from 'complex-data'
 
 let data = {

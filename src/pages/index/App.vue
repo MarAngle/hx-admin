@@ -1,11 +1,11 @@
 <style lang="less">
-@import '~@style/index.less';
+@import '~@index/style/index.less';
 </style>
 
 <template>
   <a-config-provider :locale="locale">
     <div id="app">
-      <TabLayout>
+      <TabLayout :user="user" :menu="menu" :depend="depend">
         <router-view />
       </TabLayout>
     </div>
@@ -14,7 +14,10 @@
 
 <script>
 import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
-import { TabLayout } from '@/layout';
+import { TabLayout } from '@layout';
+import user from '@/index/main/api/data/user';
+import menu from '@/index/main/api/data/menu';
+import depend from '@/index/main/api/data/depend';
 
 
 export default {
@@ -24,7 +27,10 @@ export default {
   },
   data() {
     return {
-      locale: zhCN
+      locale: zhCN,
+      user: user,
+      menu: menu,
+      depend: depend
     }
   }
 }

@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import user from '@/main/data/user';
+import user from '@/index/main/data/user';
 
 
 export default {

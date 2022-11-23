@@ -1,4 +1,4 @@
-import select from "@/main/select"
+import select from "@/index/main/select"
 import Dictionary from "./build/Dictionary"
 
 export const userDict = new Dictionary({

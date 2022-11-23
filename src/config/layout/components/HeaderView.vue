@@ -53,22 +53,19 @@
 </template>
 
 <script>
-import user from '@/main/data/user'
 
 export default {
   name: 'HeaderView',
-  props: ['page'],
+  props: ['user', 'page'],
   data() {
-    return {
-      user: user
-    }
+    return {}
   },
   methods: {
     handleChangePassword() {
       this._func.showmsg('功能未开放！', 'warn')
     },
     logout() {
-      user.logout()
+      this.user.logout()
     }
   }
 }

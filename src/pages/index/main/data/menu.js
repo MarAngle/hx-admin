@@ -1,6 +1,6 @@
 import _func from 'complex-func'
 import { BaseData } from 'complex-data'
-import api from '@/main/api/index'
+import api from '@/index/main/api/index'
 import router from '@/pages/index/router'
 
 

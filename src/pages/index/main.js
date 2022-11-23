@@ -1,7 +1,6 @@
 import Vue from 'vue'
-import App from './pages/index/App.vue'
-import router from './pages/index/router'
-import './antd/index'
+import App from './App.vue'
+import router from './router'
 import './main/index'
 import './permission/index'
 

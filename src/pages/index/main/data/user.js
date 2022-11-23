@@ -1,7 +1,7 @@
 import _func from 'complex-func'
 import { InfoData } from 'complex-data'
-import api from '@/main/api/index'
-import { userDict } from '@/main/complex/dict/user'
+import api from '@/index/main/api/index'
+import { userDict } from '@/index/main/complex/dict/user'
 
 let user = new InfoData({
   name: '用户信息',

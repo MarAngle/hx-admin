@@ -1,6 +1,6 @@
 import router from '@/pages/index/router'
 import _func from 'complex-func'
-import user from '@/main/data/user'
+import user from '@/index/main/data/user'
 import { loadDepend } from './depend'
 
 const loginPath = ['/login']

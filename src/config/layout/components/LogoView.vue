@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import setting from '@/pages/index/setting'
+import setting from '@/setting'
 
 export default {
   name: 'LogoView',

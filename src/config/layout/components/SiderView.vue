@@ -32,8 +32,6 @@
 </template>
 
 <script>
-import menu from '@/main/data/menu';
-
 import LogoView from './LogoView';
 import SiderMenu from './SiderMenu';
 
@@ -43,18 +41,16 @@ export default {
     LogoView: LogoView,
     SiderMenu: SiderMenu
   },
-  props: ['page'],
+  props: ['menu', 'page'],
   data() {
-    return {
-      menu: menu
-    }
+    return {}
   },
   computed: {
     collapsed() {
       return this.page.mod.sider.type == 'mini'
     },
     currentMenu() {
-      return this.formatMenu(menu.data.list)
+      return this.formatMenu(this.menu.data.list)
     }
   },
   watch: {
