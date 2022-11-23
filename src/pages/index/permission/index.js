@@ -2,6 +2,7 @@ import router from '@index/router'
 import _func from 'complex-func'
 import user from '@index/main/data/user'
 import { loadDepend } from './depend'
+import setting from '@/setting'
 
 const loginPath = ['/login']
 const whitePath = [].concat(loginPath)
@@ -27,4 +28,5 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to, from) => {
   _func.page.setType('default')
   _func.page.setStyle()
+  _func.setTitle(setting.page.index.title, to.meta.name, to.meta.title)
 })

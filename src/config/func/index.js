@@ -22,6 +22,9 @@ const defaultMethods = {
       return url
     }
   },
+  setTitle(defaultTitle, routeName, routeTitle) {
+    document.title = defaultTitle + '-' + routeName
+  },
   changeFunc(func, before, after) {
     if (before) {
       let nextFunc = func

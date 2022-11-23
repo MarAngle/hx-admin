@@ -35,6 +35,7 @@ let menu = new BaseData({
           component: resolve => require([`@/${menuItem.component}`], resolve),
           meta: {
             name: menuItem.name,
+            title: menuItem.title,
             icon: menuItem.icon,
             menu: menuItem.menu,
             hidden: menuItem.hidden
