@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import router from '@/router'
 import _func from 'complex-func'
 import user from '@/main/data/user'
@@ -9,7 +8,6 @@ const whitePath = [].concat(loginPath)
 
 router.beforeEach((to, from, next) => {
   let load = user.getStatus('load').value
-  console.log(load, to.path, from.path)
   if (load == 'loaded') {
     if (loginPath.indexOf(to.path) !== -1) {
       next({ path: '/' })
