@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import _func from 'complex-func'
-import { Modal, notification } from 'ant-design-vue'
+import { Select, Modal, notification } from 'ant-design-vue'
 import SelectSwitch from '@/config/components/mod/SelectSwitch.vue'
 
 const defaultMethods = {
@@ -98,50 +98,54 @@ const defaultMethods = {
           })
         }
       } else if (listOption.select) {
+        if (listOption.select === true) {
+          listOption.select = {}
+        }
         data.mod.list.customRender = function (text, record, index) {
-          return _func.$EventBus.$createElement(SelectSwitch, {
+          let optionsList = selectData.getList(listOption.select.list)
+          let options = {
             props: {
-              value: record[prop],
-              operate: !!listOption.switch.operate
+              value: record[prop].value,
+              options: optionsList,
+              disabled: !listOption.select.operate,
+              ...listOption.select.props
             },
-            on: {
-              change(currentValue) {
-                let list = selectData.getList()
-                for (let i = 0; i < list.length; i++) {
-                  const item = list[i]
-                  if (item._switch === currentValue) {
-                    listOption.switch.operate(item, record, prop)
-                    break
-                  }
+            on: {}
+          }
+          if (listOption.select.operate) {
+            options.on.change = function(currentValue) {
+              for (let i = 0; i < optionsList.length; i++) {
+                const item = optionsList[i]
+                if (item.value === currentValue) {
+                  listOption.select.operate(item, record, prop)
+                  break
                 }
               }
             }
-          })
+          }
+          options.on = {
+            ...options.on,
+            ...listOption.select.on
+          }
+          return _func.$EventBus.$createElement(Select, options)
         }
       }
     }
     if (editOption) {
-      if (editOption.build) {
-        data.mod.build = {
-          formatType: 'edit',
-          type: 'select',
-          width: editOption.width,
-          option: {
-            list: selectData.getList(editOption.build),
-            optionValue: valueProp,
-            optionLabel: labelProp
+      for (const editProp in editOption) {
+        if (editOption[editProp]) {
+          if (editOption[editProp] === true) {
+            editOption[editProp] = {}
           }
-        }
-      }
-      if (editOption.change) {
-        data.mod.change = {
-          formatType: 'edit',
-          type: 'select',
-          width: editOption.width,
-          option: {
-            list: selectData.getList(editOption.change),
-            optionValue: valueProp,
-            optionLabel: labelProp
+          data.mod[editProp] = {
+            formatType: 'edit',
+            type: 'select',
+            width: editOption.width,
+            option: {
+              list: selectData.getList(editOption[editProp].list),
+              optionValue: valueProp,
+              optionLabel: labelProp
+            }
           }
         }
       }
@@ -157,7 +161,6 @@ const defaultMethods = {
     }
   }
 }
-
 
 _func.setEnvMode(process.env.VUE_APP_APITYPE, 'real')
 _func.setEnvMode(process.env.VUE_APP_APITYPE, 'data')

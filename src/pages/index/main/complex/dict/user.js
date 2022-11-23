@@ -62,7 +62,11 @@ export const userDict = new Dictionary({
     }, {
       list: {
         color: true,
-        select: {}
+        select: {
+          operate(...args) {
+            console.log(...args)
+          }
+        }
       },
       edit: {
         change: true,
