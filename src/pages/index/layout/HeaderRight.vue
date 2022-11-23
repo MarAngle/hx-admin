@@ -1,15 +1,15 @@
 <style lang="less" scoped>
-@height: 60px;
+@import '~@index/style/option.less';
 .header-right{
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
   .header-right-item{
-    line-height: @height;
+    line-height: @LayoutHeaderHeight;
     p{
       margin: 0;
-      line-height: @height;
+      line-height: @LayoutHeaderHeight;
       font-size: inherit;
     }
     &.header-right-item-name{
