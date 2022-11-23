@@ -6,11 +6,11 @@ let data = {
     name: '是否状态',
     list: [
       {
-        value: '0',
+        value: 0,
         label: '否'
       },
       {
-        value: '1',
+        value: 1,
         label: '是'
       }
     ]
@@ -19,11 +19,11 @@ let data = {
     name: '删除状态',
     list: [
       {
-        value: '0',
+        value: 0,
         label: '未删除'
       },
       {
-        value: '1',
+        value: 1,
         label: '已删除'
       }
     ]

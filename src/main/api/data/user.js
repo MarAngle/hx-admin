@@ -52,12 +52,14 @@ export default {
           {
             id: 1,
             name: '测试',
-            platform: 1
+            platform: 1,
+            status: 0
           },
           {
             id: 2,
             name: '测试2',
-            platform: 2
+            platform: 2,
+            status: 0
           }
         ],
         total: 100

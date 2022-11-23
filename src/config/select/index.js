@@ -144,8 +144,9 @@ let select = {
       return _func.mergeData(data, selectDefaultDictionary, currentData)
     }
   },
-  getLocalItemByFormat(mod, prop, currentData, option) {
-    let selectData = this.getItem('local', mod, prop)
+  getItemByFormat(mod, prop, currentData, option) {
+    let selectData = this.getItem('data', mod, prop)
+    console.log(...arguments, selectData)
     return this.getItemBySelect(selectData, currentData, option)
   }
 }

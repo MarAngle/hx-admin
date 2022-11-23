@@ -1,16 +1,16 @@
 import _func from '@/main/func/index'
 import { SelectList } from 'complex-data'
 
-let userdata = {
-  userStatus: new SelectList({
+let data = {
+  status: new SelectList({
     name: '用户状态',
     list: [
       {
-        value: 1,
+        value: 0,
         label: '正常'
       },
       {
-        value: 2,
+        value: 1,
         label: '冻结'
       }
     ]
@@ -20,4 +20,4 @@ let userdata = {
 
 
 
-export default userdata
+export default data
