@@ -1,6 +1,6 @@
 
 import _func from 'complex-func'
-import depend from '@/index/main/data/depend'
+import depend from '@index/main/data/depend'
 
 export function loadDepend(to, from, next) {
   let load = depend.getStatus('load').value

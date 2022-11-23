@@ -11,7 +11,9 @@
 <template>
   <div class="sider-view local-flex-full-area local-flex-full-area-column">
     <div class="sider-logo local-flex-full-item fixed">
-      <LogoView :collapsed="collapsed" :width="page.mod.sider.width" :height="page.mod.header.height" />
+      <slot name="logo">
+        <LogoView :collapsed="collapsed" :width="page.mod.sider.width" :height="page.mod.header.height" />
+      </slot>
     </div>
     <div class="local-flex-full-item auto">
       <SiderMenu
@@ -41,7 +43,7 @@ export default {
     LogoView: LogoView,
     SiderMenu: SiderMenu
   },
-  props: ['menu', 'page'],
+  props: ['type', 'menu', 'page'],
   data() {
     return {}
   },

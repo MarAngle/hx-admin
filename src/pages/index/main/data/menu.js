@@ -1,14 +1,14 @@
 import _func from 'complex-func'
 import { BaseData } from 'complex-data'
-import api from '@/index/main/api/index'
-import router from '@/pages/index/router'
+import api from '@index/main/api/index'
+import router from '@index/router'
 
 
 const baseMenu = [
   {
     path: '/home',
     name: '主页',
-    component: 'page/home/index.vue',
+    component: '@/pages/index/page/home/index.vue',
     icon: 'home',
     menu: true,
     hidden: false
@@ -16,7 +16,7 @@ const baseMenu = [
 ]
 
 function loadView(path) {
-  return resolve => require([`@/${path}`], resolve)
+  return resolve => require([`${path}`], resolve)
 }
 
 let menu = new BaseData({

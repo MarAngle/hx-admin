@@ -52,7 +52,7 @@ export default {
     SiderView: SiderView,
     HeaderView: HeaderView
   },
-  props: ['user', 'menu', 'depend'],
+  props: ['type', 'user', 'menu', 'depend'],
   data() {
     return {
       page: this._func.page

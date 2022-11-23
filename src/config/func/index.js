@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import _func from 'complex-func'
 import { Modal, notification } from 'ant-design-vue'
-import color from '../../style/color.js'
 
 const defaultMethods = {
   isUrlPre: function (url) {
@@ -79,7 +78,6 @@ export const init = function(option = {}) {
 
   Vue.use(_func, {
     data: {
-      color: color,
       ...option.data
     },
     methods: methods,

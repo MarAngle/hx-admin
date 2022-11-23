@@ -16,7 +16,7 @@ export default {
           {
             path: '/system',
             name: '系统设置',
-            component: 'layout/PureLayout.vue',
+            component: '@/config/layout/PureLayout.vue',
             icon: 'setting',
             menu: true,
             hidden: false,
@@ -24,7 +24,7 @@ export default {
               {
                 path: '/system/user',
                 name: '用户管理',
-                component: 'page/system/user/index.vue',
+                component: '@/pages/index/page/system/user/index.vue',
                 menu: true,
                 hidden: false,
               }
@@ -33,7 +33,7 @@ export default {
           {
             path: '/system2',
             name: '系统设置2',
-            component: 'layout/PureLayout.vue',
+            component: '@/config/layout/PureLayout.vue',
             icon: 'setting',
             menu: true,
             hidden: false,
@@ -41,14 +41,14 @@ export default {
               {
                 path: '/system2in',
                 name: '系统设置2in',
-                component: 'layout/PureLayout.vue',
+                component: '@/config/layout/PureLayout.vue',
                 menu: true,
                 hidden: false,
                 children: [
                   {
                     path: '/system2/user',
                     name: '用户管理',
-                    component: 'page/system/user/index.vue',
+                    component: '@/pages/index/page/system/user/index.vue',
                     menu: true,
                     hidden: false,
                   }

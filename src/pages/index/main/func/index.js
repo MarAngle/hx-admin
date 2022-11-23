@@ -1,10 +1,14 @@
 import { init } from "@/config/func";
 import { getCurrentUrl } from '@/config/url';
+import color from './../../style/color.js'
 
 let currentUrl = getCurrentUrl('gateway')
 
 let _func = init({
   page: 'default',
+  data: {
+    color: color
+  },
   require: {
     api: {
       baseURL: currentUrl

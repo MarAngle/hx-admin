@@ -14,7 +14,7 @@
 
 <template>
   <div class="logo-view" :style="currentStyle">
-    <h4>{{ collapsed ? setting.page.shortTitle : setting.page.title }}</h4>
+    <h4>{{ collapsed ? setting.page[type].shortTitle : setting.page[type].title }}</h4>
   </div>
 </template>
 
@@ -23,7 +23,7 @@ import setting from '@/setting'
 
 export default {
   name: 'LogoView',
-  props: ['page', 'collapsed', 'width', 'height'],
+  props: ['page', 'type', 'collapsed', 'width', 'height'],
   data() {
     return {
       setting: setting

@@ -1,7 +1,7 @@
 import _func from 'complex-func'
 import { ListData } from 'complex-data'
-import api from '@/index/main/api/index'
-import { userDict } from '@/index/main/complex/dict/user'
+import api from '@index/main/api/index'
+import { userDict } from '@index/main/complex/dict/user'
 
 const defaultInitOption = {
   name: '用户',
