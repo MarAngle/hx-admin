@@ -25,7 +25,7 @@
         @select="onSelect"
       ></SiderMenu>
     </div>
-    <div class="sider-toggle local-flex-full-item fixed">
+    <div class="sider-toggle local-flex-full-item fixed" v-if="collapsedChange" >
       <a-button type="primary" @click="changSiderType">
         <a-icon :type="collapsed ? 'menu-unfold' : 'menu-fold'" />
       </a-button>
@@ -43,7 +43,7 @@ export default {
     LogoView: LogoView,
     SiderMenu: SiderMenu
   },
-  props: ['type', 'menu', 'page'],
+  props: ['type', 'menu', 'page', 'collapsedChange'],
   data() {
     return {}
   },

@@ -6,7 +6,7 @@
   <a-config-provider :locale="locale">
     <div id="app">
       <TabLayout :page="page" :depend="depend">
-        <SiderView slot="sider" slot-scope="slotScope" v-show="page.type != 'pure'" :style="slotScope.countStyle" :menu="menu" :page="page">
+        <SiderView slot="sider" slot-scope="slotScope" v-show="page.type != 'pure'" :collapsedChange="true" :style="slotScope.countStyle" :menu="menu" :page="page">
           <LogoView slot="logo" slot-scope="slotScope" :collapsed="slotScope.collapsed" :width="slotScope.width" :height="slotScope.height" />
         </SiderView>
         <HeaderView slot="header" slot-scope="slotScope" v-show="page.type != 'pure'" :style="slotScope.countStyle">
