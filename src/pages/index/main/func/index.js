@@ -6,6 +6,9 @@ let currentUrl = getCurrentUrl('gateway')
 
 let _func = init({
   page: 'default',
+  root: {
+    $page: 'index'
+  },
   data: {
     color: color
   },

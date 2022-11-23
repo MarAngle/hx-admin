@@ -11,7 +11,9 @@
 <template>
   <div class="sider-view local-flex-full-area local-flex-full-area-column">
     <div class="sider-logo local-flex-full-item fixed">
-      <LogoView :collapsed="collapsed" :type="type" :width="page.mod.sider.width" :height="page.mod.header.height" />
+      <slot name="logo" :collapsed="collapsed" :type="type" :width="page.mod.sider.width" :height="page.mod.header.height" >
+        <LogoView :collapsed="collapsed" :type="type" :width="page.mod.sider.width" :height="page.mod.header.height" />
+      </slot>
     </div>
     <div class="local-flex-full-item auto">
       <SiderMenu
