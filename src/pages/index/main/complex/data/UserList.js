@@ -61,7 +61,7 @@ class UserList extends ListData {
   }
   buildItem ({ postdata }) {
     return new Promise((resolve, reject) => {
-      api.buildUser(postdata).then(res => {
+      api.userBuild(postdata).then(res => {
         _func.showmsg('新增用户成功！', 'success')
         this.reloadData({
           sync: true,
@@ -76,9 +76,11 @@ class UserList extends ListData {
       })
     })
   }
-  changeItem ({ postdata }) {
+  changeItem ({ postdata, targetitem }) {
     return new Promise((resolve, reject) => {
-      api.changeUser(postdata).then(res => {
+      let prop = this.getDictionaryPropData('prop')
+      postdata[prop] = targetitem[prop]
+      api.userChange(postdata).then(res => {
         _func.showmsg('修改用户成功！', 'success')
         this.reloadData({
           sync: true,

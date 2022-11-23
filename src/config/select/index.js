@@ -79,26 +79,25 @@ let select = {
       func: {
         format: formatFunc
       },
-      mod: {}
+      mod: {
+        list: {}
+      }
     }
     if (!option.unBuildMod) {
-      data.mod = {
-        list: {},
-        edit: {
-          type: 'select',
-          width: option.editWidth,
-          option: {
-            list: selectData.getList(option.listPayload),
-            optionValue: valueProp,
-            optionLabel: labelProp
-          }
-        },
-        build: {
-          type: 'edit'
-        },
-        change: {
-          type: 'edit'
+      data.mod.edit = {
+        type: 'select',
+        width: option.editWidth,
+        option: {
+          list: selectData.getList(option.listPayload),
+          optionValue: valueProp,
+          optionLabel: labelProp
         }
+      }
+      data.mod.build = {
+        type: 'edit'
+      }
+      data.mod.change = {
+        type: 'edit'
       }
     }
     let prop = currentData.prop

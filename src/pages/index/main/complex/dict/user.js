@@ -16,7 +16,20 @@ export const userDict = new Dictionary({
       originprop: 'name',
       originfrom: 'list',
       mod: {
-        list: {}
+        list: {},
+        edit: {
+          type: 'input',
+          required: true,
+          option: {
+            maxLength: 10
+          }
+        },
+        build: {
+          type: 'edit'
+        },
+        change: {
+          type: 'edit'
+        }
       }
     },
     {
@@ -25,7 +38,20 @@ export const userDict = new Dictionary({
       originprop: 'platform',
       originfrom: 'list',
       mod: {
-        list: {}
+        list: {},
+        edit: {
+          type: 'input',
+          required: true,
+          option: {
+            maxLength: 10
+          }
+        },
+        build: {
+          type: 'edit'
+        },
+        change: {
+          type: 'edit'
+        }
       }
     },
     select.getItemByFormat('user', 'status', {
@@ -34,7 +60,8 @@ export const userDict = new Dictionary({
       originprop: 'status',
       originfrom: 'list'
     }, {
-      color: true
+      color: true,
+      unBuildMod: true
     }),
     {
       prop: 'menu',
