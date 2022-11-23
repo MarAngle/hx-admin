@@ -14,7 +14,7 @@
 
 <script>
 import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
-import { TabLayout } from '@layout';
+import TabLayout from '@layout/TabLayout';
 import user from '@index/main/data/user';
 import menu from '@index/main/data/menu';
 import depend from '@index/main/data/depend';

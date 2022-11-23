@@ -146,7 +146,6 @@ let select = {
   },
   getItemByFormat(mod, prop, currentData, option) {
     let selectData = this.getItem('data', mod, prop)
-    console.log(...arguments, selectData)
     return this.getItemBySelect(selectData, currentData, option)
   }
 }

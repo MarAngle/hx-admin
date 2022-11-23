@@ -31,7 +31,7 @@
 <template>
   <div class="tab-layout">
     <template v-if="dependLoad == 'loaded'">
-      <SiderView v-show="page.type != 'pure'" :style="siderStyle" :menu="menu" :page="page" />
+      <SiderView v-show="page.type != 'pure'" :style="siderStyle" :type="type" :menu="menu" :page="page" />
       <HeaderView v-show="page.type != 'pure'" :style="headerStyle" :user="user" :page="page" />
     </template>
     <div class="tab-layout-router-area" :style="pageStyle">
