@@ -7,11 +7,13 @@ let data = {
     list: [
       {
         value: 0,
-        label: '正常'
+        label: '正常',
+        color: _func.data.color.primary
       },
       {
         value: 1,
-        label: '冻结'
+        label: '冻结',
+        color: _func.data.color.disabled
       }
     ]
   })

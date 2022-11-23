@@ -142,6 +142,7 @@ export const init = function(option = {}) {
     },
     require: option.require
   })
+  return _func
 }
 
 export default _func

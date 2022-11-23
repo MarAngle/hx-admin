@@ -1,4 +1,4 @@
-import select from "@/config/select"
+import select from "@/main/select"
 import Dictionary from "./build/Dictionary"
 
 export const userDict = new Dictionary({
@@ -29,10 +29,12 @@ export const userDict = new Dictionary({
       }
     },
     select.getItemByFormat('user', 'status', {
-      prop: 'platform',
-      name: '平台',
-      originprop: 'platform',
+      prop: 'status',
+      name: '状态',
+      originprop: 'status',
       originfrom: 'list'
+    }, {
+      color: true
     }),
     {
       prop: 'menu',

@@ -3,9 +3,7 @@ import { getCurrentUrl } from '@/config/url';
 
 let currentUrl = getCurrentUrl('gateway')
 
-console.log(currentUrl)
-
-init({
+let _func = init({
   page: 'default',
   require: {
     api: {
@@ -67,3 +65,5 @@ init({
     ]
   }
 })
+
+export default _func
