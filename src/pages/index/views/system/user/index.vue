@@ -1,6 +1,6 @@
 <style lang='less' scoped>
 .system-user{
-  padding: 20px 20px;
+  padding: 0 0;
 }
 </style>
 
