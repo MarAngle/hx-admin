@@ -24,7 +24,7 @@ export default {
               {
                 path: '/system/user',
                 name: '用户管理',
-                component: '@/pages/index/page/system/user/index.vue',
+                component: '@/pages/index/views/system/user/index.vue',
                 menu: true,
                 hidden: false,
               }
@@ -48,7 +48,7 @@ export default {
                   {
                     path: '/system2/user',
                     name: '用户管理',
-                    component: '@/pages/index/page/system/user/index.vue',
+                    component: '@/pages/index/views/system/user/index.vue',
                     menu: true,
                     hidden: false,
                   }

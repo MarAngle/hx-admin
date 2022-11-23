@@ -8,7 +8,7 @@ const baseMenu = [
   {
     path: '/home',
     name: '主页',
-    component: '@/pages/index/page/home/index.vue',
+    component: '@/pages/index/views/home/index.vue',
     icon: 'home',
     menu: true,
     hidden: false
