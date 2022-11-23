@@ -392,7 +392,6 @@ export default {
       return classList.join(' ')
     },
     onItemMenu({ record, index }, act) {
-      console.log(...arguments)
       if (act.indexOf('emit') > -1) {
         this.$emit('item', act, record, index)
       } else if (act == 'delete') {
