@@ -5,7 +5,10 @@ const resultDict = {
   fail: 'FAIL'
 }
 
-export const getMock = function({ data, status, code, msg, total }) {
+export const format = function({ $unFormat, data, status, code, msg, total }) {
+  if ($unFormat) {
+    return data
+  }
   if (!status) {
     status = 'success'
   }

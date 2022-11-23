@@ -1,5 +1,3 @@
-import { getMock } from "../mock"
-
 export default {
   login: {
     name: '登录',
@@ -11,11 +9,11 @@ export default {
     method: 'post',
     data: ['data'],
     mock(requireData) {
-      return getMock({
+      return {
         id: 1,
         name: '测试',
         platform: 1
-      })
+      }
     }
   },
   userInfo: {
@@ -28,13 +26,13 @@ export default {
     method: 'post',
     data: ['data'],
     mock(requireData) {
-      return getMock({
+      return {
         data: {
           id: 1,
           name: '测试',
           platform: 1
         }
-      })
+      }
     }
   },
   userList: {
@@ -47,7 +45,7 @@ export default {
     method: 'post',
     data: ['data'],
     mock(requireData) {
-      return getMock({
+      return {
         data: [
           {
             id: 1,
@@ -63,7 +61,7 @@ export default {
           }
         ],
         total: 100
-      })
+      }
     }
   },
 }

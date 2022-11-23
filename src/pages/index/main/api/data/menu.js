@@ -1,4 +1,3 @@
-import { getMock } from "../mock"
 
 export default {
   menuList: {
@@ -11,7 +10,7 @@ export default {
     method: 'post',
     data: ['data'],
     mock(requireData) {
-      return getMock({
+      return {
         data: [
           {
             path: '/system',
@@ -57,7 +56,7 @@ export default {
             ]
           },
         ]
-      })
+      }
     }
   },
 }
