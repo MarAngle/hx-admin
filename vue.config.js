@@ -2,6 +2,8 @@ const { defineConfig } = require('@vue/cli-service')
 const path = require('path')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 const proxy = require('./src/config/proxy/index.js')
+const setting = require('./src/setting')
+
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -9,6 +11,12 @@ function resolve(dir) {
 const config = {
   transpileDependencies: true,
   publicPath: './',
+  pages: {
+    index: {
+      entry: 'src/main.js', // 入口文件
+      title: setting.page.title
+    }
+  },
   configureWebpack: config => {
     config.plugins.push(
       new MomentLocalesPlugin({

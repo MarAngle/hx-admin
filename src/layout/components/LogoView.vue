@@ -14,17 +14,20 @@
 
 <template>
   <div class="logo-view" :style="currentStyle">
-    <h4>{{ collapsed ? '平台' : '这是一个平台' }}</h4>
+    <h4>{{ collapsed ? setting.page.shortTitle : setting.page.title }}</h4>
   </div>
 </template>
 
 <script>
+import setting from '@/setting'
 
 export default {
   name: 'LogoView',
   props: ['page', 'collapsed', 'width', 'height'],
   data() {
-    return {}
+    return {
+      setting: setting
+    }
   },
   computed: {
     currentStyle() {
