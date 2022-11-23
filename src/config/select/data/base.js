@@ -7,11 +7,13 @@ let data = {
     list: [
       {
         value: 0,
-        label: '否'
+        label: '否',
+        _switch: false
       },
       {
         value: 1,
-        label: '是'
+        label: '是',
+        _switch: true
       }
     ]
   }),
@@ -20,11 +22,13 @@ let data = {
     list: [
       {
         value: 0,
-        label: '未删除'
+        label: '未删除',
+        _switch: false
       },
       {
         value: 1,
-        label: '已删除'
+        label: '已删除',
+        _switch: true
       }
     ]
   })

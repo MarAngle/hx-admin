@@ -60,8 +60,14 @@ export const userDict = new Dictionary({
       originprop: 'status',
       originfrom: 'list'
     }, {
-      color: true,
-      unBuildMod: true
+      list: {
+        color: true,
+        select: {}
+      },
+      edit: {
+        change: true,
+        build: true
+      }
     }),
     {
       prop: 'menu',

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import _func from 'complex-func'
 import { Modal, notification } from 'ant-design-vue'
+import SelectSwitch from '@/config/components/mod/SelectSwitch.vue'
 
 const defaultMethods = {
   isUrlPre: function (url) {
@@ -20,8 +21,143 @@ const defaultMethods = {
     } else {
       return url
     }
+  },
+  changeFunc(func, before, after) {
+    if (before) {
+      let nextFunc = func
+      func = function(data, payload) {
+        data = before(data, payload)
+        return nextFunc(data, payload)
+      }
+    }
+    if (after) {
+      let currentFunc = func
+      func = function(data, payload) {
+        let res = currentFunc(data, payload)
+        return after(res, data, payload)
+      }
+    }
+    return func
+  },
+  initDictionaryFormat(format) {},
+  buildDictionaryItemBySelect(selectData, initOption, option = {}) {
+    if (selectData.constructor.$name == 'SelectData') {
+      selectData = selectData.getModule('select')
+    }
+    let prop = initOption.prop
+    let valueProp = option.value || 'value'
+    let labelProp = option.label || 'label'
+    let color = option.color
+    let format = option.format || {}
+    let listOption = option.list
+    let editOption = option.edit
+    let formatFunc = this.changeFunc(function(data) {
+      return selectData.getItem(data)
+    }, format.before, format.after)
+    let data = {
+      showprop: {
+        list: labelProp,
+        default: valueProp
+      },
+      func: {
+        format: formatFunc
+      },
+      mod: {}
+    }
+    if (listOption) {
+      data.mod.list = {}
+      if (listOption.color) {
+        data.mod.list.customCell = function(record) {
+          let value = record[prop]
+          return {
+            style: {
+              color: value.color
+            }
+          }
+        }
+      }
+      if (listOption.switch) {
+        data.mod.list.customRender = function (text, record, index) {
+          return _func.$EventBus.$createElement(SelectSwitch, {
+            props: {
+              value: record[prop],
+              operate: !!listOption.switch.operate
+            },
+            on: {
+              change(currentValue) {
+                let list = selectData.getList()
+                for (let i = 0; i < list.length; i++) {
+                  const item = list[i]
+                  if (item._switch === currentValue) {
+                    listOption.switch.operate(item, record, prop)
+                    break
+                  }
+                }
+              }
+            }
+          })
+        }
+      } else if (listOption.select) {
+        data.mod.list.customRender = function (text, record, index) {
+          return _func.$EventBus.$createElement(SelectSwitch, {
+            props: {
+              value: record[prop],
+              operate: !!listOption.switch.operate
+            },
+            on: {
+              change(currentValue) {
+                let list = selectData.getList()
+                for (let i = 0; i < list.length; i++) {
+                  const item = list[i]
+                  if (item._switch === currentValue) {
+                    listOption.switch.operate(item, record, prop)
+                    break
+                  }
+                }
+              }
+            }
+          })
+        }
+      }
+    }
+    if (editOption) {
+      if (editOption.build) {
+        data.mod.build = {
+          formatType: 'edit',
+          type: 'select',
+          width: editOption.width,
+          option: {
+            list: selectData.getList(editOption.build),
+            optionValue: valueProp,
+            optionLabel: labelProp
+          }
+        }
+      }
+      if (editOption.change) {
+        data.mod.change = {
+          formatType: 'edit',
+          type: 'select',
+          width: editOption.width,
+          option: {
+            list: selectData.getList(editOption.change),
+            optionValue: valueProp,
+            optionLabel: labelProp
+          }
+        }
+      }
+    }
+    let selectDefaultDictionary = selectData.getExtra('dictionary')
+    if (!selectDefaultDictionary) {
+      return _func.mergeData(data, initOption)
+    } else {
+      if (typeof selectDefaultDictionary == 'function') {
+        selectDefaultDictionary = selectDefaultDictionary({ prop: initOption.prop })
+      }
+      return _func.mergeData(data, selectDefaultDictionary, initOption)
+    }
   }
 }
+
 
 _func.setEnvMode(process.env.VUE_APP_APITYPE, 'real')
 _func.setEnvMode(process.env.VUE_APP_APITYPE, 'data')
@@ -77,6 +213,10 @@ export const init = function(option = {}) {
   }
 
   Vue.use(_func, {
+    root: {
+      $EventBus: new Vue(),
+      ...option.root
+    },
     data: {
       ...option.data
     },
