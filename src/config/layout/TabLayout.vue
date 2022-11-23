@@ -7,12 +7,14 @@
     left: 0;
     top: 0;
     bottom: 0;
+    z-index: 200;
     transition: width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
   }
   .header-view{
     position: fixed;
     top: 0;
     right: 0;
+    z-index: 100;
     transition: left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
   }
   .tab-layout-router-area{
@@ -31,8 +33,8 @@
 <template>
   <div class="tab-layout">
     <template v-if="dependLoad == 'loaded'">
-      <SiderView v-show="page.type != 'pure'" :style="siderStyle" :type="type" :menu="menu" :page="page" />
-      <HeaderView v-show="page.type != 'pure'" :style="headerStyle" :user="user" :page="page" />
+      <slot name="sider" :countStyle="siderStyle" />
+      <slot name="header" :countStyle="headerStyle" />
     </template>
     <div class="tab-layout-router-area" :style="pageStyle">
       <div class="tab-layout-router">
@@ -43,20 +45,12 @@
 </template>
 
 <script>
-import SiderView from "./components/SiderView"
-import HeaderView from "./components/HeaderView"
 
 export default {
   name: 'TabLayout',
-  components: {
-    SiderView: SiderView,
-    HeaderView: HeaderView
-  },
-  props: ['type', 'user', 'menu', 'depend'],
+  props: ['page', 'depend'],
   data() {
-    return {
-      page: this._func.page
-    }
+    return {}
   },
   computed: {
     dependLoad() {
