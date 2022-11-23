@@ -13,8 +13,10 @@ const config = {
   publicPath: './',
   pages: {
     index: {
-      entry: 'src/main.js', // 入口文件
-      title: setting.page.title
+      entry: 'src/pages/index/main.js',
+      // 在 dist/index.html 的输出
+      filename: 'index.html',
+      title: setting.page.index.title
     }
   },
   configureWebpack: config => {

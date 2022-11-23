@@ -1,4 +1,4 @@
-import router from '@/router'
+import router from '@/pages/index/router'
 import _func from 'complex-func'
 import user from '@/main/data/user'
 import { loadDepend } from './depend'

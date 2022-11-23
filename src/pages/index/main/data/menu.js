@@ -1,7 +1,7 @@
 import _func from 'complex-func'
 import { BaseData } from 'complex-data'
 import api from '@/main/api/index'
-import router from '@/router'
+import router from '@/pages/index/router'
 
 
 const baseMenu = [
