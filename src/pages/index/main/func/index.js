@@ -30,7 +30,12 @@ let _func = init({
           fail: function (tokenName, ruleItem) {
             console.error(tokenName, ruleItem)
           },
-          data: {}
+          data: {
+            token: {
+              require: true,
+              location: 'header'
+            }
+          }
         },
         methods: {
           checkUrl(url) {

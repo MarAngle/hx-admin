@@ -19,7 +19,7 @@ function getUserById(id) {
     const item = userList[i]
     if (item.id == id) {
       return item
-    } 
+    }
   }
 }
 
@@ -28,6 +28,7 @@ let id = 2
 export default {
   login: {
     name: '登录',
+    token: false,
     url: 'login',
     urlConfig: {
       pre: '',
@@ -37,12 +38,16 @@ export default {
     data: ['data'],
     mock(requireData) {
       return {
-        data: getUserById(1)
+        data: {
+          info: getUserById(1),
+          token: 1
+        }
       }
     }
   },
   userInfo: {
     name: '用户信息',
+    token: false,
     url: 'userInfo',
     urlConfig: {
       pre: '',

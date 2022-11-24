@@ -41,7 +41,9 @@ let user = new InfoData({
       return new Promise((resolve, reject) => {
         this.setStatus('logining', 'login')
         api.login(postdata).then(res => {
-          let userInfo = res.data.data
+          let userInfo = res.data.data.info
+          let token = res.data.data.token
+          _func.setToken('token', token)
           this.setInfo(userInfo)
           this.setStatus('logined', 'login')
           this.loadData(true, true).then(res => {
@@ -53,6 +55,10 @@ let user = new InfoData({
           reject(err)
         })
       })
+    },
+    clearInfo() {
+      this.formatData(null)
+      _func.setLocalData('userInfo', null)
     },
     setInfo(userInfo, unSave) {
       this.formatData(userInfo)
@@ -104,13 +110,18 @@ let user = new InfoData({
     },
     logout() {
       return new Promise((resolve, reject) => {
-        this.setInfo()
-        this.setStatus('unload', 'login')
-        this.setStatus('unlogin', 'load')
+        this.reset()
         window.location.reload()
         resolve()
       })
     }
+  }
+})
+
+user.onLife('reseted', {
+  data: (instantiater, resetOption) => {
+    user.clearInfo()
+    _func.setToken('token', undefined)
   }
 })
 
