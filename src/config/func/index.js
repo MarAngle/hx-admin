@@ -286,6 +286,7 @@ export const init = function(option = {}) {
     },
     require: option.require
   })
+  _func.setLocalDataPre(option.localPre || 'pure-admin-')
   return _func
 }
 

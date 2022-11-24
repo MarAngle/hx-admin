@@ -1,5 +1,4 @@
 
-
 const userList = [
   {
     id: 1,
@@ -14,6 +13,16 @@ const userList = [
     status: 1
   }
 ]
+
+function getUserById(id) {
+  for (let i = 0; i < userList.length; i++) {
+    const item = userList[i]
+    if (item.id == id) {
+      return item
+    } 
+  }
+}
+
 let id = 2
 
 export default {
@@ -28,9 +37,7 @@ export default {
     data: ['data'],
     mock(requireData) {
       return {
-        id: 1,
-        name: '测试',
-        platform: 1
+        data: getUserById(1)
       }
     }
   },
@@ -45,11 +52,7 @@ export default {
     data: ['data'],
     mock(requireData) {
       return {
-        data: {
-          id: 1,
-          name: '测试',
-          platform: 1
-        }
+        data: getUserById(1)
       }
     }
   },
@@ -98,14 +101,11 @@ export default {
     method: 'post',
     data: ['data'],
     mock({ data }) {
-      for (let i = 0; i < userList.length; i++) {
-        const item = userList[i]
-        if (item.id == data.id) {
-          for (const prop in data) {
-            item[prop] = data[prop]
-          }
-          break
-        } 
+      let item = getUserById(data.id)
+      if (item) {
+        for (const prop in data) {
+          item[prop] = data[prop]
+        }
       }
       return {
         data: null

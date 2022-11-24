@@ -45,6 +45,7 @@ let user = new InfoData({
       return new Promise((resolve, reject) => {
         api.login(postdata).then(res => {
           let userInfo = res.data.data
+          console.log(userInfo, res)
           this.setInfo(userInfo)
           resolve(res)
         }, err => {
