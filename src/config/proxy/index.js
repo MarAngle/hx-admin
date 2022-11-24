@@ -1,17 +1,19 @@
 const urlDict = {
   gateway: {
-    default: 'https://gateway-dev.wuzheng.com.cn/',
-    dev: 'https://gateway-dev.wuzheng.com.cn/',
-    test: 'https://gateway-test.wuzheng.com.cn/',
-    prod: 'https://gateway.wuzheng.com.cn/'
+    default: 'https://wxz-forage-gateway-test.wuzheng.com.cn/',
+    dev: 'https://wxz-forage-gateway-test.wuzheng.com.cn/',
+    test: 'https://wxz-forage-gateway-test.wuzheng.com.cn/',
+    prod: 'https://wxz-forage-gateway.wuzheng.com.cn/'
   }
 }
 
 const proxy = {
-  run: true,
+  run: false,
   urlDict: urlDict,
   data: {}
 }
+
+// proxy.run = true
 
 const buildProp = function(type, prop) {
   return `/${type}_${prop}`
@@ -36,5 +38,6 @@ if (proxy.run) {
 module.exports = {
   run: proxy.run,
   data: proxy.data,
+  urlDict: urlDict,
   buildProp: buildProp
 }

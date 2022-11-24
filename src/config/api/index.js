@@ -1,7 +1,8 @@
 import _func from 'complex-func'
 import { format } from './mock'
 
-const mock = true
+let mock = false
+mock = true
 
 function appendProp(requireData, propList, args) {
   if (propList && propList.length > 0 && args && args.length > 0) {
