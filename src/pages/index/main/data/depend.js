@@ -9,7 +9,7 @@ let depend = new BaseData({
   methods: {
     getData(force) {
       return new Promise((resolve, reject) => {
-        user.loadData(true).then(res => {
+        user.loadData().then(res => {
           menu.loadData(force).then(res => {
             resolve(res)
           }, err => {

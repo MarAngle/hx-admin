@@ -6,6 +6,29 @@ import { userDict } from '@index/main/complex/dict/user'
 let user = new InfoData({
   name: '用户信息',
   prop: 'userData',
+  status: {
+    list: [
+      {
+        prop: 'login',
+        data: {
+          list: [
+            {
+              value: 'unlogin',
+              label: '未登录'
+            },
+            {
+              value: 'logining',
+              label: '登录中'
+            },
+            {
+              value: 'logined',
+              label: '已登录'
+            }
+          ]
+        }
+      },
+    ]
+  },
   dictionary: {
     id: {
       prop: 'id',
@@ -16,11 +39,16 @@ let user = new InfoData({
   methods: {
     login(postdata) {
       return new Promise((resolve, reject) => {
+        this.setStatus('logining', 'login')
         api.login(postdata).then(res => {
           let userInfo = res.data.data
           this.setInfo(userInfo)
-          resolve(res)
+          this.setStatus('logined', 'login')
+          this.loadData(true, true).then(res => {
+            resolve(res)
+          })
         }, err => {
+          this.setStatus('unlogin', 'login')
           console.error(err)
           reject(err)
         })
@@ -34,7 +62,9 @@ let user = new InfoData({
     },
     getUserInfo(userId) {
       return new Promise((resolve, reject) => {
-        api.userInfo(userId).then(res => {
+        api.userInfo({
+          id: userId
+        }).then(res => {
           if (res.data.data) {
             resolve({ status: 'success', data: res.data.data })
           } else {
@@ -45,24 +75,28 @@ let user = new InfoData({
         })
       })
     },
-    getData () {
+    getData (fromLogin) {
       return new Promise((resolve, reject) => {
-        this.getUserInfo(this.getItem('id')).then(res => {
-          this.setInfo(res.data)
-          resolve(res)
-        }, err => {
-          console.error(err)
-          // 用户数据获取失败直接退出
-          this.logoutFail()
-          reject(err)
-        })
+        if (!fromLogin) {
+          this.getUserInfo(this.getItem('id')).then(res => {
+            this.setInfo(res.data)
+            resolve(res)
+          }, err => {
+            console.error(err)
+            // 用户数据获取失败直接退出
+            this.logoutFail()
+            reject(err)
+          })
+        } else {
+          resolve({ status: 'success' })
+        }
       })
     },
     autoLoad() {
       let userInfo = _func.getLocalData('userInfo')
       if (userInfo) {
         this.setInfo(userInfo, true)
-        this.setStatus('loaded', 'load')
+        this.setStatus('logined', 'login')
       }
     },
     logoutFail() {
@@ -71,6 +105,8 @@ let user = new InfoData({
     logout() {
       return new Promise((resolve, reject) => {
         this.setInfo()
+        this.setStatus('unload', 'login')
+        this.setStatus('unlogin', 'load')
         window.location.reload()
         resolve()
       })

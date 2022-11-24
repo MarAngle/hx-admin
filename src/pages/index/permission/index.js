@@ -8,8 +8,8 @@ const loginPath = ['/login']
 const whitePath = [].concat(loginPath)
 
 router.beforeEach((to, from, next) => {
-  let load = user.getStatus('load').value
-  if (load == 'loaded') {
+  let login = user.getStatus('login').value
+  if (login == 'logined') {
     if (loginPath.indexOf(to.path) !== -1) {
       next({ path: '/' })
     } else {
