@@ -12,12 +12,18 @@ const router = new VueRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('@index/views/login/index.vue')
+      component: () => import('@index/views/login/index.vue'),
+      meta: {
+        name: '登录'
+      }
     },
     {
       path: '/404',
       name: '404',
-      component: () => import('@/config/views/404.vue')
+      component: () => import('@/config/views/404.vue'),
+      meta: {
+        name: '404'
+      }
     },
 
   ]
