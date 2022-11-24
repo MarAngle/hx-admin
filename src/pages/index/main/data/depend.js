@@ -1,5 +1,6 @@
 import _func from 'complex-func'
 import { BaseData } from 'complex-data'
+import user from './user'
 import menu from './menu'
 
 let depend = new BaseData({
@@ -7,7 +8,17 @@ let depend = new BaseData({
   prop: 'dependData',
   methods: {
     getData(force) {
-      return menu.loadData(force)
+      return new Promise((resolve, reject) => {
+        user.loadData(true).then(res => {
+          menu.loadData(force).then(res => {
+            resolve(res)
+          }, err => {
+            reject(err)
+          })
+        }, err => {
+          reject(err)
+        })
+      })
     }
   }
 })

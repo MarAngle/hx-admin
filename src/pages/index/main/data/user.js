@@ -15,7 +15,16 @@ let user = new InfoData({
   },
   methods: {
     login(postdata) {
-      return this.loadData(true, postdata)
+      return new Promise((resolve, reject) => {
+        api.login(postdata).then(res => {
+          let userInfo = res.data.data
+          this.setInfo(userInfo)
+          resolve(res)
+        }, err => {
+          console.error(err)
+          reject(err)
+        })
+      })
     },
     setInfo(userInfo, unSave) {
       this.formatData(userInfo)
@@ -23,33 +32,28 @@ let user = new InfoData({
         _func.setLocalData('userInfo', userInfo)
       }
     },
-    refreshData() {
+    getUserInfo(userId) {
       return new Promise((resolve, reject) => {
-        api.userInfo(this.getItem('id')).then(res => {
+        api.userInfo(userId).then(res => {
           if (res.data.data) {
-            this.setInfo(res.data.data)
+            resolve({ status: 'success', data: res.data.data })
           } else {
-            // 用户数据为空进行退出
-            this.logoutFinal()
+            reject({ status: 'fail', code: 'empty' })
           }
-          resolve(res)
         }, err => {
-          console.error(err)
-          // 用户数据获取失败直接退出
-          this.logoutFinal()
           reject(err)
         })
       })
     },
-    getData (postdata) {
+    getData () {
       return new Promise((resolve, reject) => {
-        api.login(postdata).then(res => {
-          let userInfo = res.data.data
-          console.log(userInfo, res)
-          this.setInfo(userInfo)
+        this.getUserInfo(this.getItem('id')).then(res => {
+          this.setInfo(res.data)
           resolve(res)
         }, err => {
           console.error(err)
+          // 用户数据获取失败直接退出
+          this.logoutFail()
           reject(err)
         })
       })
@@ -61,13 +65,13 @@ let user = new InfoData({
         this.setStatus('loaded', 'load')
       }
     },
-    logoutFinal() {
-      this.setInfo()
-      window.location.reload()
+    logoutFail() {
+      this.logout()
     },
     logout() {
       return new Promise((resolve, reject) => {
         this.setInfo()
+        window.location.reload()
         resolve()
       })
     }
