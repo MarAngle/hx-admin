@@ -4,11 +4,14 @@
   min-height: 100%;
   background: #f0f2f5 url(~@/assets/login/background.svg) no-repeat 50%;
   background-size: 100%;
-  //padding: 50px 0 84px;
   position: relative;
-  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   .login-form{
     width: 368px;
+    padding: 60px 0;
     margin: 0 auto;
     .login-form-title{
       h4{
@@ -45,8 +48,8 @@
             size="large"
             v-decorator="['username', rules.username]"
             type="text"
-            placeholder="请输入帐户"
-            addon-before="账户"
+            placeholder="请输入账号"
+            addon-before="账号"
           >
           </a-input>
         </a-form-item>
