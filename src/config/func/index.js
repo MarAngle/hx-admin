@@ -17,6 +17,9 @@ const defaultMethods = {
       if (this.isUrlPre(preUrl)) {
         return preUrl + url
       }
+      if (payload.type) {
+        preUrl += payload.type
+      }
       return preUrl + url
     } else {
       return url
