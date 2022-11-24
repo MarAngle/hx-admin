@@ -2,6 +2,7 @@ import _func from 'complex-func'
 import { BaseData } from 'complex-data'
 import api from '@api/index'
 import router from '@index/router'
+import user from './user'
 
 const baseMenu = [
   {
@@ -49,7 +50,7 @@ let menu = new BaseData({
     },
     getData () {
       return new Promise((resolve, reject) => {
-        api.menuList().then(res => {
+        api.menuList(user.getItem('id')).then(res => {
           let olist = res.data.data || []
           let syncMenu = baseMenu.concat(olist)
           this.data.list = this.formatMenu(syncMenu, 0)
