@@ -1,12 +1,12 @@
 <style lang='less' scoped>
-.local-list-view{
-  .local-list-view-header-menu{
+.wz-complex-list-view{
+  .wz-complex-list-view-header-menu{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
-    .local-list-view-header-menu-item{
+    .wz-complex-list-view-header-menu-item{
       height: 40px;
       display: flex;
       flex-direction: row;
@@ -19,8 +19,8 @@
 }
 </style>
 <template>
-  <div class="local-list-view" >
-    <div class="local-list-view-area">
+  <div class="wz-complex-list-view" >
+    <div class="wz-complex-list-view-area">
       <a-spin :spinning="loadStatus == 'loading'">
         <ComplexModAutoMenu
           v-if="currentSearchOption.type"
@@ -41,8 +41,8 @@
           >
           </ComplexFormView>
           <div v-else-if="currentSearchOption.type == 'list'">
-            <div class="local-list-view-header-menu">
-              <div class="local-list-view-header-menu-item">
+            <div class="wz-complex-list-view-header-menu">
+              <div class="wz-complex-list-view-header-menu-item">
                 <a-button
                   v-for="val in currentSearchOption.list"
                   :key="val.act"
@@ -71,7 +71,7 @@
                     :class="formatItemClass(val, slotScope)"
                   >
                     <a class="ant-dropdown-link" @click="e => e.preventDefault()">
-                      {{ val.name }} <a-icon type="down" />
+                      {{ formatItemName(val, slotScope) }} <a-icon type="down" />
                     </a>
                     <a-menu slot="overlay">
                       <a-menu-item
@@ -81,7 +81,8 @@
                         :class="formatItemClass(value, slotScope)"
                         @click="onItemMenu(slotScope, value.act)"
                       >
-                        {{ value.name }}
+                        <a-icon v-if="value.icon" :type="value.icon" /> 
+                        {{ formatItemName(value, slotScope) }}
                       </a-menu-item>
                     </a-menu>
                   </a-dropdown>
@@ -90,7 +91,7 @@
                     :style="val.style"
                     :class="formatItemClass(val, slotScope)"
                     @click="onItemMenu(slotScope, val.act)"
-                  >{{ val.name }}</a>
+                  ><a-icon v-if="val.icon" :type="val.icon" /> {{ formatItemName(val, slotScope) }}</a>
                 </span>
               </template>
             </slot>
@@ -146,6 +147,13 @@ export default {
     maindata: {
       type: Object,
       required: true
+    },
+    actOption: {
+      type: Object,
+      required: false,
+      default: function() {
+        return {}
+      }
     },
     searchOption: {
       type: Object,
@@ -215,12 +223,10 @@ export default {
   },
   computed: {
     loadStatus () { // 数据加载判断值 'unload' 'loading' 'loaded'
-      let loadStatus = this.maindata.getStatus('load')
-      return loadStatus.value
+      return this.maindata.getStatus('load').value
     },
     operateStatus () { // 操作判断值 operating operated
-      let operateStatus = this.maindata.getStatus()
-      return operateStatus.value
+      return this.maindata.getStatus().value
     },
     choiceList() {
       return this.maindata.getChoiceData('list')
@@ -253,8 +259,7 @@ export default {
       return currentItemOption
     },
     searchMenuList() {
-      let list = this.maindata.getModule('search').menu
-      list = list.concat(this.currentSearchOption.list)
+      const list = this.maindata.getModule('search').menu.concat(this.currentSearchOption.list)
       for (let i = 0; i < list.length; i++) {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
         this.$set(list[i], 'loading', this.operateStatus === 'operating')
@@ -262,7 +267,7 @@ export default {
       return list
     },
     currentEditOption() {
-      let currentEditOption = {
+      const currentEditOption = {
         ...this.editOption
       }
       if (!currentEditOption.formatName) {
@@ -344,7 +349,7 @@ export default {
       } else if (act == 'build') {
         this.openEdit(this.currentEditOption.formatName('新增' + this.maindata.name, act), 'build', 'build', null, 'buildItem')
       } else if (act == 'change') {
-        this.openEdit(this.currentEditOption.formatName('编辑' + this.maindata.name, act), 'change', 'change', this.choiceList[0], 'changeItem')
+        this.changeItem(this.currentEditOption.formatName('编辑' + this.maindata.name, act), this.choiceList[0])
       } else if (act == 'delete') {
         this._func.confirm(this.currentSearchOption.deleteMsg || '确认删除吗？', '警告', (act) => {
           if (act == 'ok') {
@@ -355,6 +360,17 @@ export default {
         this.maindata.triggerMethod('exportData').then(() => {}, () => {})
       } else if (act == 'import') {
         this.maindata.triggerMethod('importData').then(() => {}, () => {})
+      }
+      this.$emit('searchEnd', act)
+    },
+    changeItem(title, record) {
+      if (!this.actOption.info) {
+        this.openEdit(title, 'change', 'change', record, 'changeItem')
+      } else {
+        const methodName = this.actOption.info === true ? 'getInfo' : this.actOption.info
+        this.maindata.triggerMethod(methodName, record).then(() => {
+          this.openEdit(title, 'change', 'change', record, 'changeItem')
+        }).catch(err => { console.error(err) })
       }
     },
     getEditView() {
@@ -391,6 +407,13 @@ export default {
       }
       return classList.join(' ')
     },
+    formatItemName(item, { record, index }) {
+      let name = item.name
+      if (item.format) {
+        name = item.format(name, record, index)
+      }
+      return name
+    },
     onItemMenu({ record, index }, act) {
       if (act.indexOf('emit') > -1) {
         this.$emit('item', act, record, index)
@@ -401,8 +424,9 @@ export default {
           }
         })
       } else if (act == 'change') {
-        this.openEdit(this.currentEditOption.formatName('编辑' + this.maindata.name, act), 'change', 'change', record, 'changeItem')
+        this.changeItem(this.currentEditOption.formatName('编辑' + this.maindata.name, act), record)
       }
+      this.$emit('itemEnd', act, record, index)
     },
     onDefaultMenuBySearch() {
       this.maindata.setSearch()
