@@ -35,7 +35,7 @@ const defaultInitOption = {
     }
   },
   extradata: {},
-  pagination: true
+  pagination: false
 }
 
 class ItemList extends ListData {
@@ -50,8 +50,8 @@ class ItemList extends ListData {
     return new Promise((resolve, reject) => {
       let postdata = this.getSearch()
       postdata.status = 'tradeItemList'
-      postdata.pageNo = this.getPageData('page')
-      postdata.pageSize = this.getPageData('size')
+      // postdata.pageNo = this.getPageData('page')
+      // postdata.pageSize = this.getPageData('size')
       api.itemApi(postdata).then(res => {
         this.formatData(res.data.data, res.data.totalCount)
         resolve(res)
@@ -62,8 +62,9 @@ class ItemList extends ListData {
   }
   buildItem ({ postdata }) {
     return new Promise((resolve, reject) => {
+      postdata.status = 'tradeItemCreate'
       api.itemApi(postdata).then(res => {
-        _func.showmsg('新增用户成功！', 'success')
+        _func.showmsg('新增产品成功！', 'success')
         this.reloadData({
           sync: true,
           page: false,
@@ -82,7 +83,7 @@ class ItemList extends ListData {
       let prop = this.getDictionaryPropData('prop')
       postdata[prop] = targetitem[prop]
       api.itemApi(postdata).then(res => {
-        _func.showmsg('修改用户成功！', 'success')
+        _func.showmsg('修改产品成功！', 'success')
         this.reloadData({
           sync: true,
           page: false,

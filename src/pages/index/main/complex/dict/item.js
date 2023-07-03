@@ -1,5 +1,42 @@
 import select from "@index/main/select"
 import Dictionary from "./build/Dictionary"
+import api from "@/config/api"
+
+
+function mutipleFileUpload(fileList) {
+  return new Promise((resolve) => {
+    let resList = []
+    function next(fileList, index) {
+      if (index < fileList.length) {
+        fileUpload(fileList[index]).then(res => {
+          resList.push(res)
+          next(fileList, index + 1)
+        }, err => {
+          next(fileList, index + 1)
+        })
+      } else {
+        resolve(resList)
+      }
+    }
+    next(fileList, 0)
+  })
+}
+function fileUpload(file) {
+  return new Promise((resolve, reject) => {
+    api.itemImgUpload({
+      status: 'pictureUpload',
+      file: file
+    }).then(res => {
+      resolve({
+        data: res.data.data.path,
+        url: res.data.data.path,
+        name: file.name
+      })
+    }, err => {
+      reject(err)
+    })
+  })
+}
 
 // {
 //   "commodity_id": "4",
@@ -153,6 +190,66 @@ export const itemDict = new Dictionary({
         build: true
       }
     }),
+    {
+      prop: 'main_pic',
+      name: 'LOGO',
+      originprop: 'main_pic',
+      originfrom: 'list',
+      mod: {
+        list: {},
+        edit: {
+          type: 'file',
+          placeholder: '请上传照片',
+          required: true,
+          option: {
+            accept: '.jpg,.jpeg,.png',
+            multiple: true,
+            maxNum: 10,
+            maxSize: 10,
+            upload: true,
+            fileUpload({ file }) {
+              return mutipleFileUpload(file)
+            }
+          }
+        },
+        build: {
+          type: 'edit'
+        },
+        change: {
+          type: 'edit'
+        }
+      }
+    },
+    {
+      prop: 'detail_pic',
+      name: '详情',
+      originprop: 'detail_pic',
+      originfrom: 'list',
+      mod: {
+        list: {},
+        edit: {
+          type: 'file',
+          placeholder: '请上传照片',
+          required: true,
+          option: {
+            accept: '.jpg,.jpeg,.png',
+            multiple: true,
+            maxNum: 10,
+            maxSize: 10,
+            upload: true,
+            fileUpload({ file }) {
+              return mutipleFileUpload(file)
+            }
+          }
+        },
+        build: {
+          type: 'edit'
+        },
+        change: {
+          type: 'edit'
+        }
+      }
+    },
     {
       prop: 'menu',
       name: '操作',

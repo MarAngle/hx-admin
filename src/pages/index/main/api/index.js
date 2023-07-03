@@ -27,7 +27,7 @@ function checkApiNext(item, keys, index, key) {
   for (let i = index + 1; i < keys.length; i++) {
     const nextKey = keys[i]
     let nextItem = data[nextKey]
-    if (item.url == nextItem.url && item.urlConfig.local == nextItem.urlConfig.local && item.urlConfig.type == nextItem.urlConfig.type && item.urlConfig.sync == nextItem.urlConfig.sync) {
+    if (item.url == nextItem.url && item.method == nextItem.method && item.urlConfig.type == nextItem.urlConfig.type && item.urlConfig.sync == nextItem.urlConfig.sync) {
       _func.exportMsg(`存在重复api(${key}/${nextKey})!`)
     }
   }
