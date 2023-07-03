@@ -1,9 +1,9 @@
 const urlDict = {
   gateway: {
-    default: 'https://wxz-forage-gateway-test.wuzheng.com.cn/',
-    dev: 'https://wxz-forage-gateway-test.wuzheng.com.cn/',
-    test: 'https://wxz-forage-gateway-test.wuzheng.com.cn/',
-    prod: 'https://wxz-forage-gateway.wuzheng.com.cn/'
+    default: 'https://tb.ihuanxi.cn',
+    dev: 'https://tb.ihuanxi.cn',
+    test: 'https://tb.ihuanxi.cn',
+    prod: 'https://tb.ihuanxi.cn'
   }
 }
 

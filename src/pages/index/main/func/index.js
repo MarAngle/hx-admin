@@ -51,10 +51,10 @@ let _func = init({
             }
             if (response.data) {
               res.data = response.data
-              if (response.data.result == 'SUCCEED') {
+              if (response.data.success) {
                 res.status = 'success'
                 res.msg = response.data.errorMessage
-              } else if (response.data.result == 'LOGIN') {
+              } else if (response.data.login) {
                 res.status = 'login'
                 res.code = response.data.errorCode
                 res.msg = response.data.errorMessage

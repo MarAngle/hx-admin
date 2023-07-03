@@ -12,7 +12,24 @@ const baseMenu = [
     icon: 'home',
     menu: true,
     hidden: false
-  }
+  },
+  {
+    path: '/item',
+    name: 'ITEM',
+    component: 'config/layout/PureLayout.vue',
+    icon: 'setting',
+    menu: true,
+    hidden: false,
+    children: [
+      {
+        path: '/item/list',
+        name: 'LIST',
+        component: 'pages/index/views/item/list/index.vue',
+        menu: true,
+        hidden: false,
+      }
+    ]
+  },
 ]
 
 let menu = new BaseData({
@@ -49,18 +66,23 @@ let menu = new BaseData({
       })
     },
     getData () {
-      return new Promise((resolve, reject) => {
-        api.menuList(user.getItem('id')).then(res => {
-          let olist = res.data.data || []
-          let syncMenu = baseMenu.concat(olist)
-          this.data.list = this.formatMenu(syncMenu, 0)
-          this.addRoute(this.data.list)
-          resolve(res)
-        }, err => {
-          console.error(err)
-          reject(err)
-        })
-      })
+      // return new Promise((resolve, reject) => {
+      //   api.menuList(user.getItem('id')).then(res => {
+      //     let olist = res.data.data || []
+      //     let syncMenu = baseMenu.concat(olist)
+      //     this.data.list = this.formatMenu(syncMenu, 0)
+      //     this.addRoute(this.data.list)
+      //     resolve(res)
+      //   }, err => {
+      //     console.error(err)
+      //     reject(err)
+      //   })
+      // })
+      let olist = []
+      let syncMenu = baseMenu.concat(olist)
+      this.data.list = this.formatMenu(syncMenu, 0)
+      this.addRoute(this.data.list)
+      return Promise.resolve({ status: 'success' })
     },
     addRoute(routeList) {
       router.addRoute({

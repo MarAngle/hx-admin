@@ -30,15 +30,13 @@ function parse(option, ...args) {
     token: option.token
   }
   appendProp(requireData, option.data, args)
-  if (!mock) {
+  if (!mock || !option.mock) {
     let promise = _func[method](requireData)
     return promise
   } else {
     return Promise.resolve(format(option.mock(requireData)))
   }
 }
-
-
 
 export const init = function(data) {
   for (const prop in data) {
