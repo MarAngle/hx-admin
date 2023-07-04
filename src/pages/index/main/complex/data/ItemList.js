@@ -230,6 +230,12 @@ const defaultInitOption = {
           },
           edit: {
             type: 'file',
+            slot: {
+              type: 'model',
+              render({ option }) {
+                return _func.$EventBus.$createElement(UploadPic, option)
+              }
+            },
             placeholder: '请上传照片',
             required: true,
             option: {
@@ -358,6 +364,21 @@ class ItemList extends ListData {
       postdata.commodity_marketing_id = 1 // 营销语id
       postdata.commodity_resourceniche_id = 1 // 资源位id
       postdata.sale_status = 1
+      postdata.order_by = 1
+      postdata.pic = {
+        main_list: postdata.main_pic.map(pic => {
+          return {
+            path: pic
+          }
+        }),
+        detail_list: postdata.detail_pic.map(pic => {
+          return {
+            path: pic
+          }
+        })
+      }
+      delete postdata.main_pic
+      delete postdata.detail_pic
       api.itemApi(postdata).then(res => {
         _func.showmsg('新增产品成功！', 'success')
         this.reloadData({
