@@ -3,6 +3,7 @@ import { ListData } from 'complex-data'
 import api from '@api/index'
 import select from "@index/main/select"
 import PicView from '@/config/components/mod/PicView.vue'
+import UploadPic from '@/config/components/mod/UploadPic.vue'
 
 function mutipleFileUpload(fileList) {
   return new Promise((resolve) => {
@@ -221,8 +222,7 @@ const defaultInitOption = {
                 props: {
                   list: text,
                   itemStyle: {
-                    width: '40px',
-                    height: '30px'
+                    width: '50px'
                   }
                 }
               })
@@ -263,12 +263,7 @@ const defaultInitOption = {
                 props: {
                   list: text,
                   itemStyle: {
-                    width: '40px',
-                    height: '30px'
-                  },
-                  imgStyle: {
-                    width: '40px',
-                    height: 'auto'
+                    width: '50px'
                   }
                 }
               })
@@ -276,6 +271,12 @@ const defaultInitOption = {
           },
           edit: {
             type: 'file',
+            slot: {
+              type: 'model',
+              render({ option }) {
+                return _func.$EventBus.$createElement(UploadPic, option)
+              }
+            },
             placeholder: '请上传照片',
             required: true,
             option: {
