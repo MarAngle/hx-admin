@@ -31,6 +31,21 @@ let data = {
         _switch: true
       }
     ]
+  }),
+  itemStatus: new SelectList({
+    name: '产品状态',
+    list: [
+      {
+        value: 0,
+        label: '下架',
+        _switch: false
+      },
+      {
+        value: 1,
+        label: '上架',
+        _switch: true
+      }
+    ]
   })
 }
 
