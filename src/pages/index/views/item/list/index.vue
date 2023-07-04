@@ -27,17 +27,17 @@ export default {
       maindata: maindata,
       itemOption: {
         list: [
-          {
-            type: 'menu',
-            name: '修改',
-            act: 'change'
-          },
-          {
-            type: 'menu',
-            name: '删除',
-            act: 'delete',
-            classList: ['local-color-danger']
-          }
+          // {
+          //   type: 'menu',
+          //   name: '修改',
+          //   act: 'change'
+          // },
+          // {
+          //   type: 'menu',
+          //   name: '删除',
+          //   act: 'delete',
+          //   classList: ['local-color-danger']
+          // }
         ]
       }
     }
