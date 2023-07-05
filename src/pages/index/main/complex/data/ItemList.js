@@ -41,7 +41,7 @@ function fileUpload(file) {
 }
 
 const defaultInitOption = {
-  name: '产品列表',
+  name: '产品',
   prop: 'itemList',
   dictionary: {
     layout: {
@@ -363,7 +363,6 @@ class ItemList extends ListData {
       postdata.evaluate = 0 // 评价
       postdata.commodity_marketing_id = 1 // 营销语id
       postdata.commodity_resourceniche_id = 1 // 资源位id
-      postdata.sale_status = 1
       postdata.order_by = 1
       postdata.pic = {
         main_list: postdata.main_pic.map(pic => {
