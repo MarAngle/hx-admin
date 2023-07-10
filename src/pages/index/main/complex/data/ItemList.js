@@ -71,7 +71,7 @@ const defaultInitOption = {
       },
       {
         prop: 'sku_id',
-        name: '商品编号',
+        name: '商品SKU',
         originprop: 'sku_id',
         originfrom: 'list',
         mod: {
@@ -173,6 +173,54 @@ const defaultInitOption = {
             option: {
               min: 0,
               precision: 2,
+              step: 1
+            }
+          },
+          build: {
+            type: 'edit'
+          },
+          change: {
+            type: 'edit'
+          }
+        }
+      },
+      {
+        prop: 'sold_quantity',
+        name: '销量',
+        originprop: 'sold_quantity',
+        originfrom: 'list',
+        mod: {
+          list: {},
+          edit: {
+            type: 'inputNumber',
+            required: true,
+            option: {
+              min: 0,
+              precision: 0,
+              step: 1
+            }
+          },
+          build: {
+            type: 'edit'
+          },
+          change: {
+            type: 'edit'
+          }
+        }
+      },
+      {
+        prop: 'effective_day',
+        name: '有效期天数',
+        originprop: 'effective_day',
+        originfrom: 'list',
+        mod: {
+          list: {},
+          edit: {
+            type: 'inputNumber',
+            required: true,
+            option: {
+              min: 0,
+              precision: 0,
               step: 1
             }
           },
@@ -359,7 +407,6 @@ class ItemList extends ListData {
   buildItem ({ postdata }) {
     return new Promise((resolve, reject) => {
       postdata.status = 'tradeItemCreate'
-      postdata.sold_quantity = 0 // 销量
       postdata.evaluate = 0 // 评价
       postdata.commodity_marketing_id = 1 // 营销语id
       postdata.commodity_resourceniche_id = 1 // 资源位id
