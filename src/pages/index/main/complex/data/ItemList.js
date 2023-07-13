@@ -17,12 +17,12 @@ const defaultInitOption = {
       }
     },
     id: {
-      prop: 'id',
+      prop: 'commodity_id',
       data: ''
     },
     list: [
       {
-        prop: 'id',
+        prop: 'commodity_id',
         name: 'ID',
         originprop: 'commodity_id',
         originfrom: 'list',
@@ -220,8 +220,12 @@ const defaultInitOption = {
           }
         },
         edit: {
-          change: true,
-          build: true
+          change: {
+            required: true
+          },
+          build: {
+            required: true
+          }
         }
       }),
       {

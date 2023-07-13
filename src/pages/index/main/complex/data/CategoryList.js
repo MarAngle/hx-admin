@@ -22,12 +22,12 @@ const defaultInitOption = {
       }
     },
     id: {
-      prop: 'id',
+      prop: 'zone_id',
       data: ''
     },
     list: [
       {
-        prop: 'id',
+        prop: 'zone_id',
         name: 'ID',
         originprop: 'zone_id',
         originfrom: 'list',
@@ -121,8 +121,12 @@ const defaultInitOption = {
           }
         },
         edit: {
-          change: true,
-          build: true
+          change: {
+            required: true
+          },
+          build: {
+            required: true
+          }
         }
       }),
       {
