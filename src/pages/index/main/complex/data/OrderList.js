@@ -3,12 +3,46 @@ import { ListData } from 'complex-data'
 import api from '@api/index'
 import select from "@index/main/select"
 import PicView from '@/config/components/mod/PicView.vue'
-import UploadPicMultiple from '@/config/components/mod/UploadPicMultiple.vue'
-import { mutipleFileUpload } from '../utils'
+import UploadPic from '@/config/components/mod/UploadPic.vue'
+
+function mutipleFileUpload(fileList) {
+  return new Promise((resolve) => {
+    let resList = []
+    function next(fileList, index) {
+      if (index < fileList.length) {
+        fileUpload(fileList[index]).then(res => {
+          resList.push(res)
+          next(fileList, index + 1)
+        }, err => {
+          next(fileList, index + 1)
+        })
+      } else {
+        resolve(resList)
+      }
+    }
+    next(fileList, 0)
+  })
+}
+function fileUpload(file) {
+  return new Promise((resolve, reject) => {
+    api.itemImgUpload({
+      status: 'pictureUpload',
+      file: file
+    }).then(res => {
+      resolve({
+        data: res.data.data.path,
+        url: res.data.data.path,
+        name: file.name
+      })
+    }, err => {
+      reject(err)
+    })
+  })
+}
 
 const defaultInitOption = {
   name: '产品',
-  prop: 'itemList',
+  prop: 'orderList',
   dictionary: {
     layout: {
       default: {
@@ -247,7 +281,7 @@ const defaultInitOption = {
             slot: {
               type: 'model',
               render({ option }) {
-                return _func.$EventBus.$createElement(UploadPicMultiple, option)
+                return _func.$EventBus.$createElement(UploadPic, option)
               }
             },
             placeholder: '请上传照片',
@@ -294,7 +328,7 @@ const defaultInitOption = {
             slot: {
               type: 'model',
               render({ option }) {
-                return _func.$EventBus.$createElement(UploadPicMultiple, option)
+                return _func.$EventBus.$createElement(UploadPic, option)
               }
             },
             placeholder: '请上传照片',
@@ -348,7 +382,7 @@ const defaultInitOption = {
   pagination: false
 }
 
-class ItemList extends ListData {
+class OrderList extends ListData {
   constructor(option = {}) {
     let initOption = _func.setDataByDefault(option.init, defaultInitOption)
     if (option.format) {
@@ -359,7 +393,7 @@ class ItemList extends ListData {
   getData () {
     return new Promise((resolve, reject) => {
       let postdata = this.getSearch()
-      postdata.status = 'tradeItemList'
+      postdata.status = 'tradeOrderList'
       // postdata.pageNo = this.getPageData('page')
       // postdata.pageSize = this.getPageData('size')
       api.itemApi(postdata).then(res => {
@@ -427,6 +461,6 @@ class ItemList extends ListData {
   }
 }
 
-ItemList.$name = 'ItemList'
+OrderList.$name = 'OrderList'
 
-export default ItemList
+export default OrderList

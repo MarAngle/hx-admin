@@ -27,23 +27,15 @@ let id = 2
 
 export default {
   login: {
-    name: '登录',
+    name: '登录服务',
     token: false,
-    url: 'login',
+    url: '/tb_api/api/admin/admin_login.php',
     urlConfig: {
       pre: '',
       type: ''
     },
     method: 'post',
-    data: ['data'],
-    mock(requireData) {
-      return {
-        data: {
-          info: getUserById(1),
-          token: 1
-        }
-      }
-    }
+    data: ['data']
   },
   userInfo: {
     name: '用户信息',

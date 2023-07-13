@@ -32,6 +32,21 @@ let data = {
       }
     ]
   }),
+  categoryShow: new SelectList({
+    name: '专区展示',
+    list: [
+      {
+        value: 0,
+        label: '不展示',
+        _switch: false
+      },
+      {
+        value: 1,
+        label: '展示',
+        _switch: true
+      }
+    ]
+  }),
   itemStatus: new SelectList({
     name: '产品状态',
     list: [

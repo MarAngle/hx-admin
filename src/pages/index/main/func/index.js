@@ -31,7 +31,7 @@ let _func = init({
             console.error(tokenName, ruleItem)
           },
           data: {
-            token: {
+            AUTHORIZATION: {
               require: true,
               location: 'header'
             }

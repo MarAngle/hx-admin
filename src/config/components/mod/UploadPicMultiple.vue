@@ -93,7 +93,7 @@
       </slot>
     </span>
     <span class="complex-upload-pic-data" v-show="hasData">
-      <PicView :list="file.data ? [file.data] : []" :itemStyle="{ width: '80px' }" :imgStyle="{ height: 'auto' }" :remove="true" @remove="onRemove" />
+      <PicView :list="file.list" :complex="'data'" :itemStyle="{ width: '80px' }" :imgStyle="{ height: 'auto' }" :remove="true" @remove="onRemove" />
     </span>
   </span>
 </template>

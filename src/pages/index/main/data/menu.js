@@ -14,6 +14,23 @@ const baseMenu = [
     hidden: false
   },
   {
+    path: '/category',
+    name: 'CATEGORY',
+    component: 'config/layout/PureLayout.vue',
+    icon: 'setting',
+    menu: true,
+    hidden: false,
+    children: [
+      {
+        path: '/category/list',
+        name: 'LIST',
+        component: 'pages/index/views/category/list/index.vue',
+        menu: true,
+        hidden: false,
+      }
+    ]
+  },
+  {
     path: '/item',
     name: 'ITEM',
     component: 'config/layout/PureLayout.vue',
@@ -25,6 +42,23 @@ const baseMenu = [
         path: '/item/list',
         name: 'LIST',
         component: 'pages/index/views/item/list/index.vue',
+        menu: true,
+        hidden: false,
+      }
+    ]
+  },
+  {
+    path: '/order',
+    name: 'ORDER',
+    component: 'config/layout/PureLayout.vue',
+    icon: 'setting',
+    menu: true,
+    hidden: false,
+    children: [
+      {
+        path: '/order/list',
+        name: 'LIST',
+        component: 'pages/index/views/order/list/index.vue',
         menu: true,
         hidden: false,
       }

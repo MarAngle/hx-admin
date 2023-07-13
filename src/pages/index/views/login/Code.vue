@@ -21,9 +21,6 @@
       }
       margin-bottom: 24px;
     }
-    .code-menu{
-      cursor: pointer;
-    }
   }
   .login-footer {
     position: absolute;
@@ -66,11 +63,6 @@
             placeholder="请输入验证码"
             addon-before="验证码"
           >
-            <span
-              class="code-menu"
-              slot="addonAfter"
-              @click="getCode"
-            >{{ code.operate ? '发送中' : code.time === 0 ? '获取验证码' : code.time}}</span>
           </a-input>
         </a-form-item>
 
@@ -98,7 +90,6 @@
 <script>
 import user from '@index/main/data/user';
 import setting from '@/setting'
-import api from '@/config/api';
 
 
 export default {
@@ -111,11 +102,6 @@ export default {
       rules: {
         phone: { rules: [{ required: true, message: '请输入手机号!' }] },
         code: { rules: [{ required: true, message: '请输入验证码!', validator: 'click' }] }
-      },
-      code: {
-        disabled: false,
-        operate: false,
-        time: 0
       },
       loading: false
     }
@@ -133,53 +119,12 @@ export default {
       let redirect = this.$route.query.redirect || '/'
       this.$router.push(redirect)
     },
-    getCode() {
-      if (this.code.disabled || this.code.operate) {
-        return
-      }
-      this.form.validateFields(['phone'], { force: true }, (err, values) => {
-        if (!err) {
-          // this.code.operate = true
-          // api.login({
-          //   status: 'getCode',
-          //   mobile: values.phone
-          // }).then(res => {
-          //   this.code.disabled = true
-          //   this.code.operate = false
-          //   this.startCodeTime()
-          // }, err => {
-          //   this.code.operate = false
-          // })
-            this.code.disabled = true
-            this.code.operate = false
-            this.startCodeTime()
-        }
-      })
-    },
-    startCodeTime() {
-      this.code.time = 10
-      setTimeout(() => {
-        this.countCodeTime()
-      }, 1000)
-    },
-    countCodeTime() {
-      this.code.time--
-      if (this.code.time === 0) {
-        this.code.disabled = false
-      } else {
-        setTimeout(() => {
-          this.countCodeTime()
-        }, 1000)
-      }
-    },
     onLogin() {
       this.loading = true
       this.form.validateFields(['phone', 'code'], { force: true }, (err, values) => {
         if (!err) {
           let params = {
-            status: "login",
-            mobile: values.phone,
-            code: values.code
+            ...values
           }
           user.login(params).then(res => {
             this.success()

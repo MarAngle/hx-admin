@@ -41,9 +41,14 @@ let user = new InfoData({
       return new Promise((resolve, reject) => {
         this.setStatus('logining', 'login')
         api.login(postdata).then(res => {
-          let userInfo = res.data.data.info
+          let userInfo = {
+            id: '',
+            name: postdata.mobile,
+            platform: 'admin',
+            status: 1
+          }
           let token = res.data.data.token
-          _func.setToken('token', token)
+          _func.setToken('AUTHORIZATION', token)
           this.setInfo(userInfo)
           this.setStatus('logined', 'login')
           this.loadData(true, true).then(res => {
@@ -83,19 +88,20 @@ let user = new InfoData({
     },
     getData (fromLogin) {
       return new Promise((resolve, reject) => {
-        if (!fromLogin) {
-          this.getUserInfo(this.getItem('id')).then(res => {
-            this.setInfo(res.data)
-            resolve(res)
-          }, err => {
-            console.error(err)
-            // 用户数据获取失败直接退出
-            this.logoutFail()
-            reject(err)
-          })
-        } else {
-          resolve({ status: 'success' })
-        }
+        // if (!fromLogin) {
+        //   this.getUserInfo(this.getItem('id')).then(res => {
+        //     this.setInfo(res.data)
+        //     resolve(res)
+        //   }, err => {
+        //     console.error(err)
+        //     // 用户数据获取失败直接退出
+        //     this.logoutFail()
+        //     reject(err)
+        //   })
+        // } else {
+        //   resolve({ status: 'success' })
+        // }
+        resolve({ status: 'success' })
       })
     },
     autoLoad() {
@@ -121,7 +127,7 @@ let user = new InfoData({
 user.onLife('reseted', {
   data: (instantiater, resetOption) => {
     user.clearInfo()
-    _func.setToken('token', undefined)
+    _func.setToken('AUTHORIZATION', undefined)
   }
 })
 
