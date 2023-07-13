@@ -1,5 +1,5 @@
 import _func from 'complex-func'
-import { ListData } from 'complex-data'
+import { ListData, SelectList } from 'complex-data'
 import api from '@api/index'
 import select from "@index/main/select"
 import PicView from '@/config/components/mod/PicView.vue'
@@ -179,6 +179,19 @@ class ResourceList extends ListData {
       option.format(initOption)
     }
     super(initOption)
+    this.select = new SelectList()
+  }
+  buildSelect() {
+    let select = []
+    let prop = this.getDictionaryPropData('prop')
+    for (let i = 0; i < this.data.list.length; i++) {
+      const item = this.data.list[i];
+      select.push({
+        value: item[prop],
+        label: item.name
+      })
+    }
+    this.select.setList(select)
   }
   getData () {
     return new Promise((resolve, reject) => {
@@ -186,6 +199,7 @@ class ResourceList extends ListData {
       postdata.status = 'showResourceniche'
       api.adminApi(postdata).then(res => {
         this.formatData(res.data.data, res.data.totalCount)
+        this.buildSelect()
         resolve(res)
       }, err => {
         reject(err)

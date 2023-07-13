@@ -1,16 +1,11 @@
 import _func from 'complex-func'
-import { ListData } from 'complex-data'
+import { ListData, SelectList } from 'complex-data'
 import api from '@api/index'
 import select from "@index/main/select"
 import PicView from '@/config/components/mod/PicView.vue'
 import UploadPic from '@/config/components/mod/UploadPic.vue'
 import { fileUpload } from '../utils'
-// "status":"setZone",
-// "zone_name":"奢品养护",
-// "zone_picture":"https://img.alicdn.com/imgextra/i2/2215920109002/O1CN0194BHUl2GMyFA30Fmr_!!2215920109002-0-wsb.jpg",
-// "order_by":3,
-// "is_show":1,
-// "create_time":"2023-07-13 15:11:47"
+
 const defaultInitOption = {
   name: '专区',
   prop: 'categoryList',
@@ -203,6 +198,19 @@ class CategoryList extends ListData {
       option.format(initOption)
     }
     super(initOption)
+    this.select = new SelectList()
+  }
+  buildSelect() {
+    let select = []
+    let prop = this.getDictionaryPropData('prop')
+    for (let i = 0; i < this.data.list.length; i++) {
+      const item = this.data.list[i];
+      select.push({
+        value: item[prop],
+        label: item.name
+      })
+    }
+    this.select.setList(select)
   }
   getData () {
     return new Promise((resolve, reject) => {
@@ -210,6 +218,7 @@ class CategoryList extends ListData {
       postdata.status = 'showZone'
       api.adminApi(postdata).then(res => {
         this.formatData(res.data.data, res.data.totalCount)
+        this.buildSelect()
         resolve(res)
       }, err => {
         reject(err)

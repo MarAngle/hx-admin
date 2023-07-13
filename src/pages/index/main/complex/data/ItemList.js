@@ -383,18 +383,25 @@ class ItemList extends ListData {
       option.format(initOption)
     }
     super(initOption)
+    this.localDepend = option.localDepend || []
+  }
+  loadLocalDepend() {
+    let list = this.loadLocalDepend.map(item => {
+      return item.loadData()
+    })
+    return _func.promiseAllFinished(list)
   }
   getData () {
     return new Promise((resolve, reject) => {
-      let postdata = this.getSearch()
-      postdata.status = 'tradeItemList'
-      // postdata.pageNo = this.getPageData('page')
-      // postdata.pageSize = this.getPageData('size')
-      api.itemApi(postdata).then(res => {
-        this.formatData(res.data.data, res.data.totalCount)
-        resolve(res)
-      }, err => {
-        reject(err)
+      this.loadLocalDepend().finally(() => {
+        let postdata = this.getSearch()
+        postdata.status = 'tradeItemList'
+        api.itemApi(postdata).then(res => {
+          this.formatData(res.data.data, res.data.totalCount)
+          resolve(res)
+        }, err => {
+          reject(err)
+        })
       })
     })
   }
