@@ -4,8 +4,8 @@ import api from '@api/index'
 import select from "@index/main/select"
 
 const defaultInitOption = {
-  name: '资源位',
-  prop: 'resourceList',
+  name: '营销语',
+  prop: 'marketList',
   dictionary: {
     layout: {
       default: {
@@ -14,49 +14,25 @@ const defaultInitOption = {
       }
     },
     id: {
-      prop: 'resourceniche_id',
+      prop: 'marketing_id',
       data: ''
     },
     list: [
       {
-        prop: 'resourceniche_id',
+        prop: 'marketing_id',
         name: 'ID',
-        originprop: 'resourceniche_id',
+        originprop: 'marketing_id',
         originfrom: 'list',
         mod: {}
       },
       {
-        prop: 'name',
-        name: '名称',
-        originprop: 'resourceniche_name',
+        prop: 'marketing_desc',
+        name: '营销语',
+        originprop: 'marketing_desc',
         originfrom: 'list',
         mod: {
           list: {
             width: 165
-          },
-          edit: {
-            type: 'input',
-            required: true,
-            option: {
-              maxLength: 100
-            }
-          },
-          build: {
-            type: 'edit'
-          },
-          change: {
-            type: 'edit'
-          }
-        }
-      },
-      {
-        prop: 'resourceniche_position_id',
-        name: '位置ID?',
-        originprop: 'resourceniche_position_id',
-        originfrom: 'list',
-        mod: {
-          list: {
-            width: 100
           },
           edit: {
             type: 'input',
@@ -95,32 +71,28 @@ const defaultInitOption = {
           }
         }
       }),
-      {
-        prop: 'order_by',
-        name: '排序',
-        originprop: 'order_by',
-        originfrom: 'list',
-        mod: {
-          list: {
-            width: 80,
-          },
-          edit: {
-            type: 'inputNumber',
-            required: true,
-            option: {
-              min: 0,
-              precision: 0,
-              step: 1
-            }
+      select.getItemByFormat('base', 'status', {
+        prop: 'is_defalut',
+        name: '默认',
+        originprop: 'is_defalut',
+        originfrom: 'list'
+      }, {
+        list: {
+          width: 80,
+          color: true,
+          switch: {
+            operate: false
+          }
+        },
+        edit: {
+          change: {
+            required: true
           },
           build: {
-            type: 'edit'
-          },
-          change: {
-            type: 'edit'
+            required: true
           }
         }
-      },
+      }),
       {
         prop: 'create_time',
         name: '创建日期',
@@ -162,7 +134,7 @@ const defaultInitOption = {
   pagination: false
 }
 
-class ResourceList extends ListData {
+class MarketList extends ListData {
   constructor(option = {}) {
     let initOption = _func.setDataByDefault(option.init, defaultInitOption)
     if (option.format) {
@@ -186,7 +158,7 @@ class ResourceList extends ListData {
   getData () {
     return new Promise((resolve, reject) => {
       let postdata = this.getSearch()
-      postdata.status = 'showResourceniche'
+      postdata.status = 'showMarketing'
       api.adminApi(postdata).then(res => {
         this.formatData(res.data.data, res.data.totalCount)
         this.buildSelect()
@@ -198,9 +170,9 @@ class ResourceList extends ListData {
   }
   buildItem ({ postdata }) {
     return new Promise((resolve, reject) => {
-      postdata.status = 'setResourceniche'
+      postdata.status = 'setMarketing'
       api.adminApi(postdata).then(res => {
-        _func.showmsg('新增资源位成功！', 'success')
+        _func.showmsg('新增营销语成功！', 'success')
         this.reloadData({
           sync: true,
           page: false,
@@ -216,11 +188,11 @@ class ResourceList extends ListData {
   }
   changeItem ({ postdata, targetitem }) {
     return new Promise((resolve, reject) => {
-      postdata.status = 'editResourceniche'
+      postdata.status = 'editMarketing'
       let prop = this.getDictionaryPropData('prop')
       postdata[prop] = targetitem[prop]
       api.adminApi(postdata).then(res => {
-        _func.showmsg('修改资源位成功！', 'success')
+        _func.showmsg('修改营销语成功！', 'success')
         this.reloadData({
           sync: true,
           page: false,
@@ -236,6 +208,6 @@ class ResourceList extends ListData {
   }
 }
 
-ResourceList.$name = 'ResourceList'
+MarketList.$name = 'MarketList'
 
-export default ResourceList
+export default MarketList

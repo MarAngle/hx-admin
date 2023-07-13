@@ -14,42 +14,39 @@ const baseMenu = [
     hidden: false
   },
   {
-    path: '/resource',
-    name: 'Resource',
+    path: '/manage',
+    name: '管理',
     component: 'config/layout/PureLayout.vue',
     icon: 'setting',
     menu: true,
     hidden: false,
     children: [
       {
-        path: '/resource/list',
-        name: 'LIST',
-        component: 'pages/index/views/resource/list/index.vue',
+        path: '/manage/category',
+        name: '专区',
+        component: 'pages/index/views/manage/category/index.vue',
         menu: true,
         hidden: false,
-      }
-    ]
-  },
-  {
-    path: '/category',
-    name: 'CATEGORY',
-    component: 'config/layout/PureLayout.vue',
-    icon: 'setting',
-    menu: true,
-    hidden: false,
-    children: [
+      },
       {
-        path: '/category/list',
-        name: 'LIST',
-        component: 'pages/index/views/category/list/index.vue',
+        path: '/manage/resource',
+        name: '资源位',
+        component: 'pages/index/views/manage/resource/index.vue',
         menu: true,
         hidden: false,
-      }
+      },
+      {
+        path: '/manage/market',
+        name: '营销语',
+        component: 'pages/index/views/manage/market/index.vue',
+        menu: true,
+        hidden: false,
+      },
     ]
   },
   {
     path: '/item',
-    name: 'ITEM',
+    name: '商品',
     component: 'config/layout/PureLayout.vue',
     icon: 'setting',
     menu: true,
@@ -57,7 +54,7 @@ const baseMenu = [
     children: [
       {
         path: '/item/list',
-        name: 'LIST',
+        name: '管理',
         component: 'pages/index/views/item/list/index.vue',
         menu: true,
         hidden: false,
@@ -66,7 +63,7 @@ const baseMenu = [
   },
   {
     path: '/order',
-    name: 'ORDER',
+    name: '订单',
     component: 'config/layout/PureLayout.vue',
     icon: 'setting',
     menu: true,
@@ -74,7 +71,7 @@ const baseMenu = [
     children: [
       {
         path: '/order/list',
-        name: 'LIST',
+        name: '管理',
         component: 'pages/index/views/order/list/index.vue',
         menu: true,
         hidden: false,

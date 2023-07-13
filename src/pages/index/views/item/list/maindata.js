@@ -5,15 +5,16 @@ import select from "@index/main/select"
 import PicView from '@/config/components/mod/PicView.vue'
 import UploadPicMultiple from '@/config/components/mod/UploadPicMultiple.vue'
 import { mutipleFileUpload } from '@/pages/index/main/complex/utils'
-import categoryList from './../../category/list/maindata'
-import resourceList from './../../resource/list/maindata'
+import categoryList from './../../manage/category/maindata'
+import resourceList from './../../manage/resource/maindata'
+import marketList from './../../manage/market/maindata'
 
 class ItemList extends ListData {
   constructor(option = {}) {
     super(option)
   }
   loadLocalDepend() {
-    return _func.promiseAllFinished([categoryList.loadData(), resourceList.loadData()])
+    return _func.promiseAllFinished([categoryList.loadData(), resourceList.loadData(), marketList.loadData()])
   }
   getData () {
     return new Promise((resolve, reject) => {
@@ -86,7 +87,7 @@ class ItemList extends ListData {
 
 ItemList.$name = 'ItemList'
 
-let maindata = new ItemList({
+let itemList = new ItemList({
   name: '产品',
   prop: 'itemList',
   dictionary: {
@@ -356,6 +357,44 @@ let maindata = new ItemList({
           
         }
       },
+      {
+        prop: 'commodity_marketing_id',
+        showprop: {
+          default: 'value',
+          list: 'label'
+        },
+        name: '营销语',
+        originprop: 'commodity_marketing_id',
+        originfrom: 'list',
+        func: {
+          format(value) {
+            return marketList.select.getItem(value)
+          }
+        },
+        mod: {
+          list: {},
+          edit: {
+            type: 'select',
+            required: false,
+            option: {
+              list: []
+            },
+            methods: {
+              getData() {
+                this.option.list = marketList.select.getList()
+                return Promise.resolve()
+              }
+            }
+          },
+          build: {
+            type: 'edit'
+          },
+          change: {
+            type: 'edit'
+          }
+          
+        }
+      },
       select.getItemByFormat('base', 'itemStatus', {
         prop: 'status',
         name: '状态',
@@ -436,7 +475,8 @@ let maindata = new ItemList({
                 props: {
                   list: text,
                   itemStyle: {
-                    width: '50px'
+                    width: '50px',
+                    maxHeight: '50px'
                   }
                 }
               })
@@ -525,4 +565,4 @@ let maindata = new ItemList({
   pagination: false
 })
 
-export default maindata
+export default itemList
