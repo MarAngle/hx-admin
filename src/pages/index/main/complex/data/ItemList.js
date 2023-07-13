@@ -319,6 +319,30 @@ const defaultInitOption = {
         }
       },
       {
+        prop: 'order_by',
+        name: '排序',
+        originprop: 'order_by',
+        originfrom: 'list',
+        mod: {
+          list: {},
+          edit: {
+            type: 'inputNumber',
+            required: true,
+            option: {
+              min: 0,
+              precision: 0,
+              step: 1
+            }
+          },
+          build: {
+            type: 'edit'
+          },
+          change: {
+            type: 'edit'
+          }
+        }
+      },
+      {
         prop: 'menu',
         name: '操作',
         originprop: 'menu',
@@ -376,7 +400,6 @@ class ItemList extends ListData {
       postdata.evaluate = 0 // 评价
       postdata.commodity_marketing_id = 1 // 营销语id
       postdata.commodity_resourceniche_id = 1 // 资源位id
-      postdata.order_by = 1
       postdata.pic = {
         main_list: postdata.main_pic.map(pic => {
           return {

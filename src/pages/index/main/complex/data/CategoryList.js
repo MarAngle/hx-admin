@@ -5,7 +5,12 @@ import select from "@index/main/select"
 import PicView from '@/config/components/mod/PicView.vue'
 import UploadPic from '@/config/components/mod/UploadPic.vue'
 import { fileUpload } from '../utils'
-
+// "status":"setZone",
+// "zone_name":"奢品养护",
+// "zone_picture":"https://img.alicdn.com/imgextra/i2/2215920109002/O1CN0194BHUl2GMyFA30Fmr_!!2215920109002-0-wsb.jpg",
+// "order_by":3,
+// "is_show":1,
+// "create_time":"2023-07-13 15:11:47"
 const defaultInitOption = {
   name: '专区',
   prop: 'categoryList',
@@ -34,7 +39,9 @@ const defaultInitOption = {
         originprop: 'zone_name',
         originfrom: 'list',
         mod: {
-          list: {},
+          list: {
+            width: 165
+          },
           edit: {
             type: 'input',
             required: true,
@@ -57,6 +64,7 @@ const defaultInitOption = {
         originfrom: 'list',
         mod: {
           list: {
+            width: 66,
             customRender(text, record, index) {
               return _func.$EventBus.$createElement(PicView, {
                 props: {
@@ -64,6 +72,10 @@ const defaultInitOption = {
                   itemStyle: {
                     width: '50px'
                   }
+                },
+                style: {
+                  margin: '0 auto',
+                  width: '50px'
                 }
               })
             }
@@ -102,6 +114,7 @@ const defaultInitOption = {
         originfrom: 'list'
       }, {
         list: {
+          width: 80,
           color: true,
           switch: {
             operate: false
@@ -113,12 +126,40 @@ const defaultInitOption = {
         }
       }),
       {
+        prop: 'order_by',
+        name: '排序',
+        originprop: 'order_by',
+        originfrom: 'list',
+        mod: {
+          list: {
+            width: 80,
+          },
+          edit: {
+            type: 'inputNumber',
+            required: true,
+            option: {
+              min: 0,
+              precision: 0,
+              step: 1
+            }
+          },
+          build: {
+            type: 'edit'
+          },
+          change: {
+            type: 'edit'
+          }
+        }
+      },
+      {
         prop: 'create_time',
         name: '创建日期',
         originprop: 'create_time',
         originfrom: 'list',
         mod: {
-          list: {}
+          list: {
+            width: 165
+          }
         }
       },
       {
@@ -173,7 +214,7 @@ class CategoryList extends ListData {
   }
   buildItem ({ postdata }) {
     return new Promise((resolve, reject) => {
-      postdata.status = 'tradeItemCreate'
+      postdata.status = 'setZone'
       api.categoryApi(postdata).then(res => {
         _func.showmsg('新增专区成功！', 'success')
         this.reloadData({
