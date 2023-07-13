@@ -32,8 +32,8 @@ let data = {
       }
     ]
   }),
-  categoryShow: new SelectList({
-    name: '专区展示',
+  isShow: new SelectList({
+    name: '展示',
     list: [
       {
         value: 0,

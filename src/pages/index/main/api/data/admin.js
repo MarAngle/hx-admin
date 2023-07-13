@@ -1,7 +1,7 @@
 
 export default {
-  categoryApi: {
-    name: '专区接口',
+  adminApi: {
+    name: 'admin接口',
     url: '/tb_api/api/admin/admin_shop.php',
     urlConfig: {
       pre: '',

@@ -14,6 +14,23 @@ const baseMenu = [
     hidden: false
   },
   {
+    path: '/resource',
+    name: 'Resource',
+    component: 'config/layout/PureLayout.vue',
+    icon: 'setting',
+    menu: true,
+    hidden: false,
+    children: [
+      {
+        path: '/resource/list',
+        name: 'LIST',
+        component: 'pages/index/views/resource/list/index.vue',
+        menu: true,
+        hidden: false,
+      }
+    ]
+  },
+  {
     path: '/category',
     name: 'CATEGORY',
     component: 'config/layout/PureLayout.vue',

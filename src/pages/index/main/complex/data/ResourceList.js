@@ -5,15 +5,17 @@ import select from "@index/main/select"
 import PicView from '@/config/components/mod/PicView.vue'
 import UploadPic from '@/config/components/mod/UploadPic.vue'
 import { fileUpload } from '../utils'
-// "status":"setZone",
-// "zone_name":"奢品养护",
-// "zone_picture":"https://img.alicdn.com/imgextra/i2/2215920109002/O1CN0194BHUl2GMyFA30Fmr_!!2215920109002-0-wsb.jpg",
-// "order_by":3,
-// "is_show":1,
-// "create_time":"2023-07-13 15:11:47"
+
+// "resourceniche_id": "1",
+// "resourceniche_name": "热销",
+// "resourceniche_position_id": "1",
+// "order_by": "1",
+// "is_show": "1",
+// "create_time": "2023-07-13 15:56:06"
+
 const defaultInitOption = {
-  name: '专区',
-  prop: 'categoryList',
+  name: '资源位',
+  prop: 'resourceList',
   dictionary: {
     layout: {
       default: {
@@ -22,21 +24,21 @@ const defaultInitOption = {
       }
     },
     id: {
-      prop: 'zone_id',
+      prop: 'resourceniche_id',
       data: ''
     },
     list: [
       {
-        prop: 'zone_id',
+        prop: 'resourceniche_id',
         name: 'ID',
-        originprop: 'zone_id',
+        originprop: 'resourceniche_id',
         originfrom: 'list',
         mod: {}
       },
       {
         prop: 'name',
         name: '名称',
-        originprop: 'zone_name',
+        originprop: 'resourceniche_name',
         originfrom: 'list',
         mod: {
           list: {
@@ -58,45 +60,19 @@ const defaultInitOption = {
         }
       },
       {
-        prop: 'zone_picture',
-        name: '详情',
-        originprop: 'zone_picture',
+        prop: 'resourceniche_position_id',
+        name: '位置ID?',
+        originprop: 'resourceniche_position_id',
         originfrom: 'list',
         mod: {
           list: {
-            width: 66,
-            customRender(text, record, index) {
-              return _func.$EventBus.$createElement(PicView, {
-                props: {
-                  list: [text],
-                  itemStyle: {
-                    width: '50px'
-                  }
-                },
-                style: {
-                  margin: '0 auto',
-                  width: '50px'
-                }
-              })
-            }
+            width: 100
           },
           edit: {
-            type: 'file',
-            slot: {
-              type: 'model',
-              render({ option }) {
-                return _func.$EventBus.$createElement(UploadPic, option)
-              }
-            },
-            placeholder: '请上传照片',
+            type: 'input',
             required: true,
             option: {
-              accept: '.jpg,.jpeg,.png',
-              maxSize: 10,
-              upload: true,
-              fileUpload({ file }) {
-                return fileUpload(file)
-              }
+              maxLength: 100
             }
           },
           build: {
@@ -196,7 +172,7 @@ const defaultInitOption = {
   pagination: false
 }
 
-class CategoryList extends ListData {
+class ResourceList extends ListData {
   constructor(option = {}) {
     let initOption = _func.setDataByDefault(option.init, defaultInitOption)
     if (option.format) {
@@ -207,7 +183,7 @@ class CategoryList extends ListData {
   getData () {
     return new Promise((resolve, reject) => {
       let postdata = this.getSearch()
-      postdata.status = 'showZone'
+      postdata.status = 'showResourceniche'
       api.adminApi(postdata).then(res => {
         this.formatData(res.data.data, res.data.totalCount)
         resolve(res)
@@ -218,9 +194,9 @@ class CategoryList extends ListData {
   }
   buildItem ({ postdata }) {
     return new Promise((resolve, reject) => {
-      postdata.status = 'setZone'
+      postdata.status = 'setResourceniche'
       api.adminApi(postdata).then(res => {
-        _func.showmsg('新增专区成功！', 'success')
+        _func.showmsg('新增资源位成功！', 'success')
         this.reloadData({
           sync: true,
           page: false,
@@ -236,11 +212,11 @@ class CategoryList extends ListData {
   }
   changeItem ({ postdata, targetitem }) {
     return new Promise((resolve, reject) => {
-      postdata.status = 'editZone'
+      postdata.status = 'editResourceniche'
       let prop = this.getDictionaryPropData('prop')
       postdata[prop] = targetitem[prop]
       api.adminApi(postdata).then(res => {
-        _func.showmsg('修改专区成功！', 'success')
+        _func.showmsg('修改资源位成功！', 'success')
         this.reloadData({
           sync: true,
           page: false,
@@ -256,6 +232,6 @@ class CategoryList extends ListData {
   }
 }
 
-CategoryList.$name = 'CategoryList'
+ResourceList.$name = 'ResourceList'
 
-export default CategoryList
+export default ResourceList
