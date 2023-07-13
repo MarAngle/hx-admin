@@ -20,9 +20,12 @@ class ItemList extends ListData {
     return new Promise((resolve, reject) => {
       this.loadLocalDepend().finally(() => {
         let postdata = this.getSearch()
+        const pageData = this.getPageData()
+        postdata.pageNumber = pageData.page
+        postdata.pageSize = pageData.size
         postdata.status = 'tradeItemList'
         api.itemApi(postdata).then(res => {
-          this.formatData(res.data.data, res.data.totalCount)
+          this.formatData(res.data.data.list, res.data.data.trade_num.total)
           resolve(res)
         }, err => {
           reject(err)
@@ -562,7 +565,7 @@ let itemList = new ItemList({
     }
   },
   extradata: {},
-  pagination: false
+  pagination: true
 })
 
 export default itemList
