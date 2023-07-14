@@ -7,7 +7,7 @@ import user from './user'
 const baseMenu = [
   {
     path: '/home',
-    name: '主页',
+    name: '欢迎',
     component: 'pages/index/views/home/index.vue',
     icon: 'home',
     menu: true,
@@ -15,7 +15,7 @@ const baseMenu = [
   },
   {
     path: '/manage',
-    name: '管理',
+    name: '营销',
     component: 'config/layout/PureLayout.vue',
     icon: 'control',
     menu: true,
@@ -46,7 +46,7 @@ const baseMenu = [
   },
   {
     path: '/item',
-    name: '商品',
+    name: '套餐',
     component: 'config/layout/PureLayout.vue',
     icon: 'shopping',
     menu: true,

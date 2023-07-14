@@ -136,7 +136,9 @@ let itemList = new ItemList({
         originprop: 'sku_id',
         originfrom: 'list',
         mod: {
-          list: {},
+          list: {
+            width: 130
+          },
           edit: {
             type: 'input',
             required: true,
@@ -167,7 +169,9 @@ let itemList = new ItemList({
         originprop: 'commodity_name',
         originfrom: 'list',
         mod: {
-          list: {},
+          list: {
+            width: 240
+          },
           edit: {
             type: 'input',
             required: true,
@@ -198,7 +202,7 @@ let itemList = new ItemList({
         },
         mod: {
           list: {
-            width: 90
+            width: 80
           },
           edit: {
             type: 'inputNumber',
@@ -232,7 +236,7 @@ let itemList = new ItemList({
         },
         mod: {
           list: {
-            width: 90
+            width: 80
           },
           edit: {
             type: 'inputNumber',
@@ -258,7 +262,7 @@ let itemList = new ItemList({
         originfrom: 'list',
         mod: {
           list: {
-            width: 90
+            width: 80
           },
           edit: {
             type: 'inputNumber',
@@ -284,7 +288,7 @@ let itemList = new ItemList({
         originfrom: 'list',
         mod: {
           list: {
-            width: 90
+            width: 80
           },
           edit: {
             type: 'inputNumber',
@@ -305,11 +309,13 @@ let itemList = new ItemList({
       },
       {
         prop: 'effective_day',
-        name: '有效期天数',
+        name: '有效期',
         originprop: 'effective_day',
         originfrom: 'list',
         mod: {
-          list: {},
+          list: {
+            width: 80
+          },
           edit: {
             type: 'inputNumber',
             required: true,
