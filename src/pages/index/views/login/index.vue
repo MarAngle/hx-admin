@@ -139,25 +139,25 @@ export default {
       }
       this.form.validateFields(['phone'], { force: true }, (err, values) => {
         if (!err) {
-          // this.code.operate = true
-          // api.login({
-          //   status: 'getCode',
-          //   mobile: values.phone
-          // }).then(res => {
-          //   this.code.disabled = true
-          //   this.code.operate = false
-          //   this.startCodeTime()
-          // }, err => {
-          //   this.code.operate = false
-          // })
+          this.code.operate = true
+          api.login({
+            status: 'getCode',
+            mobile: values.phone
+          }).then(res => {
             this.code.disabled = true
             this.code.operate = false
             this.startCodeTime()
+          }, err => {
+            this.code.operate = false
+          })
+            // this.code.disabled = true
+            // this.code.operate = false
+            // this.startCodeTime()
         }
       })
     },
     startCodeTime() {
-      this.code.time = 10
+      this.code.time = 60
       setTimeout(() => {
         this.countCodeTime()
       }, 1000)

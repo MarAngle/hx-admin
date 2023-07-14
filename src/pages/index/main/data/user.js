@@ -106,7 +106,7 @@ let user = new InfoData({
     },
     autoLoad() {
       let userInfo = _func.getLocalData('userInfo')
-      if (userInfo) {
+      if (userInfo && _func.getToken('AUTHORIZATION')) {
         this.setInfo(userInfo, true)
         this.setStatus('logined', 'login')
       }
