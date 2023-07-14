@@ -25,7 +25,7 @@ class ItemList extends ListData {
         postdata.pageSize = pageData.size
         postdata.status = 'tradeItemList'
         api.itemApi(postdata).then(res => {
-          this.formatData(res.data.data.list, res.data.data.trade_num.total)
+          this.formatData(res.data.data.list, Number(res.data.data.trade_num.total))
           resolve(res)
         }, err => {
           reject(err)
@@ -136,7 +136,7 @@ let itemList = new ItemList({
             type: 'input',
             required: true,
             option: {
-              maxLength: 100
+              maxLength: 120
             }
           },
           build: {
@@ -152,7 +152,9 @@ let itemList = new ItemList({
         name: 'model_id',
         originprop: 'model_id',
         originfrom: 'list',
-        mod: {}
+        mod: {
+          list: {}
+        }
       },
       {
         prop: 'name',
@@ -165,7 +167,7 @@ let itemList = new ItemList({
             type: 'input',
             required: true,
             option: {
-              maxLength: 100
+              maxLength: 140
             }
           },
           build: {
@@ -190,7 +192,9 @@ let itemList = new ItemList({
           }
         },
         mod: {
-          list: {},
+          list: {
+            width: 90
+          },
           edit: {
             type: 'inputNumber',
             required: true,
@@ -222,7 +226,9 @@ let itemList = new ItemList({
           }
         },
         mod: {
-          list: {},
+          list: {
+            width: 90
+          },
           edit: {
             type: 'inputNumber',
             required: true,
@@ -246,7 +252,9 @@ let itemList = new ItemList({
         originprop: 'sold_quantity',
         originfrom: 'list',
         mod: {
-          list: {},
+          list: {
+            width: 90
+          },
           edit: {
             type: 'inputNumber',
             required: true,
@@ -294,7 +302,9 @@ let itemList = new ItemList({
         originprop: 'commodity_marketing',
         originfrom: 'list',
         mod: {
-          list: {}
+          list: {
+            width: 200
+          }
         }
       },
       {
@@ -350,7 +360,9 @@ let itemList = new ItemList({
           }
         },
         mod: {
-          list: {},
+          list: {
+            width: 90
+          },
           edit: {
             type: 'select',
             required: false,
@@ -388,7 +400,9 @@ let itemList = new ItemList({
           }
         },
         mod: {
-          list: {},
+          list: {
+            width: 200
+          },
           edit: {
             type: 'select',
             required: false,
@@ -421,7 +435,6 @@ let itemList = new ItemList({
           color: true,
           switch: {
             operate(valueItem, record, prop) {
-              console.log(valueItem.value)
               _func.confirm(`确认${valueItem.label}吗？`, '警告', (act) => {
                 if (act == 'ok') {
                   itemList.changeDataStatus(valueItem, record)
@@ -446,12 +459,14 @@ let itemList = new ItemList({
         originfrom: 'list',
         mod: {
           list: {
+            width: 200,
             customRender(text, record, index) {
               return _func.$EventBus.$createElement(PicView, {
                 props: {
                   list: text,
                   itemStyle: {
-                    width: '50px'
+                    width: '50px',
+                    margin: '0 auto'
                   }
                 }
               })
@@ -493,13 +508,15 @@ let itemList = new ItemList({
         originfrom: 'list',
         mod: {
           list: {
+            width: 200,
             customRender(text, record, index) {
               return _func.$EventBus.$createElement(PicView, {
                 props: {
                   list: text,
                   itemStyle: {
                     width: '50px',
-                    maxHeight: '50px'
+                    maxHeight: '50px',
+                    margin: '0 auto'
                   }
                 }
               })
@@ -540,7 +557,9 @@ let itemList = new ItemList({
         originprop: 'order_by',
         originfrom: 'list',
         mod: {
-          list: {},
+          list: {
+            width: 60
+          },
           edit: {
             type: 'inputNumber',
             required: true,
@@ -564,7 +583,9 @@ let itemList = new ItemList({
         originprop: 'menu',
         originfrom: 'local',
         mod: {
-          list: {}
+          list: {
+            width: 80
+          }
         }
       }
     ]

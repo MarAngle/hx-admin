@@ -32,7 +32,7 @@ const defaultInitOption = {
         originfrom: 'list',
         mod: {
           list: {
-            width: 165
+            width: 200
           },
           edit: {
             type: 'input',

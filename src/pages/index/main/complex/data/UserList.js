@@ -52,7 +52,7 @@ class UserList extends ListData {
       postdata.pageNo = this.getPageData('page')
       postdata.pageSize = this.getPageData('size')
       api.userList(postdata).then(res => {
-        this.formatData(res.data.data, res.data.totalCount)
+        this.formatData(res.data.data, Number(res.data.totalCount))
         resolve(res)
       }, err => {
         reject(err)

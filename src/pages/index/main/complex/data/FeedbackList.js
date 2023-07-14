@@ -43,6 +43,7 @@ const defaultInitOption = {
         originfrom: 'list',
         mod: {
           list: {
+            width: 66,
             customRender(text, record, index) {
               return _func.$EventBus.$createElement(PicView, {
                 props: {
@@ -64,7 +65,7 @@ const defaultInitOption = {
         originfrom: 'list',
         mod: {
           list: {
-            width: 240
+            width: 300
           }
         }
       },
@@ -98,7 +99,7 @@ class FeedbackList extends ListData {
       postdata.pageSize = pageData.size
       postdata.status = 'showOpinion'
       api.adminApi(postdata).then(res => {
-        this.formatData(res.data.data.list, res.data.data.total)
+        this.formatData(res.data.data.list, Number(res.data.data.total))
         resolve(res)
       }, err => {
         reject(err)

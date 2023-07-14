@@ -32,7 +32,7 @@ const defaultInitOption = {
         originfrom: 'list',
         mod: {
           list: {
-            width: 165
+            width: 200
           },
           edit: {
             type: 'input',
@@ -51,7 +51,7 @@ const defaultInitOption = {
       },
       {
         prop: 'resourceniche_position_id',
-        name: '位置ID?',
+        name: '位置ID',
         originprop: 'resourceniche_position_id',
         originfrom: 'list',
         mod: {
@@ -102,7 +102,7 @@ const defaultInitOption = {
         originfrom: 'list',
         mod: {
           list: {
-            width: 80,
+            width: 60,
           },
           edit: {
             type: 'inputNumber',
