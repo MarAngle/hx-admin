@@ -206,6 +206,27 @@ class MarketList extends ListData {
       })
     })
   }
+  deleteItem (record) {
+    return new Promise((resolve, reject) => {
+      const postdata = {}
+      postdata.status = 'delMarketing'
+      let prop = this.getDictionaryPropData('prop')
+      postdata[prop] = record[prop]
+      api.adminApi(postdata).then(res => {
+        _func.showmsg('删除营销语成功！', 'success')
+        this.reloadData({
+          sync: true,
+          page: false,
+          choice: {
+            from: 'reload'
+          }
+        })
+        resolve()
+      }, res => {
+        reject(res)
+      })
+    })
+  }
 }
 
 MarketList.$name = 'MarketList'

@@ -62,6 +62,23 @@ const baseMenu = [
     ]
   },
   {
+    path: '/customer',
+    name: '客户',
+    component: 'config/layout/PureLayout.vue',
+    icon: 'setting',
+    menu: true,
+    hidden: false,
+    children: [
+      {
+        path: '/customer/feedback',
+        name: '意见反馈',
+        component: 'pages/index/views/customer/feedback/index.vue',
+        menu: true,
+        hidden: false,
+      }
+    ]
+  },
+  {
     path: '/order',
     name: '订单',
     component: 'config/layout/PureLayout.vue',

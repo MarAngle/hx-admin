@@ -27,11 +27,11 @@ export default {
       maindata: maindata,
       itemOption: {
         list: [
-          {
-            type: 'menu',
-            name: '修改',
-            act: 'change'
-          },
+          // {
+          //   type: 'menu',
+          //   name: '修改',
+          //   act: 'change'
+          // },
           // {
           //   type: 'menu',
           //   name: '删除',
