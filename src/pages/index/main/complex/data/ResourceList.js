@@ -1,7 +1,32 @@
 import _func from 'complex-func'
-import { ListData, SelectList } from 'complex-data'
+import { ListData, SelectData, SelectList } from 'complex-data'
 import api from '@api/index'
 import select from "@index/main/select"
+
+const resourcePosition = new SelectData({
+  name: '资源位位置',
+  prop: 'resourcePosition',
+  methods: {
+    getData() {
+      return new Promise((resolve, reject) => {
+        let postdata = {}
+        postdata.status = 'showPosition'
+        api.adminApi(postdata).then(res => {
+          let originList = res.data.data || []
+          this.setSelect(originList.map(item => {
+            return {
+              value: item.position_id,
+              label: item.position_name
+            }
+          }))
+          resolve(res)
+        }, err => {
+          reject(err)
+        })
+      })
+    }
+  }
+})
 
 const defaultInitOption = {
   name: '资源位',
@@ -51,18 +76,33 @@ const defaultInitOption = {
       },
       {
         prop: 'resourceniche_position_id',
-        name: '位置ID',
+        showprop: {
+          default: 'value',
+          list: 'label'
+        },
+        name: '位置',
         originprop: 'resourceniche_position_id',
         originfrom: 'list',
+        func: {
+          format(value) {
+            return resourcePosition.getItem(value)
+          }
+        },
         mod: {
           list: {
             width: 100
           },
           edit: {
-            type: 'input',
-            required: true,
+            type: 'select',
+            required: false,
             option: {
-              maxLength: 100
+              list: []
+            },
+            methods: {
+              getData() {
+                this.option.list = resourcePosition.getList()
+                return Promise.resolve()
+              }
             }
           },
           build: {
@@ -185,14 +225,16 @@ class ResourceList extends ListData {
   }
   getData () {
     return new Promise((resolve, reject) => {
-      let postdata = this.getSearch()
-      postdata.status = 'showResourceniche'
-      api.adminApi(postdata).then(res => {
-        this.formatData(res.data.data, res.data.totalCount)
-        this.buildSelect()
-        resolve(res)
-      }, err => {
-        reject(err)
+      resourcePosition.loadData().finally(() => {
+        let postdata = this.getSearch()
+        postdata.status = 'showResourceniche'
+        api.adminApi(postdata).then(res => {
+          this.formatData(res.data.data, res.data.totalCount)
+          this.buildSelect()
+          resolve(res)
+        }, err => {
+          reject(err)
+        })
       })
     })
   }
