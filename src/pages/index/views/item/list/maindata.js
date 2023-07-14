@@ -602,7 +602,70 @@ let itemList = new ItemList({
       ]
     },
     dictionary: {
-      list: []
+      list: [
+        {
+          prop: 'tab_status',
+          name: '状态',
+          originprop: 'tab_status',
+          mod: {
+            build: {
+              width: 140,
+              type: 'select',
+              required: false,
+              option: {
+                list: [
+                  {
+                    value: 'grounding',
+                    label: '上架'
+                  },
+                  {
+                    value: 'off_shelf',
+                    label: '下架'
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          prop: 'select_trade',
+          name: '商品筛选',
+          originprop: 'select_trade',
+          originfrom: 'list',
+          mod: {
+            build: {
+              type: 'input',
+              placeholder: '请输入商品名称/编号',
+              width: 200,
+              required: false,
+              option: {
+                maxLength: 120
+              }
+            }
+          }
+        },
+        {
+          prop: 'select_zone',
+          name: '专区',
+          originprop: 'select_zone',
+          mod: {
+            build: {
+              width: 240,
+              type: 'select',
+              required: false,
+              option: {
+                list: []
+              },
+              methods: {
+                getData() {
+                  this.option.list = categoryList.select.getList()
+                  return Promise.resolve()
+                }
+              }
+            }
+          }
+        },
+      ]
     }
   },
   extradata: {},

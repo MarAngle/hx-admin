@@ -1,7 +1,11 @@
-
+<style lang="less" scoped>
+.home-index{
+  padding: 16px;
+}
+</style>
 <template>
-  <div>
-    HOME
+  <div class="home-index">
+    欢迎您！
   </div>
 </template>
 
