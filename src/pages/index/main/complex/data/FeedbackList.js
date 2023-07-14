@@ -48,7 +48,8 @@ const defaultInitOption = {
                 props: {
                   list: [text],
                   itemStyle: {
-                    width: '50px'
+                    width: '50px',
+                    margin: '0 auto'
                   }
                 }
               })
@@ -97,7 +98,7 @@ class FeedbackList extends ListData {
       postdata.pageSize = pageData.size
       postdata.status = 'showOpinion'
       api.adminApi(postdata).then(res => {
-        this.formatData(res.data.data, res.data.totalCount)
+        this.formatData(res.data.data.list, res.data.data.total)
         resolve(res)
       }, err => {
         reject(err)

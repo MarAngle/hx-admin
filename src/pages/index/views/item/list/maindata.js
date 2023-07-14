@@ -37,7 +37,6 @@ class ItemList extends ListData {
     return new Promise((resolve, reject) => {
       postdata.status = 'tradeItemCreate'
       postdata.evaluate = 0 // 评价
-      postdata.commodity_marketing_id = 1 // 营销语id
       postdata.pic = {
         main_list: postdata.main_pic.map(pic => {
           return {
@@ -80,6 +79,20 @@ class ItemList extends ListData {
             from: 'reload'
           }
         })
+        resolve()
+      }, res => {
+        reject(res)
+      })
+    })
+  }
+  changeDataStatus(valueItem, record) {
+    return new Promise((resolve, reject) => {
+      api.itemApi({
+        status: valueItem.value == 0 ? 'tradeItemOffshelf' : 'tradeItemGrounding',
+        model_id: record.model_id
+      }).then(res => {
+        _func.showmsg(`${valueItem.label}成功！`, 'success')
+        record.sale_status = valueItem
         resolve()
       }, res => {
         reject(res)
@@ -399,7 +412,7 @@ let itemList = new ItemList({
         }
       },
       select.getItemByFormat('base', 'itemStatus', {
-        prop: 'status',
+        prop: 'sale_status',
         name: '状态',
         originprop: 'sale_status',
         originfrom: 'list'
@@ -407,7 +420,14 @@ let itemList = new ItemList({
         list: {
           color: true,
           switch: {
-            operate: false
+            operate(valueItem, record, prop) {
+              console.log(valueItem.value)
+              _func.confirm(`确认${valueItem.label}吗？`, '警告', (act) => {
+                if (act == 'ok') {
+                  itemList.changeDataStatus(valueItem, record)
+                }
+              })
+            }
           }
         },
         edit: {
