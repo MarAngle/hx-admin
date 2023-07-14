@@ -260,9 +260,17 @@ export default {
     },
     searchMenuList() {
       const list = this.maindata.getModule('search').menu.concat(this.currentSearchOption.list)
+      let onlySearch = false
+      if (this.maindata.getModule('search').form.build.mainlist.length === 0) {
+        onlySearch = true
+      }
       for (let i = 0; i < list.length; i++) {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
         this.$set(list[i], 'loading', this.operateStatus === 'operating')
+        if (onlySearch && list[i].act === 'reset') {
+          list.splice(i, 1)
+          i--
+        }
       }
       return list
     },

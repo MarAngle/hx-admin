@@ -17,7 +17,7 @@ const baseMenu = [
     path: '/manage',
     name: '管理',
     component: 'config/layout/PureLayout.vue',
-    icon: 'setting',
+    icon: 'control',
     menu: true,
     hidden: false,
     children: [
@@ -48,7 +48,7 @@ const baseMenu = [
     path: '/item',
     name: '商品',
     component: 'config/layout/PureLayout.vue',
-    icon: 'setting',
+    icon: 'shopping',
     menu: true,
     hidden: false,
     children: [
@@ -65,7 +65,7 @@ const baseMenu = [
     path: '/customer',
     name: '客户',
     component: 'config/layout/PureLayout.vue',
-    icon: 'setting',
+    icon: 'solution',
     menu: true,
     hidden: false,
     children: [
@@ -82,7 +82,7 @@ const baseMenu = [
     path: '/order',
     name: '订单',
     component: 'config/layout/PureLayout.vue',
-    icon: 'setting',
+    icon: 'profile',
     menu: true,
     hidden: false,
     children: [
