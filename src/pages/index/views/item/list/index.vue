@@ -10,7 +10,7 @@
       <LocalListView
         :maindata="maindata"
         :itemOption="itemOption"
-        :editOption="{ usePageList: true }"
+        :editOption="editOption"
         @item="onItem"
       />
     </div>
@@ -25,6 +25,12 @@ export default {
   data: function() {
     return {
       maindata: maindata,
+      editOption: {
+        usePageList: true,
+        optionProps: {
+          width: 840
+        }
+      },
       itemOption: {
         list: [
           {

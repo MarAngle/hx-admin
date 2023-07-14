@@ -33,26 +33,28 @@ class ItemList extends ListData {
       })
     })
   }
+  parseEditData(postdata) {
+    postdata.pic = {
+      main_list: postdata.main_pic.map(pic => {
+        return {
+          path: pic
+        }
+      }),
+      detail_list: postdata.detail_pic.map(pic => {
+        return {
+          path: pic
+        }
+      })
+    }
+    delete postdata.main_pic
+    delete postdata.detail_pic
+  }
   buildItem ({ postdata }) {
     return new Promise((resolve, reject) => {
       postdata.status = 'tradeItemCreate'
-      postdata.evaluate = 0 // 评价
-      postdata.pic = {
-        main_list: postdata.main_pic.map(pic => {
-          return {
-            path: pic
-          }
-        }),
-        detail_list: postdata.detail_pic.map(pic => {
-          return {
-            path: pic
-          }
-        })
-      }
-      delete postdata.main_pic
-      delete postdata.detail_pic
+      this.parseEditData(postdata)
       api.itemApi(postdata).then(res => {
-        _func.showmsg('新增产品成功！', 'success')
+        _func.showmsg('新增套餐成功！', 'success')
         this.reloadData({
           sync: true,
           page: false,
@@ -68,10 +70,12 @@ class ItemList extends ListData {
   }
   changeItem ({ postdata, targetitem }) {
     return new Promise((resolve, reject) => {
+      postdata.status = 'tradeItemModify'
       let prop = this.getDictionaryPropData('prop')
       postdata[prop] = targetitem[prop]
+      this.parseEditData(postdata)
       api.itemApi(postdata).then(res => {
-        _func.showmsg('修改产品成功！', 'success')
+        _func.showmsg('修改套餐成功！', 'success')
         this.reloadData({
           sync: true,
           page: false,
@@ -104,11 +108,12 @@ class ItemList extends ListData {
 ItemList.$name = 'ItemList'
 
 let itemList = new ItemList({
-  name: '产品',
+  name: '套餐',
   prop: 'itemList',
   dictionary: {
     layout: {
       default: {
+        grid: 12,
         label: 6,
         content: 18
       }
@@ -250,6 +255,32 @@ let itemList = new ItemList({
         prop: 'sold_quantity',
         name: '销量',
         originprop: 'sold_quantity',
+        originfrom: 'list',
+        mod: {
+          list: {
+            width: 90
+          },
+          edit: {
+            type: 'inputNumber',
+            required: true,
+            option: {
+              min: 0,
+              precision: 0,
+              step: 1
+            }
+          },
+          build: {
+            type: 'edit'
+          },
+          change: {
+            type: 'edit'
+          }
+        }
+      },
+      {
+        prop: 'evaluate',
+        name: '好评度',
+        originprop: 'evaluate',
         originfrom: 'list',
         mod: {
           list: {
@@ -444,14 +475,37 @@ let itemList = new ItemList({
           }
         },
         edit: {
-          change: {
-            required: true
-          },
           build: {
             required: true
           }
         }
       }),
+      {
+        prop: 'order_by',
+        name: '排序',
+        originprop: 'order_by',
+        originfrom: 'list',
+        mod: {
+          list: {
+            width: 60
+          },
+          edit: {
+            type: 'inputNumber',
+            required: true,
+            option: {
+              min: 0,
+              precision: 0,
+              step: 1
+            }
+          },
+          build: {
+            type: 'edit'
+          },
+          change: {
+            type: 'edit'
+          }
+        }
+      },
       {
         prop: 'main_pic',
         name: 'LOGO',
@@ -541,32 +595,6 @@ let itemList = new ItemList({
               fileUpload({ file }) {
                 return mutipleFileUpload(file)
               }
-            }
-          },
-          build: {
-            type: 'edit'
-          },
-          change: {
-            type: 'edit'
-          }
-        }
-      },
-      {
-        prop: 'order_by',
-        name: '排序',
-        originprop: 'order_by',
-        originfrom: 'list',
-        mod: {
-          list: {
-            width: 60
-          },
-          edit: {
-            type: 'inputNumber',
-            required: true,
-            option: {
-              min: 0,
-              precision: 0,
-              step: 1
             }
           },
           build: {
