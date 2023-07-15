@@ -132,7 +132,7 @@ let itemList = new ItemList({
       },
       {
         prop: 'sku_id',
-        name: '商品SKU',
+        name: '商品编号',
         originprop: 'sku_id',
         originfrom: 'list',
         mod: {
@@ -164,7 +164,7 @@ let itemList = new ItemList({
         }
       },
       {
-        prop: 'name',
+        prop: 'commodity_name',
         name: '名称',
         originprop: 'commodity_name',
         originfrom: 'list',
@@ -334,17 +334,6 @@ let itemList = new ItemList({
         }
       },
       {
-        prop: 'commodity_marketing',
-        name: '销售语',
-        originprop: 'commodity_marketing',
-        originfrom: 'list',
-        mod: {
-          list: {
-            width: 200
-          }
-        }
-      },
-      {
         prop: 'commodity_zone_id',
         showprop: {
           default: 'value',
@@ -423,12 +412,23 @@ let itemList = new ItemList({
         }
       },
       {
+        prop: 'commodity_marketing',
+        name: '销售语:name',
+        originprop: 'commodity_marketing',
+        originfrom: 'list',
+        mod: {
+          list: {
+            width: 200
+          }
+        }
+      },
+      {
         prop: 'commodity_marketing_id',
         showprop: {
           default: 'value',
           list: 'label'
         },
-        name: '营销语',
+        name: '营销语:当前id对应',
         originprop: 'commodity_marketing_id',
         originfrom: 'list',
         func: {

@@ -61,6 +61,27 @@ let data = {
         _switch: true
       }
     ]
+  }),
+  useStatus: new SelectList({
+    name: '套餐使用状态',
+    list: [
+      {
+        value: 0,
+        label: '未使用'
+      },
+      {
+        value: 1,
+        label: '已使用'
+      },
+      {
+        value: 2,
+        label: '退款'
+      },
+      {
+        value: 3,
+        label: '销毁'
+      }
+    ]
   })
 }
 

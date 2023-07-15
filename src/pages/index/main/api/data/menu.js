@@ -18,43 +18,8 @@ export default {
             component: 'config/layout/PureLayout.vue',
             icon: 'setting',
             menu: true,
-            hidden: false,
-            children: [
-              {
-                path: '/system/user',
-                name: '用户管理',
-                component: 'pages/index/views/system/user/index.vue',
-                menu: true,
-                hidden: false,
-              }
-            ]
-          },
-          {
-            path: '/system2',
-            name: '系统设置2',
-            component: 'config/layout/PureLayout.vue',
-            icon: 'setting',
-            menu: true,
-            hidden: false,
-            children: [
-              {
-                path: '/system2in',
-                name: '系统设置2in',
-                component: 'config/layout/PureLayout.vue',
-                menu: true,
-                hidden: false,
-                children: [
-                  {
-                    path: '/system2/user',
-                    name: '用户管理',
-                    component: 'pages/index/views/system/user/index.vue',
-                    menu: true,
-                    hidden: false,
-                  }
-                ]
-              },
-            ]
-          },
+            hidden: false
+          }
         ]
       }
     }
