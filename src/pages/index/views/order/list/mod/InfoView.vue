@@ -1,8 +1,25 @@
-<style scoped>
-
+<style scoped lang="less">
+.order-info-view{
+  overflow: auto;
+  .wash-list{
+    .wash-list-title{
+      margin-top: 20px;
+      margin-bottom: 20px;
+      color: rgba(0, 0, 0, 0.85);
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .wash-list-content{
+      padding: 16px 24px;
+      border: 1px #e8e8e8 solid;
+      border-radius: 4px;
+    }
+  }
+}
 </style>
 <template>
-  <div class="order-info-view" v-if="data" >
+  <div class="order-info-view" v-if="data" :style="{ maxHeight: maxHeight + 'px' }" >
     <a-descriptions :column="2" title="套餐详情" bordered>
       <a-descriptions-item label="名称">{{ data.commodity_name }}</a-descriptions-item>
       <a-descriptions-item label="商品编号">{{ data.sku_id }}</a-descriptions-item>
@@ -37,7 +54,7 @@
         />
       </a-descriptions-item>
     </a-descriptions>
-    <a-descriptions :column="2" title="订单状态" bordered>
+    <a-descriptions :column="2" title="订单状态" bordered  style='margin-top: 20px;'>
       <a-descriptions-item label="用户昵称">{{ data.nickname }}</a-descriptions-item>
       <a-descriptions-item label="手机号">{{ data.mobile }}</a-descriptions-item>
       <a-descriptions-item label="pay_no">{{ data.pay_no }}</a-descriptions-item>
@@ -52,12 +69,17 @@
       <a-descriptions-item label="支付时间">{{ data.pay_time }}</a-descriptions-item>
       <a-descriptions-item label="创建时间">{{ data.pay_create_time }}</a-descriptions-item>
     </a-descriptions>
-    <a-timeline>
-      <a-timeline-item v-for="(washItem, index) in data.wash" :key="index" >
-        <span>{{ washItem.process }}:</span>
-        <span style="margin-left: 10px;">{{ washItem.create_time + ':' + washItem.process_desc }}</span>
-      </a-timeline-item>
-    </a-timeline>
+    <div class="wash-list" v-if="data.wash && data.wash.length > 0" >
+      <div class="wash-list-title">履约记录</div>
+      <div class="wash-list-content">
+        <a-timeline>
+          <a-timeline-item v-for="(washItem, index) in data.wash" :key="index" >
+            <span>{{ washItem.process }}:</span>
+            <span style="margin-left: 10px;">{{ washItem.create_time + ':' + washItem.process_desc }}</span>
+          </a-timeline-item>
+        </a-timeline>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -77,6 +99,10 @@ export default {
   props: {
     maindata: {
       type: Object,
+      required: true
+    },
+    maxHeight: {
+      type: Number,
       required: true
     }
   },

@@ -77,7 +77,7 @@ class OrderList extends ListData {
     return new Promise((resolve, reject) => {
       if (record.order_id) {
         api.orderApi({
-          status: 'tradeOrderInfo',
+          status: 'tradeOrderStatus',
           order_id: record.order_id
         }).then(res => {
           let originList = res.data.data || []
