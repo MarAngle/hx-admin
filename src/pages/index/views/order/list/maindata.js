@@ -3,11 +3,10 @@ import { ListData } from 'complex-data'
 import api from '@api/index'
 import select from "@index/main/select"
 import PicView from '@/config/components/mod/PicView.vue'
-import UploadPicMultiple from '@/config/components/mod/UploadPicMultiple.vue'
-import { mutipleFileUpload } from '@/pages/index/main/complex/utils'
 import categoryList from './../../manage/category/maindata'
 import resourceList from './../../manage/resource/maindata'
 import marketList from './../../manage/market/maindata'
+import itemList from '../../item/list/maindata'
 
 class OrderList extends ListData {
   constructor(option = {}) {
@@ -65,30 +64,51 @@ class OrderList extends ListData {
   }
   getInfo(record) {
     return new Promise((resolve, reject) => {
-      // api.orderApi({
-      //   status: valueItem.value == 0 ? 'tradeItemOffshelf' : 'tradeItemGrounding',
-      //   model_id: record.model_id
-      // }).then(res => {
-      //   _func.showmsg(`${valueItem.label}成功！`, 'success')
-      //   record.sale_status = valueItem
-      //   resolve()
-      // }, res => {
-      //   reject(res)
-      // })
-      resolve()
+      this.getOrderInfo(record).finally(() => {
+        this.getWashInfo(record).then(() => {
+          resolve()
+        }).catch((err) => {
+          reject(err)
+        })
+      })
+    })
+  }
+  getWashInfo(record) {
+    return new Promise((resolve, reject) => {
+      if (record.order_id) {
+        api.orderApi({
+          status: 'tradeOrderInfo',
+          order_id: record.order_id
+        }).then(res => {
+          let originList = res.data.data || []
+          record.wash = originList
+          resolve()
+        }, res => {
+          reject(res)
+        })
+      } else {
+        record.wash = []
+        resolve()
+      }
+    })
+  }
+  getOrderInfo(record) {
+    return new Promise((resolve, reject) => {
+      api.orderApi({
+        status: 'tradeOrderInfo',
+        pay_no: record.pay_no
+      }).then(res => {
+        itemList.updateItem(record, res.data.data, 'list')
+        this.updateItem(record, res.data.data, 'info')
+        resolve()
+      }, res => {
+        reject(res)
+      })
     })
   }
 }
 
 OrderList.$name = 'OrderList'
-
-
-// 3	select_info	string（32）	是	订单信息查询
-// 4	select_order_no	string（32）	是	洗护单号查询
-// 5	select_order_start_time	string（32）	是	订单开始时间
-// 6	select_order_end_time	string（32）	是	订单结束时间
-// 7	select_commodity_name	string（32）	是	商品名称查询
-
 
 let orderList = new OrderList({
   name: '订单',
@@ -102,18 +122,23 @@ let orderList = new OrderList({
       }
     },
     id: {
-      prop: 'pay_id',
+      prop: 'pay_no',
       data: ''
     },
     list: [
       {
+        prop: 'pay_no',
+        name: 'pay_no',
+        originprop: 'pay_no',
+        originfrom: 'list',
+        mod: {}
+      },
+      {
         prop: 'pay_id',
-        name: 'ID',
+        name: 'pay_id',
         originprop: 'pay_id',
         originfrom: 'list',
-        mod: {
-          list: {}
-        }
+        mod: {}
       },
       {
         prop: 'order_id',
@@ -193,7 +218,7 @@ let orderList = new OrderList({
         prop: 'status',
         name: '订单状态',
         originprop: 'status',
-        originfrom: 'list'
+        originfrom: ['list', 'info']
       }, {
         list: {
           width: 90
@@ -225,7 +250,7 @@ let orderList = new OrderList({
         prop: 'reservation_time',
         name: '预约时间',
         originprop: 'reservation_time',
-        originfrom: 'list',
+        originfrom: ['list', 'info'],
         mod: {
           list: {
             width: 165
@@ -247,7 +272,7 @@ let orderList = new OrderList({
         prop: 'order_time',
         name: '使用时间',
         originprop: 'order_time',
-        originfrom: 'list',
+        originfrom: ['list', 'info'],
         mod: {
           list: {
             width: 165
@@ -258,7 +283,7 @@ let orderList = new OrderList({
         prop: 'pay_time',
         name: '支付时间',
         originprop: 'pay_time',
-        originfrom: 'list',
+        originfrom: ['list', 'info'],
         mod: {
           list: {
             width: 165
@@ -269,7 +294,7 @@ let orderList = new OrderList({
         prop: 'pay_create_time',
         name: '创建时间',
         originprop: 'pay_create_time',
-        originfrom: 'list',
+        originfrom: ['list', 'info'],
         mod: {
           list: {
             width: 165

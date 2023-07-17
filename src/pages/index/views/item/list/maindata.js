@@ -107,6 +107,7 @@ class ItemList extends ListData {
 
 ItemList.$name = 'ItemList'
 
+// 套餐字段订单在使用,勿改
 let itemList = new ItemList({
   name: '套餐',
   prop: 'itemList',

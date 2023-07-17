@@ -17,7 +17,7 @@
     <ComplexModAutoModal
       :menuType="'default'"
       :optionProps="{
-        width: 520,
+        width: 840,
         okText: '关闭'
       }"
       ref="info"
