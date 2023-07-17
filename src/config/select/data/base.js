@@ -62,6 +62,35 @@ let data = {
       }
     ]
   }),
+  orderStatus: new SelectList({
+    name: '订单状态',
+    list: [
+      {
+        value: 100,
+        label: '未支付'
+      },
+      {
+        value: 200,
+        label: '待使用'
+      },
+      {
+        value: 201,
+        label: '洗护中'
+      },
+      {
+        value: 202,
+        label: '已完成'
+      },
+      {
+        value: 2000,
+        label: '关闭订单'
+      },
+      {
+        value: 4000,
+        label: '已退款'
+      }
+    ]
+  }),
   useStatus: new SelectList({
     name: '套餐使用状态',
     list: [

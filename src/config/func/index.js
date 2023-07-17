@@ -146,7 +146,7 @@ const defaultMethods = {
           data.mod[editProp] = {
             formatType: 'edit',
             type: 'select',
-            width: editOption.width,
+            width: editOption[editProp].width,
             required: editOption[editProp].required,
             option: {
               list: selectData.getList(editOption[editProp].list),

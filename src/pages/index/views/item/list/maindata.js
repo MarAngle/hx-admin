@@ -618,7 +618,8 @@ let itemList = new ItemList({
         originfrom: 'local',
         mod: {
           list: {
-            width: 80
+            width: 80,
+            fixed: 'right'
           }
         }
       }

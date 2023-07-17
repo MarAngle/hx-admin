@@ -1,8 +1,8 @@
 module.exports = {
   page: {
     index: {
-      title: '洗护管理平台',
-      shortTitle: '浣洗',
+      title: '管理平台',
+      shortTitle: '',
       company: '衣锦浣香电子商务有限公司'
     }
   }

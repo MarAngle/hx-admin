@@ -14,24 +14,43 @@
         @item="onItem"
       />
     </div>
+    <ComplexModAutoModal
+      :menuType="'default'"
+      :optionProps="{
+        width: 520,
+        okText: '关闭'
+      }"
+      ref="info"
+    >
+      <InfoView
+        slot-scope="slotScope"
+        :maindata="maindata"
+        :maxHeight="slotScope.height"
+        ref="infoView"
+      />
+    </ComplexModAutoModal>
   </div>
 </template>
 
 <script>
 import maindata from './maindata';
+import InfoView from './mod/InfoView';
 
 export default {
   name: "ItemList",
+  components: {
+    InfoView: InfoView
+  },
   data: function() {
     return {
       maindata: maindata,
       itemOption: {
         list: [
-          // {
-          //   type: 'menu',
-          //   name: '修改',
-          //   act: 'change'
-          // },
+          {
+            type: 'menu',
+            name: '查看',
+            act: 'info-emit'
+          },
           // {
           //   type: 'menu',
           //   name: '删除',
@@ -47,11 +66,14 @@ export default {
   },
   methods: {
     onItem(act, record, index) {
-      if (act == 'record-emit') {
-        this._func.confirm('确认进行备案操作吗？', '警告', (act) => {
-          if (act == 'ok') {
-            this.maindata.triggerMethod('recordItem', record).then(() => {}, () => {})
-          }
+      if (act == 'info-emit') {
+        this.maindata.triggerMethodByOperate('getInfo', record).then(() => {
+          this.$refs.info.show('订单详情')
+          this.$nextTick(() => {
+            this.$refs.infoView.show(record)
+          })
+        }).catch(err => {
+          console.error(err)
         })
       }
     }

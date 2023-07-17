@@ -63,9 +63,32 @@ class OrderList extends ListData {
       })
     })
   }
+  getInfo(record) {
+    return new Promise((resolve, reject) => {
+      // api.orderApi({
+      //   status: valueItem.value == 0 ? 'tradeItemOffshelf' : 'tradeItemGrounding',
+      //   model_id: record.model_id
+      // }).then(res => {
+      //   _func.showmsg(`${valueItem.label}成功！`, 'success')
+      //   record.sale_status = valueItem
+      //   resolve()
+      // }, res => {
+      //   reject(res)
+      // })
+      resolve()
+    })
+  }
 }
 
 OrderList.$name = 'OrderList'
+
+
+// 3	select_info	string（32）	是	订单信息查询
+// 4	select_order_no	string（32）	是	洗护单号查询
+// 5	select_order_start_time	string（32）	是	订单开始时间
+// 6	select_order_end_time	string（32）	是	订单结束时间
+// 7	select_commodity_name	string（32）	是	商品名称查询
+
 
 let orderList = new OrderList({
   name: '订单',
@@ -166,26 +189,16 @@ let orderList = new OrderList({
           }
         }
       },
-      {
+      select.getItemByFormat('base', 'orderStatus', {
         prop: 'status',
-        showprop: 'label',
         name: '订单状态',
         originprop: 'status',
-        originfrom: 'list',
-        func: {
-          format(value, { originitem }) {
-            return {
-              value: value,
-              label: originitem.status_desc
-            }
-          }
-        },
-        mod: {
-          list: {
-            width: 90
-          }
+        originfrom: 'list'
+      }, {
+        list: {
+          width: 90
         }
-      },
+      }),
       {
         prop: 'order_status',
         name: '洗护订单内置状态',
@@ -270,6 +283,7 @@ let orderList = new OrderList({
         originfrom: 'local',
         mod: {
           list: {
+            fixed: 'right',
             width: 80
           }
         }
@@ -282,6 +296,96 @@ let orderList = new OrderList({
     },
     dictionary: {
       list: [
+        select.getItemByFormat('base', 'orderStatus', {
+          prop: 'state',
+          name: '订单状态',
+          originprop: 'state',
+          originfrom: 'list'
+        }, {
+          edit: {
+            build: {
+              width: 160
+            }
+          }
+        }),
+        {
+          prop: 'select_info',
+          name: '订单信息',
+          originprop: 'select_info',
+          originfrom: 'list',
+          mod: {
+            build: {
+              type: 'input',
+              width: 165,
+              required: false,
+              option: {
+                maxLength: 100
+              }
+            }
+          }
+        },
+        {
+          prop: 'select_order_no',
+          name: '洗护单号',
+          originprop: 'select_order_no',
+          originfrom: 'list',
+          mod: {
+            build: {
+              type: 'input',
+              width: 165,
+              required: false,
+              option: {
+                maxLength: 100
+              }
+            }
+          }
+        },
+        {
+          prop: 'select_commodity_name',
+          name: '商品名称',
+          originprop: 'select_commodity_name',
+          originfrom: 'list',
+          mod: {
+            build: {
+              type: 'input',
+              width: 165,
+              required: false,
+              option: {
+                maxLength: 100
+              }
+            }
+          }
+        },
+        {
+          prop: 'select_order_start_time',
+          name: '订单开始时间',
+          originprop: 'select_order_start_time',
+          originfrom: 'list',
+          mod: {
+            build: {
+              type: 'date',
+              required: false,
+              option: {
+                showTime: true
+              }
+            }
+          }
+        },
+        {
+          prop: 'select_order_end_time',
+          name: '订单结束时间',
+          originprop: 'select_order_end_time',
+          originfrom: 'list',
+          mod: {
+            build: {
+              type: 'date',
+              required: false,
+              option: {
+                showTime: true
+              }
+            }
+          }
+        },
       ]
     }
   },
