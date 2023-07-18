@@ -527,8 +527,13 @@ let itemList = new ItemList({
                   list: text,
                   itemStyle: {
                     width: '50px',
+                    maxHeight: '50px',
                     margin: '0 auto'
                   }
+                },
+                style: {
+                  margin: '0 auto',
+                  width: '50px'
                 }
               })
             }
@@ -578,6 +583,10 @@ let itemList = new ItemList({
                     width: '50px',
                     maxHeight: '50px',
                     margin: '0 auto'
+                  },
+                  style: {
+                    margin: '0 auto',
+                    width: '50px'
                   }
                 }
               })
