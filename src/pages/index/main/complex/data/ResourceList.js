@@ -51,7 +51,7 @@ const defaultInitOption = {
         mod: {}
       },
       {
-        prop: 'name',
+        prop: 'resourceniche_name',
         name: '名称',
         originprop: 'resourceniche_name',
         originfrom: 'list',
@@ -218,7 +218,7 @@ class ResourceList extends ListData {
       const item = this.data.list[i];
       select.push({
         value: item[prop],
-        label: item.name
+        label: item.resourceniche_name
       })
     }
     this.select.setList(select)

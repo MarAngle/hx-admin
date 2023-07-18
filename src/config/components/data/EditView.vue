@@ -107,7 +107,7 @@ export default {
       this.form.ref.validate(valid => {
         if (valid) {
           let postdata = this.maindata.getEditData(this.form.data, this.modlist, this.type)
-          cb(this.maindata.triggerMethod(this.triggerName, { postdata: postdata, targetitem: this.data }))
+          cb(this.maindata.triggerMethodByOperate(this.triggerName, { postdata: postdata, targetitem: this.data }))
         }
       })
     }

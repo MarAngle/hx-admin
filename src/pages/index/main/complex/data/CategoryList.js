@@ -29,7 +29,7 @@ const defaultInitOption = {
         mod: {}
       },
       {
-        prop: 'name',
+        prop: 'zone_name',
         name: '名称',
         originprop: 'zone_name',
         originfrom: 'list',
@@ -207,7 +207,7 @@ class CategoryList extends ListData {
       const item = this.data.list[i];
       select.push({
         value: item[prop],
-        label: item.name
+        label: item.zone_name
       })
     }
     this.select.setList(select)

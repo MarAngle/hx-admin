@@ -150,7 +150,7 @@ class MarketList extends ListData {
       const item = this.data.list[i];
       select.push({
         value: item[prop],
-        label: item.name
+        label: item.marketing_desc
       })
     }
     this.select.setList(select)

@@ -361,13 +361,13 @@ export default {
       } else if (act == 'delete') {
         this._func.confirm(this.currentSearchOption.deleteMsg || '确认删除吗？', '警告', (act) => {
           if (act == 'ok') {
-            this.maindata.triggerMethod('deleteItem', this.choiceList).then(() => {}, () => {})
+            this.maindata.triggerMethodByOperate('deleteItem', this.choiceList).then(() => {}, () => {})
           }
         })
       } else if (act == 'export') {
-        this.maindata.triggerMethod('exportData').then(() => {}, () => {})
+        this.maindata.triggerMethodByOperate('exportData').then(() => {}, () => {})
       } else if (act == 'import') {
-        this.maindata.triggerMethod('importData').then(() => {}, () => {})
+        this.maindata.triggerMethodByOperate('importData').then(() => {}, () => {})
       }
       this.$emit('searchEnd', act)
     },
@@ -376,7 +376,7 @@ export default {
         this.openEdit(title, 'change', 'change', record, 'changeItem')
       } else {
         const methodName = this.actOption.info === true ? 'getInfo' : this.actOption.info
-        this.maindata.triggerMethod(methodName, record).then(() => {
+        this.maindata.triggerMethodByOperate(methodName, record).then(() => {
           this.openEdit(title, 'change', 'change', record, 'changeItem')
         }).catch(err => { console.error(err) })
       }
@@ -428,7 +428,7 @@ export default {
       } else if (act == 'delete') {
         this._func.confirm(this.currentItemOption.deleteMsg || '确认删除吗？', '警告', (act) => {
           if (act == 'ok') {
-            this.maindata.triggerMethod('deleteItem', record).then(() => {}, () => {})
+            this.maindata.triggerMethodByOperate('deleteItem', record).then(() => {}, () => {})
           }
         })
       } else if (act == 'change') {

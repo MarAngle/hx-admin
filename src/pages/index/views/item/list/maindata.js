@@ -93,7 +93,7 @@ class ItemList extends ListData {
     return new Promise((resolve, reject) => {
       api.itemApi({
         status: valueItem.value == 0 ? 'tradeItemOffshelf' : 'tradeItemGrounding',
-        model_id: record.model_id
+        commodity_id: record.commodity_id
       }).then(res => {
         _func.showmsg(`${valueItem.label}成功！`, 'success')
         record.sale_status = valueItem
