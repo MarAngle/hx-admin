@@ -9,6 +9,7 @@
     flex-wrap: wrap;
     .statistic-num{
       margin-bottom: 24px;
+      margin-right: 16px;
     }
   }
 }
@@ -21,8 +22,7 @@
         :value="maindata.data.order.dayAmount"
         :precision="2"
         suffix="元"
-        :value-style="{ color: '#3f8600' }"
-        style="margin-right: 50px"
+        style="background-color: #1890ff; color: #fff;"
       >
       </StatisticNum>
       <StatisticNum
@@ -30,8 +30,7 @@
         :value="maindata.data.order.dayNum"
         :precision="0"
         suffix="个"
-        :value-style="{ color: '#3f8600' }"
-        style="margin-right: 50px"
+        style="background-color: #52c41a; color: #fff;"
       >
       </StatisticNum>
       <StatisticNum
@@ -39,8 +38,7 @@
         :value="maindata.data.order.dayOrder"
         :precision="0"
         suffix="个"
-        :value-style="{ color: '#3f8600' }"
-        style="margin-right: 50px"
+        style="background-color: #faad14; color: #fff;"
       >
       </StatisticNum>
       <StatisticNum
@@ -48,8 +46,7 @@
         :value="maindata.data.order.monthAmount"
         :precision="2"
         suffix="元"
-        :value-style="{ color: '#3f8600' }"
-        style="margin-right: 50px"
+        style="background-color: #f5222d; color: #fff;"
       >
       </StatisticNum>
       <StatisticNum
@@ -57,8 +54,7 @@
         :value="maindata.data.order.monthNum"
         :precision="0"
         suffix="个"
-        :value-style="{ color: '#3f8600' }"
-        style="margin-right: 50px"
+        style="background-color: #1890ff; color: #fff;"
       >
       </StatisticNum>
     </div>
@@ -68,8 +64,6 @@
         :value="maindata.data.product.increase"
         :precision="0"
         suffix="件"
-        :value-style="{ color: '#3f8600' }"
-        style="margin-right: 50px"
       >
       </StatisticNum>
       <StatisticNum
@@ -77,8 +71,6 @@
         :value="maindata.data.product.sale"
         :precision="0"
         suffix="件"
-        :value-style="{ color: '#3f8600' }"
-        style="margin-right: 50px"
       >
       </StatisticNum>
       <StatisticNum
@@ -86,8 +78,6 @@
         :value="maindata.data.product.amount"
         :precision="2"
         suffix="元"
-        :value-style="{ color: '#3f8600' }"
-        style="margin-right: 50px"
       >
       </StatisticNum>
     </div>
@@ -97,8 +87,6 @@
         :value="maindata.data.user.increase"
         :precision="0"
         suffix="人"
-        :value-style="{ color: '#3f8600' }"
-        style="margin-right: 50px"
       >
       </StatisticNum>
       <StatisticNum
@@ -106,8 +94,6 @@
         :value="maindata.data.user.num"
         :precision="0"
         suffix="人"
-        :value-style="{ color: '#3f8600' }"
-        style="margin-right: 50px"
       >
       </StatisticNum>
     </div>
@@ -116,7 +102,7 @@
 
 <script>
 import maindata from './maindata';
-import StatisticNum from './mod/StatisticNum.vue';
+import StatisticNum from './components/StatisticNum.vue';
 
 export default {
   name: "HomeIndex",
