@@ -18,7 +18,7 @@
     <div class="home-index-main-card">
       <StatisticNum
         title="今日销售订单总额"
-        :value="maindata.data.amount.day"
+        :value="maindata.data.order.dayAmount"
         :precision="2"
         suffix="元"
         :value-style="{ color: '#3f8600' }"
@@ -27,7 +27,7 @@
       </StatisticNum>
       <StatisticNum
         title="今日销售订单数量"
-        :value="maindata.data.order.day"
+        :value="maindata.data.order.dayNum"
         :precision="0"
         suffix="个"
         :value-style="{ color: '#3f8600' }"
@@ -45,7 +45,7 @@
       </StatisticNum>
       <StatisticNum
         title="本月销售订单总额"
-        :value="maindata.data.amount.month"
+        :value="maindata.data.order.monthAmount"
         :precision="2"
         suffix="元"
         :value-style="{ color: '#3f8600' }"
@@ -54,7 +54,7 @@
       </StatisticNum>
       <StatisticNum
         title="本月销售订单总数"
-        :value="maindata.data.order.month"
+        :value="maindata.data.order.monthNum"
         :precision="0"
         suffix="个"
         :value-style="{ color: '#3f8600' }"
@@ -83,7 +83,7 @@
       </StatisticNum>
       <StatisticNum
         title="销售商品总额"
-        :value="maindata.data.amount.total"
+        :value="maindata.data.product.amount"
         :precision="2"
         suffix="元"
         :value-style="{ color: '#3f8600' }"
@@ -103,7 +103,7 @@
       </StatisticNum>
       <StatisticNum
         title="累计用户数"
-        :value="maindata.data.user.total"
+        :value="maindata.data.user.num"
         :precision="0"
         suffix="人"
         :value-style="{ color: '#3f8600' }"

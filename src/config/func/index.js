@@ -4,6 +4,30 @@ import { Select, Modal, notification } from 'ant-design-vue'
 import SelectSwitch from '@/config/components/mod/SelectSwitch.vue'
 
 const defaultMethods = {
+  parseNumberByComma(data, comma, decimal, list) {
+    let decimalStr = ''
+    if (decimal) {
+      let decimalData = 0;
+      [data, decimalData] = _func.parseNum(data)
+      if (decimalData) {
+        decimalStr = decimalData.toString().slice(1)
+      }
+    }
+    if (typeof data === 'number') {
+      data = data.toString()
+    }
+    const strList = data.split('')
+    if (comma) {
+      for (let i = strList.length - 3; i > 0; i = i - 3) {
+        strList.splice(i, 0, comma)
+      }
+    }
+    if (list) {
+      return decimalStr ? strList.concat(decimalStr.split('')) : strList
+    } else {
+      return decimalStr ? strList.join('') + decimalStr : strList.join('')
+    }
+  },
   isUrlPre: function (url) {
     if (url.indexOf('http://') > -1 || url.indexOf('https://') > -1) {
       return true

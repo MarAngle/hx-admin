@@ -7,23 +7,21 @@ class DashboardData extends BaseData {
   constructor(option = {}) {
     super(option)
     this.data = {
-      amount: {
-        day: 0,
-        month: 0,
-        total: 0
-      },
       order: {
-        day: 0,
-        month: 0,
-        total: 0
+        dayAmount: 0,
+        monthAmount: 0,
+        dayNum: 0,
+        dayOrder: 0,
+        monthNum: 0
       },
       product: {
         increase: 0,
-        total: 0
+        sale: 0,
+        amount: 0
       },
       user: {
         increase: 0,
-        total: 0
+        num: 0
       }
     }
   }
@@ -32,20 +30,18 @@ class DashboardData extends BaseData {
       let postdata = {}
       postdata.status = 'showInfo'
       api.adminApi(postdata).then(res => {
-        this.data.amount.day = res.data.data.order.total_day_amount || 0 // 当日销售订单金额
-        this.data.amount.month = res.data.data.order.total_month_amount || 0 // 当月销售订单金额
-        this.data.amount.total = res.data.data.order.sale_amount || 0 // 销售商品总额
+        this.data.order.dayAmount = Number(res.data.data.order.total_day_amount) // 当日销售订单金额
+        this.data.order.monthAmount = Number(res.data.data.order.total_month_amount) // 当月销售订单金额
+        this.data.order.dayNum = Number(res.data.data.order.total_day_order_num) // 当日销售订单数量
+        this.data.order.dayOrder = Number(res.data.data.order.total_day_num) // 今日下单数量
+        this.data.order.monthNum = Number(res.data.data.order.total_month_num) // 当月销售订单数量
 
-        this.data.order.day = res.data.data.order.total_day_order_num || 0 // 当日销售订单数量
-        this.data.order.dayOrder = res.data.data.order.sale_amount || 0 // 今日下单数量
-        this.data.order.month = res.data.data.order.total_month_num || 0 // 当月销售订单数量
+        this.data.product.increase = Number(res.data.data.commodity.grounding_num) // 上架数量
+        this.data.product.sale = Number(res.data.data.commodity.sale_num) // 销售件数
+        this.data.product.amount = Number(res.data.data.commodity.sale_amount) // 销售商品总额
 
-        this.data.product.increase = res.data.data.commodity.grounding_num || 0 // 上架数量
-        this.data.product.sale = res.data.data.commodity.sale_num || 0 // 销售件数
-
-        this.data.user.increase = res.data.data.user.user_day_num || 0 // 新增用户数
-        this.data.user.total = res.data.data.user.user_num || 0 // 累计用户数
-
+        this.data.user.increase = Number(res.data.data.user.user_day_num) // 新增用户数
+        this.data.user.num = Number(res.data.data.user.user_num) // 累计用户数
         resolve(res)
       }, err => {
         reject(err)

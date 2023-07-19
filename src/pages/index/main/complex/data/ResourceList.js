@@ -59,18 +59,20 @@ const defaultInitOption = {
           list: {
             width: 200
           },
-          edit: {
+          build: {
             type: 'input',
             required: true,
             option: {
               maxLength: 100
             }
           },
-          build: {
-            type: 'edit'
-          },
           change: {
-            type: 'edit'
+            type: 'input',
+            required: true,
+            disabled: true,
+            option: {
+              maxLength: 100
+            }
           }
         }
       },
