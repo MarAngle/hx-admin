@@ -57,9 +57,9 @@
     <a-descriptions :column="2" title="订单状态" bordered  style='margin-top: 20px;'>
       <a-descriptions-item label="用户昵称">{{ data.nickname }}</a-descriptions-item>
       <a-descriptions-item label="手机号">{{ data.mobile }}</a-descriptions-item>
-      <a-descriptions-item label="pay_no">{{ data.pay_no }}</a-descriptions-item>
+      <a-descriptions-item label="订单编号">{{ data.pay_no }}</a-descriptions-item>
       <a-descriptions-item label="pay_id">{{ data.pay_id }}</a-descriptions-item>
-      <a-descriptions-item label="order_id">{{ data.order_id }}</a-descriptions-item>
+      <a-descriptions-item label="支付宝交易号">{{ data.order_id }}</a-descriptions-item>
       <a-descriptions-item label="支付金额">{{ data.pay_amount }}</a-descriptions-item>
       <a-descriptions-item label="订单状态">{{ data.status.label }}</a-descriptions-item>
       <a-descriptions-item label="使用状态">{{ data.use_status.label }}</a-descriptions-item>
